@@ -17,14 +17,14 @@ st.set_page_config(
 
 st.title("🌍 Global Multi-Modal Supply Chain Resilience & ESG Engine")
 st.markdown(
-    "**Enterprise AI Platform** | Dynamic Route Optimization & Infrastructure"
-    " Intelligence"
+    "**Enterprise AI Platform** | Dynamic Global Route Optimization &"
+    " Infrastructure Intelligence"
 )
 st.divider()
 
-# --- 1. KÜRESEL DETAYLI ŞEHİR VE ALTYAPI VERİTABANI ---
+# --- 1. GENİŞLETİLMİŞ KÜRESEL ŞEHİR VE ALTYAPI VERİTABANI ---
 GLOBAL_HUBS_DB = {
-    # Avrupa & Türkiye
+    # --- AVRUPA & TÜRKİYE ---
     "Istanbul, TR": {
         "lat": 41.0082,
         "lon": 28.9784,
@@ -44,6 +44,22 @@ GLOBAL_HUBS_DB = {
     "Hamburg, DE": {
         "lat": 53.5511,
         "lon": 9.9937,
+        "continent": "EU",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "London, GB": {
+        "lat": 51.5074,
+        "lon": -0.1278,
+        "continent": "EU",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Antwerp, BE": {
+        "lat": 51.2194,
+        "lon": 4.4025,
         "continent": "EU",
         "has_port": True,
         "has_airport": True,
@@ -73,10 +89,34 @@ GLOBAL_HUBS_DB = {
         "has_airport": True,
         "has_rail": True,
     },
-    # Asya & Rusya
+    "Piraeus, GR": {
+        "lat": 37.9475,
+        "lon": 23.6431,
+        "continent": "EU",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Moscow, RU": {
+        "lat": 55.7558,
+        "lon": 37.6173,
+        "continent": "EU",
+        "has_port": False,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    # --- ASYA ---
     "Shanghai, CN": {
         "lat": 31.2304,
         "lon": 121.4737,
+        "continent": "AS",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Shenzhen, CN": {
+        "lat": 22.5431,
+        "lon": 114.0579,
         "continent": "AS",
         "has_port": True,
         "has_airport": True,
@@ -98,6 +138,38 @@ GLOBAL_HUBS_DB = {
         "has_airport": True,
         "has_rail": False,
     },
+    "Tokyo, JP": {
+        "lat": 35.6762,
+        "lon": 139.6503,
+        "continent": "AS",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Busan, KR": {
+        "lat": 35.1796,
+        "lon": 129.0756,
+        "continent": "AS",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Mumbai, IN": {
+        "lat": 19.0760,
+        "lon": 72.8777,
+        "continent": "AS",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Colombo, LK": {
+        "lat": 6.9271,
+        "lon": 79.8612,
+        "continent": "AS",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
     "Almaty, KZ": {
         "lat": 43.2220,
         "lon": 76.8512,
@@ -114,6 +186,14 @@ GLOBAL_HUBS_DB = {
         "has_airport": True,
         "has_rail": True,
     },
+    "Tashkent, UZ": {
+        "lat": 41.2995,
+        "lon": 69.2401,
+        "continent": "AS",
+        "has_port": False,
+        "has_airport": True,
+        "has_rail": True,
+    },
     "Vladivostok, RU": {
         "lat": 43.1155,
         "lon": 131.8855,
@@ -122,15 +202,7 @@ GLOBAL_HUBS_DB = {
         "has_airport": True,
         "has_rail": True,
     },
-    "Moscow, RU": {
-        "lat": 55.7558,
-        "lon": 37.6173,
-        "continent": "EU",
-        "has_port": False,
-        "has_airport": True,
-        "has_rail": True,
-    },
-    # Orta Doğu
+    # --- ORTA DOĞU ---
     "Dubai, AE": {
         "lat": 25.2048,
         "lon": 55.2708,
@@ -147,7 +219,23 @@ GLOBAL_HUBS_DB = {
         "has_airport": True,
         "has_rail": True,
     },
-    # Kuzey Amerika
+    "Jeddah, SA": {
+        "lat": 21.5433,
+        "lon": 39.1728,
+        "continent": "ME",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Salalah, OM": {
+        "lat": 17.0151,
+        "lon": 54.0924,
+        "continent": "ME",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": False,
+    },
+    # --- KUZEY AMERİKA ---
     "New York, US": {
         "lat": 40.7128,
         "lon": -74.0060,
@@ -172,13 +260,144 @@ GLOBAL_HUBS_DB = {
         "has_airport": True,
         "has_rail": True,
     },
-    "Denver, US": {
-        "lat": 39.7392,
-        "lon": -104.9903,
+    "Vancouver, CA": {
+        "lat": 49.2827,
+        "lon": -123.1207,
+        "continent": "NA",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Toronto, CA": {
+        "lat": 43.6532,
+        "lon": -79.3832,
         "continent": "NA",
         "has_port": False,
         "has_airport": True,
         "has_rail": True,
+    },
+    "Mexico City, MX": {
+        "lat": 19.4326,
+        "lon": -99.1332,
+        "continent": "NA",
+        "has_port": False,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    # --- GÜNEY AMERİKA ---
+    "Santos, BR": {
+        "lat": -23.9618,
+        "lon": -46.3322,
+        "continent": "SA",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Buenos Aires, AR": {
+        "lat": -34.6037,
+        "lon": -58.3816,
+        "continent": "SA",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Santiago, CL": {
+        "lat": -33.4489,
+        "lon": -70.6693,
+        "continent": "SA",
+        "has_port": False,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Bogota, CO": {
+        "lat": 4.7110,
+        "lon": -74.0721,
+        "continent": "SA",
+        "has_port": False,
+        "has_airport": True,
+        "has_rail": False,
+    },
+    # --- AFRİKA ---
+    "Cairo, EG": {
+        "lat": 30.0444,
+        "lon": 31.2357,
+        "continent": "AF",
+        "has_port": False,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Alexandria, EG": {
+        "lat": 31.2001,
+        "lon": 29.9187,
+        "continent": "AF",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Durban, ZA": {
+        "lat": -29.8587,
+        "lon": 31.0218,
+        "continent": "AF",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Cape Town, ZA": {
+        "lat": -33.9249,
+        "lon": 18.4241,
+        "continent": "AF",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Lagos, NG": {
+        "lat": 6.5244,
+        "lon": 3.3792,
+        "continent": "AF",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": False,
+    },
+    "Mombasa, KE": {
+        "lat": -4.0435,
+        "lon": 39.6682,
+        "continent": "AF",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Casablanca, MA": {
+        "lat": 33.5731,
+        "lon": -7.5898,
+        "continent": "AF",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    # --- OKYANUSYA ---
+    "Sydney, AU": {
+        "lat": -33.8688,
+        "lon": 151.2093,
+        "continent": "OC",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Melbourne, AU": {
+        "lat": -37.8136,
+        "lon": 144.9631,
+        "continent": "OC",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": True,
+    },
+    "Auckland, NZ": {
+        "lat": -36.8485,
+        "lon": 174.7633,
+        "continent": "OC",
+        "has_port": True,
+        "has_airport": True,
+        "has_rail": False,
     },
 }
 
@@ -221,25 +440,36 @@ CHOKEPOINTS_DB = {
             ("AS", "NA"),
             ("ME", "NA"),
             ("EU", "SA"),
+            ("EU", "AF"),
         ],
         "detour_km": 5200,
         "detour_days": 9.5,
         "cost_penalty": 3100,
     },
     "Suez Canal (Egypt)": {
-        "affected_regions": [("EU", "AS"), ("AS", "EU"), ("EU", "ME")],
+        "affected_regions": [
+            ("EU", "AS"),
+            ("AS", "EU"),
+            ("EU", "ME"),
+            ("EU", "OC"),
+        ],
         "detour_km": 6500,
         "detour_days": 11.5,
         "cost_penalty": 3500,
     },
     "Panama Canal (Panama)": {
-        "affected_regions": [("NA", "AS"), ("AS", "NA"), ("EU", "NA")],
+        "affected_regions": [
+            ("NA", "AS"),
+            ("AS", "NA"),
+            ("EU", "NA"),
+            ("NA", "SA"),
+        ],
         "detour_km": 8000,
         "detour_days": 14.0,
         "cost_penalty": 4500,
     },
     "Strait of Malacca (SG/ID/MY)": {
-        "affected_regions": [("AS", "EU"), ("AS", "ME")],
+        "affected_regions": [("AS", "EU"), ("AS", "ME"), ("AS", "AF")],
         "detour_km": 3000,
         "detour_days": 5.0,
         "cost_penalty": 1800,
@@ -262,24 +492,17 @@ CHOKEPOINTS_DB = {
         "detour_days": 3.0,
         "cost_penalty": 1200,
     },
-    "Kiel Canal (DE)": {
-        "affected_regions": [("EU", "EU")],
-        "detour_km": 800,
-        "detour_days": 1.5,
-        "cost_penalty": 700,
-    },
-    "Dover Strait / English Channel (UK/FR)": {
-        "affected_regions": [("EU", "NA"), ("EU", "EU")],
-        "detour_km": 1200,
-        "detour_days": 2.0,
-        "cost_penalty": 950,
+    "Cape of Good Hope (ZA)": {
+        "affected_regions": [("EU", "AS"), ("AS", "EU")],
+        "detour_km": 4500,
+        "detour_days": 8.0,
+        "cost_penalty": 2500,
     },
 }
 
 
 # --- 3. DİNAMİK ALTYAPI VE KRİZ KONTROL DİZGELERİ ---
 def get_infrastructure_supported_modes(origin, destination):
-    """Kullanılabilir modları altyapı ve kıta durumuna göre filtreler."""
     orig = GLOBAL_HUBS_DB.get(
         origin,
         {
@@ -315,7 +538,6 @@ def get_infrastructure_supported_modes(origin, destination):
 def calculate_chokepoint_impact(
     origin, destination, mode, blocked_chokepoints
 ):
-    """Deniz rotalarındaki boğaz/kanal engelinin etkisini hesaplar."""
     if "Sea" not in mode or not blocked_chokepoints:
         return 0, 0, 0, False
 
@@ -345,7 +567,6 @@ def calculate_chokepoint_impact(
 
 
 def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
-    """Dinamik Akıllı Hub Seçimi: Yolu saçma sapan uzatmayan mantıklı aktarma noktaları bulur."""
     orig_info = GLOBAL_HUBS_DB[origin]
     dest_info = GLOBAL_HUBS_DB[destination]
     direct_dist = haversine(
@@ -356,7 +577,6 @@ def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
     best_extra_ratio = float("inf")
     best_d1, best_d2 = 0, 0
 
-    # Tüm küresel hub'lar arasından rotaya tam ara nokta olanı ara
     for hub_name, hub_info in GLOBAL_HUBS_DB.items():
         if hub_name in [origin, destination]:
             continue
@@ -368,26 +588,18 @@ def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
             hub_info["lat"], hub_info["lon"], dest_info["lat"], dest_info["lon"]
         )
         total_via_hub = d1 + d2
-
         ratio = total_via_hub / direct_dist if direct_dist > 0 else 1.0
 
-        # Rota uzaması %35'ten azsa ve en optimal ara noktaysa seç
         if ratio < 1.35 and ratio < best_extra_ratio:
             best_extra_ratio = ratio
             best_hub = hub_name
             best_d1 = d1
             best_d2 = d2
 
-    # Eğer mantıklı bir coğrafi ara hub bulunamazsa saçma Multimodal önerisi üretme
     if not best_hub:
         return pd.DataFrame()
 
-    hub_info = GLOBAL_HUBS_DB[best_hub]
-
-    # Multimodal Aşama Hesaplaması (Kara/Ray + Deniz)
     total_dist = (best_d1 * 1.3) + (best_d2 * 1.35)
-
-    # Aktarma ayağında deniz varsa kriz kontrolünü uygula
     extra_km, extra_days, extra_cost, is_choked = calculate_chokepoint_impact(
         best_hub, destination, "Sea Freight", blocked_chokepoints
     )
@@ -407,8 +619,8 @@ def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
         "Destination_Lat": dest_info["lat"],
         "Destination_Lon": dest_info["lon"],
         "Hub_Name": best_hub,
-        "Hub_Lat": hub_info["lat"],
-        "Hub_Lon": hub_info["lon"],
+        "Hub_Lat": GLOBAL_HUBS_DB[best_hub]["lat"],
+        "Hub_Lon": GLOBAL_HUBS_DB[best_hub]["lon"],
         "Transport_Mode": (
             f"Multimodal (Trans-Hub: {best_hub.split(',')[0]})"
             + (" (Detoured)" if is_choked else "")
@@ -449,7 +661,7 @@ predictor = get_trained_model(df)
 all_hub_names = sorted(list(GLOBAL_HUBS_DB.keys()))
 
 # --- 5. SIDEBAR & KRİZ SİMÜLATÖRÜ ---
-st.sidebar.header("📍 Route Selection")
+st.sidebar.header("📍 Global Route Selection")
 
 selected_origin = st.sidebar.selectbox(
     "1. Çıkış Noktası (Origin):", options=all_hub_names, index=0
@@ -526,7 +738,6 @@ for m in feasible_modes:
 
 route_candidates = pd.DataFrame(candidate_rows)
 
-# Akıllı Multimodal Opsiyonunu Dinamik Olarak Sorgula ve Ekle
 mm_df = generate_multimodal_routes(
     selected_origin, selected_dest, blocked_canals
 )
@@ -535,7 +746,6 @@ if not mm_df.empty:
         [route_candidates, mm_df], ignore_index=True
     )
 
-# Optimizasyon Algoritmasını Çalıştır
 optimal_route = optimize_supply_chain(
     route_candidates, cost_weight, time_weight, co2_weight
 )
@@ -578,7 +788,6 @@ st.divider()
 
 # --- PANEL 2: BENCHMARK TABLOSU ---
 st.subheader("⚖️ Modal Feasibility & Cost Benchmark")
-st.caption("Aktif ve gerçekçi rota seçenekleri karşılaştırması:")
 st.table(
     route_candidates[[
         "Transport_Mode",
@@ -596,7 +805,7 @@ st.divider()
 col_left, col_right = st.columns([2, 1])
 
 with col_left:
-    st.subheader("🌐 Global Route & Chokepoint Map")
+    st.subheader("🌐 Global Route Map")
     fig = go.Figure()
 
     fig.add_trace(
@@ -605,7 +814,7 @@ with col_left:
             lat=[h["lat"] for h in GLOBAL_HUBS_DB.values()],
             hovertext=list(GLOBAL_HUBS_DB.keys()),
             mode="markers",
-            marker=dict(size=8, color="#1f77b4", opacity=0.7),
+            marker=dict(size=6, color="#1f77b4", opacity=0.7),
             name="Logistics Hubs",
         )
     )
@@ -637,7 +846,7 @@ with col_left:
             lat=route_lats,
             mode="lines+markers",
             line=dict(width=4, color="#ef553b"),
-            marker=dict(size=12, color="#ef553b"),
+            marker=dict(size=10, color="#ef553b"),
             name=f"OPTIMAL ({optimal_route['Transport_Mode']})",
         )
     )
@@ -672,7 +881,7 @@ st.subheader("📝 Executive Summary")
 if blocked_canals:
     st.warning(
         f"⚠️ **Chokepoint Active Blockage:** **{', '.join(blocked_canals)}**"
-        " selected as CLOSED. Affected routes and sea legs have been updated."
+        " selected as CLOSED."
     )
 
 st.success(
