@@ -25,64 +25,64 @@ st.divider()
 # --- 1. KÜRESEL ŞEHİR VE ALTYAPI VERİTABANI ---
 GLOBAL_HUBS_DB = {
     # --- AVRUPA & TÜRKİYE ---
-    "Istanbul, TR": {"lat": 41.0082, "lon": 28.9784, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True},
-    "Rotterdam, NL": {"lat": 51.9244, "lon": 4.4777, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True},
-    "Hamburg, DE": {"lat": 53.5511, "lon": 9.9937, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True},
-    "London, GB": {"lat": 51.5074, "lon": -0.1278, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True},
-    "Antwerp, BE": {"lat": 51.2194, "lon": 4.4025, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True},
-    "Zurich, CH": {"lat": 47.3769, "lon": 8.5417, "continent": "EU", "has_port": False, "has_airport": True, "has_rail": True},
-    "Vienna, AT": {"lat": 48.2082, "lon": 16.3738, "continent": "EU", "has_port": False, "has_airport": True, "has_rail": True},
-    "Warsaw, PL": {"lat": 52.2297, "lon": 21.0122, "continent": "EU", "has_port": False, "has_airport": True, "has_rail": True},
-    "Piraeus, GR": {"lat": 37.9475, "lon": 23.6431, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True},
-    "Moscow, RU": {"lat": 55.7558, "lon": 37.6173, "continent": "EU", "has_port": False, "has_airport": True, "has_rail": True},
+    "Istanbul, TR": {"lat": 41.0082, "lon": 28.9784, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 4.5},
+    "Rotterdam, NL": {"lat": 51.9244, "lon": 4.4777, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 6.0},
+    "Hamburg, DE": {"lat": 53.5511, "lon": 9.9937, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 5.5},
+    "London, GB": {"lat": 51.5074, "lon": -0.1278, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 4.0},
+    "Antwerp, BE": {"lat": 51.2194, "lon": 4.4025, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 5.8},
+    "Zurich, CH": {"lat": 47.3769, "lon": 8.5417, "continent": "EU", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 2.0},
+    "Vienna, AT": {"lat": 48.2082, "lon": 16.3738, "continent": "EU", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 2.0},
+    "Warsaw, PL": {"lat": 52.2297, "lon": 21.0122, "continent": "EU", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 2.5},
+    "Piraeus, GR": {"lat": 37.9475, "lon": 23.6431, "continent": "EU", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 5.0},
+    "Moscow, RU": {"lat": 55.7558, "lon": 37.6173, "continent": "EU", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 3.0},
 
     # --- ASYA ---
-    "Shanghai, CN": {"lat": 31.2304, "lon": 121.4737, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True},
-    "Shenzhen, CN": {"lat": 22.5431, "lon": 114.0579, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True},
-    "Xi'an, CN": {"lat": 34.3416, "lon": 108.9398, "continent": "AS", "has_port": False, "has_airport": True, "has_rail": True},
-    "Singapore, SG": {"lat": 1.3521, "lon": 103.8198, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": False},
-    "Tokyo, JP": {"lat": 35.6762, "lon": 139.6503, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True},
-    "Busan, KR": {"lat": 35.1796, "lon": 129.0756, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True},
-    "Mumbai, IN": {"lat": 19.0760, "lon": 72.8777, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True},
-    "Colombo, LK": {"lat": 6.9271, "lon": 79.8612, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True},
-    "Almaty, KZ": {"lat": 43.2220, "lon": 76.8512, "continent": "AS", "has_port": False, "has_airport": True, "has_rail": True},
-    "Baku, AZ": {"lat": 40.4093, "lon": 49.8671, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True},
-    "Tashkent, UZ": {"lat": 41.2995, "lon": 69.2401, "continent": "AS", "has_port": False, "has_airport": True, "has_rail": True},
-    "Vladivostok, RU": {"lat": 43.1155, "lon": 131.8855, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True},
+    "Shanghai, CN": {"lat": 31.2304, "lon": 121.4737, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 8.5},
+    "Shenzhen, CN": {"lat": 22.5431, "lon": 114.0579, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 8.0},
+    "Xi'an, CN": {"lat": 34.3416, "lon": 108.9398, "continent": "AS", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 3.0},
+    "Singapore, SG": {"lat": 1.3521, "lon": 103.8198, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": False, "base_congestion": 7.5},
+    "Tokyo, JP": {"lat": 35.6762, "lon": 139.6503, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 4.5},
+    "Busan, KR": {"lat": 35.1796, "lon": 129.0756, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 6.2},
+    "Mumbai, IN": {"lat": 19.0760, "lon": 72.8777, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 6.8},
+    "Colombo, LK": {"lat": 6.9271, "lon": 79.8612, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 5.5},
+    "Almaty, KZ": {"lat": 43.2220, "lon": 76.8512, "continent": "AS", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 2.0},
+    "Baku, AZ": {"lat": 40.4093, "lon": 49.8671, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 3.5},
+    "Tashkent, UZ": {"lat": 41.2995, "lon": 69.2401, "continent": "AS", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 2.0},
+    "Vladivostok, RU": {"lat": 43.1155, "lon": 131.8855, "continent": "AS", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 4.2},
 
     # --- ORTA DOĞU ---
-    "Dubai, AE": {"lat": 25.2048, "lon": 55.2708, "continent": "ME", "has_port": True, "has_airport": True, "has_rail": False},
-    "Riyadh, SA": {"lat": 24.7136, "lon": 46.6753, "continent": "ME", "has_port": False, "has_airport": True, "has_rail": True},
-    "Jeddah, SA": {"lat": 21.5433, "lon": 39.1728, "continent": "ME", "has_port": True, "has_airport": True, "has_rail": True},
-    "Salalah, OM": {"lat": 17.0151, "lon": 54.0924, "continent": "ME", "has_port": True, "has_airport": True, "has_rail": False},
+    "Dubai, AE": {"lat": 25.2048, "lon": 55.2708, "continent": "ME", "has_port": True, "has_airport": True, "has_rail": False, "base_congestion": 5.2},
+    "Riyadh, SA": {"lat": 24.7136, "lon": 46.6753, "continent": "ME", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 2.5},
+    "Jeddah, SA": {"lat": 21.5433, "lon": 39.1728, "continent": "ME", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 5.8},
+    "Salalah, OM": {"lat": 17.0151, "lon": 54.0924, "continent": "ME", "has_port": True, "has_airport": True, "has_rail": False, "base_congestion": 4.0},
 
     # --- KUZEY AMERİKA ---
-    "New York, US": {"lat": 40.7128, "lon": -74.0060, "continent": "NA", "has_port": True, "has_airport": True, "has_rail": True},
-    "Los Angeles, US": {"lat": 34.0522, "lon": -118.2437, "continent": "NA", "has_port": True, "has_airport": True, "has_rail": True},
-    "Chicago, US": {"lat": 41.8781, "lon": -87.6298, "continent": "NA", "has_port": False, "has_airport": True, "has_rail": True},
-    "Vancouver, CA": {"lat": 49.2827, "lon": -123.1207, "continent": "NA", "has_port": True, "has_airport": True, "has_rail": True},
-    "Toronto, CA": {"lat": 43.6532, "lon": -79.3832, "continent": "NA", "has_port": False, "has_airport": True, "has_rail": True},
-    "Mexico City, MX": {"lat": 19.4326, "lon": -99.1332, "continent": "NA", "has_port": False, "has_airport": True, "has_rail": True},
+    "New York, US": {"lat": 40.7128, "lon": -74.0060, "continent": "NA", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 6.5},
+    "Los Angeles, US": {"lat": 34.0522, "lon": -118.2437, "continent": "NA", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 7.8},
+    "Chicago, US": {"lat": 41.8781, "lon": -87.6298, "continent": "NA", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 3.0},
+    "Vancouver, CA": {"lat": 49.2827, "lon": -123.1207, "continent": "NA", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 5.5},
+    "Toronto, CA": {"lat": 43.6532, "lon": -79.3832, "continent": "NA", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 2.5},
+    "Mexico City, MX": {"lat": 19.4326, "lon": -99.1332, "continent": "NA", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 3.0},
 
     # --- GÜNEY AMERİKA ---
-    "Santos, BR": {"lat": -23.9618, "lon": -46.3322, "continent": "SA", "has_port": True, "has_airport": True, "has_rail": True},
-    "Buenos Aires, AR": {"lat": -34.6037, "lon": -58.3816, "continent": "SA", "has_port": True, "has_airport": True, "has_rail": True},
-    "Santiago, CL": {"lat": -33.4489, "lon": -70.6693, "continent": "SA", "has_port": False, "has_airport": True, "has_rail": True},
-    "Bogota, CO": {"lat": 4.7110, "lon": -74.0721, "continent": "SA", "has_port": False, "has_airport": True, "has_rail": False},
+    "Santos, BR": {"lat": -23.9618, "lon": -46.3322, "continent": "SA", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 6.0},
+    "Buenos Aires, AR": {"lat": -34.6037, "lon": -58.3816, "continent": "SA", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 4.8},
+    "Santiago, CL": {"lat": -33.4489, "lon": -70.6693, "continent": "SA", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 2.0},
+    "Bogota, CO": {"lat": 4.7110, "lon": -74.0721, "continent": "SA", "has_port": False, "has_airport": True, "has_rail": False, "base_congestion": 2.0},
 
     # --- AFRİKA ---
-    "Cairo, EG": {"lat": 30.0444, "lon": 31.2357, "continent": "AF", "has_port": False, "has_airport": True, "has_rail": True},
-    "Alexandria, EG": {"lat": 31.2001, "lon": 29.9187, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True},
-    "Durban, ZA": {"lat": -29.8587, "lon": 31.0218, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True},
-    "Cape Town, ZA": {"lat": -33.9249, "lon": 18.4241, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True},
-    "Lagos, NG": {"lat": 6.5244, "lon": 3.3792, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": False},
-    "Mombasa, KE": {"lat": -4.0435, "lon": 39.6682, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True},
-    "Casablanca, MA": {"lat": 33.5731, "lon": -7.5898, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True},
+    "Cairo, EG": {"lat": 30.0444, "lon": 31.2357, "continent": "AF", "has_port": False, "has_airport": True, "has_rail": True, "base_congestion": 3.0},
+    "Alexandria, EG": {"lat": 31.2001, "lon": 29.9187, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 5.5},
+    "Durban, ZA": {"lat": -29.8587, "lon": 31.0218, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 6.2},
+    "Cape Town, ZA": {"lat": -33.9249, "lon": 18.4241, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 5.0},
+    "Lagos, NG": {"lat": 6.5244, "lon": 3.3792, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": False, "base_congestion": 7.5},
+    "Mombasa, KE": {"lat": -4.0435, "lon": 39.6682, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 5.8},
+    "Casablanca, MA": {"lat": 33.5731, "lon": -7.5898, "continent": "AF", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 4.2},
 
     # --- OKYANUSYA ---
-    "Sydney, AU": {"lat": -33.8688, "lon": 151.2093, "continent": "OC", "has_port": True, "has_airport": True, "has_rail": True},
-    "Melbourne, AU": {"lat": -37.8136, "lon": 144.9631, "continent": "OC", "has_port": True, "has_airport": True, "has_rail": True},
-    "Auckland, NZ": {"lat": -36.8485, "lon": 174.7633, "continent": "OC", "has_port": True, "has_airport": True, "has_rail": False},
+    "Sydney, AU": {"lat": -33.8688, "lon": 151.2093, "continent": "OC", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 4.0},
+    "Melbourne, AU": {"lat": -37.8136, "lon": 144.9631, "continent": "OC", "has_port": True, "has_airport": True, "has_rail": True, "base_congestion": 4.2},
+    "Auckland, NZ": {"lat": -36.8485, "lon": 174.7633, "continent": "OC", "has_port": True, "has_airport": True, "has_rail": False, "base_congestion": 3.8},
 }
 
 MODE_CONFIGS = {
@@ -147,7 +147,6 @@ MED_BLACK_SEA_HUBS = {"Istanbul, TR", "Piraeus, GR", "Alexandria, EG"}
 NORTH_ATLANTIC_EU_HUBS = {"Rotterdam, NL", "Hamburg, DE", "Antwerp, BE", "London, GB"}
 
 
-# 🔥 FEATURE 3: Canlı Hava Durumu API Entegrasyonu (Open-Meteo API)
 @st.cache_data(ttl=1800)
 def fetch_live_weather(lat, lon):
     try:
@@ -157,7 +156,6 @@ def fetch_live_weather(lat, lon):
         temp = curr.get("temperature", 20.0)
         wind = curr.get("windspeed", 10.0)
         
-        # Rüzgar hızına göre hava durumu riski ve ekstra gecikme
         weather_desc = "Clear"
         weather_delay = 0.0
         if wind > 35.0:
@@ -170,6 +168,23 @@ def fetch_live_weather(lat, lon):
         return {"temp": temp, "wind_speed": wind, "condition": weather_desc, "delay_impact": weather_delay}
     except Exception:
         return {"temp": 20.0, "wind_speed": 12.0, "condition": "Clear (Simulated)", "delay_impact": 0.0}
+
+
+# 🔥 AIS & VESSEL FINDER PROXY ESTIMATOR
+def estimate_port_congestion_ais(port_name, weather_wind, is_choked):
+    port_data = GLOBAL_HUBS_DB.get(port_name, {"base_congestion": 5.0})
+    base_idx = port_data.get("base_congestion", 5.0)
+    
+    # Rüzgar ve boğaz blokajının liman birikmesine etkisi
+    wind_penalty = 1.5 if weather_wind > 35.0 else (0.8 if weather_wind > 20.0 else 0.0)
+    choke_penalty = 2.0 if is_choked else 0.0
+    
+    estimated_idx = min(10.0, round(base_idx + wind_penalty + choke_penalty, 1))
+    
+    # İndeksten gecikme gününe dönüşüm (10 indeks = ~3.5 gün ek bekleme)
+    estimated_delay_days = round((estimated_idx / 10.0) * 3.5, 1)
+    
+    return estimated_idx, estimated_delay_days
 
 
 def get_maritime_waypoints(origin, destination, is_detoured=False):
@@ -265,7 +280,7 @@ def calculate_chokepoint_impact(origin, destination, mode, blocked_chokepoints):
     return total_extra_km, total_extra_days, total_extra_cost, is_affected
 
 
-def generate_multimodal_routes(origin, destination, cargo_val, wacc, carbon_tax_rate, blocked_chokepoints=[]):
+def generate_multimodal_routes(origin, destination, cargo_val, wacc, carbon_tax_rate, blocked_chokepoints=[], port_delay_override=0.0):
     orig_info = GLOBAL_HUBS_DB[origin]
     dest_info = GLOBAL_HUBS_DB[destination]
     direct_dist = haversine(orig_info["lat"], orig_info["lon"], dest_info["lat"], dest_info["lon"])
@@ -302,7 +317,7 @@ def generate_multimodal_routes(origin, destination, cargo_val, wacc, carbon_tax_
 
     seg1_days = ((best_d1 * 1.3) / (seg1_speed * 24)) + seg1_op
     seg2_days = ((best_d2 * 1.3) / (seg2_speed * 24)) + seg2_op
-    hub_transshipment_dwell = 2.5
+    hub_transshipment_dwell = 2.5 + port_delay_override
 
     extra_km, extra_days, extra_cost, is_choked = calculate_chokepoint_impact(
         best_hub, destination, "Sea Freight", blocked_chokepoints
@@ -340,7 +355,7 @@ def generate_multimodal_routes(origin, destination, cargo_val, wacc, carbon_tax_
         "Geopolitical_Risk": "High" if is_choked else "Low",
         "Weather_Condition": "Clear",
         "Port_Congestion_Index": 6.5 if is_choked else 4.0,
-        "Delay_Days": 1.5 if is_choked else 0.8,
+        "Delay_Days": round(1.5 + port_delay_override if is_choked else 0.8 + port_delay_override, 1),
     }])
 
 
@@ -385,6 +400,28 @@ st.sidebar.divider()
 st.sidebar.header("🌱 ESG & EU ETS Carbon Tax")
 carbon_tax_rate = st.sidebar.number_input("Carbon Tax / EU ETS ($/Ton CO2):", min_value=0.0, value=85.0, step=5.0, help="Ton başına uygulanan Karbon Vergisi veya EU ETS ceza maliyeti.")
 
+# 🔥 FEATURE 3.5: VESSEL FINDER & PORT CONGESTION OVERRIDE
+st.sidebar.divider()
+st.sidebar.header("⚓ Port Congestion & AIS Override")
+use_manual_port_delay = st.sidebar.checkbox("Manuel Liman Gecikmesi Gir (Acente/Saha Bilgisi)", value=False)
+
+orig_info = GLOBAL_HUBS_DB[selected_origin]
+dest_info = GLOBAL_HUBS_DB[selected_dest]
+orig_weather = fetch_live_weather(orig_info["lat"], orig_info["lon"])
+dest_weather = fetch_live_weather(dest_info["lat"], dest_info["lon"])
+
+# Otomatik AIS tahmini
+auto_dest_idx, auto_dest_delay = estimate_port_congestion_ais(selected_dest, dest_weather["wind_speed"], False)
+
+if use_manual_port_delay:
+    effective_port_delay = st.sidebar.slider("Varış Limanı Manuel Bekleme Süresi (+Gün):", 0.0, 7.0, float(auto_dest_delay), 0.5, help="Acente veya VesselFinder bilgisinden alınan ekstra liman bekleme günü.")
+    port_delay_source = f"Manual Override (+{effective_port_delay} Days)"
+else:
+    effective_port_delay = auto_dest_delay
+    port_delay_source = f"AIS Estimated (+{auto_dest_delay} Days, Congestion Index: {auto_dest_idx}/10)"
+
+st.sidebar.caption(f"ℹ️ Active Port Delay Source: **{port_delay_source}**")
+
 st.sidebar.divider()
 st.sidebar.header("🎯 C-Level Strategy Priorities")
 cost_weight = st.sidebar.slider("💰 Cost Priority (%)", 0.0, 1.0, 0.4, 0.05)
@@ -399,12 +436,6 @@ blocked_canals = st.sidebar.multiselect(
     default=[],
 )
 
-# 🔥 FEATURE 3: Canlı Hava Durumu Verisi Çekimi
-orig_info = GLOBAL_HUBS_DB[selected_origin]
-dest_info = GLOBAL_HUBS_DB[selected_dest]
-
-orig_weather = fetch_live_weather(orig_info["lat"], orig_info["lon"])
-dest_weather = fetch_live_weather(dest_info["lat"], dest_info["lon"])
 total_weather_delay = orig_weather["delay_impact"] + dest_weather["delay_impact"]
 
 # --- 6. HESAPLAMA MOTORU ---
@@ -418,7 +449,11 @@ for m in feasible_modes:
 
     actual_distance = (haversine_dist_km * cfg["circuity"]) + extra_km
     pure_travel_hours = actual_distance / cfg["effective_speed_kmh"]
-    transit_days = round((pure_travel_hours / 24) + cfg["fixed_op_days"] + extra_days, 1)
+    
+    # Liman gecikmesini Denizyolu modlarına ekle
+    mode_port_delay = effective_port_delay if m == "Sea Freight" else (effective_port_delay * 0.3)
+    
+    transit_days = round((pure_travel_hours / 24) + cfg["fixed_op_days"] + extra_days + mode_port_delay, 1)
     base_cost = round((actual_distance * cfg["cost_per_km"]) + extra_cost, 2)
 
     holding_cost = round(cargo_value * (wacc_rate / 100.0) * (transit_days / 365.0), 2)
@@ -427,7 +462,6 @@ for m in feasible_modes:
     
     total_landed_cost = round(base_cost + holding_cost + carbon_tax_cost, 2)
     
-    # 🔥 Live Weather Delay Impact
     weather_delay_adj = total_weather_delay if m in ["Sea Freight", "Air Freight"] else 0.2
 
     candidate_rows.append({
@@ -448,13 +482,13 @@ for m in feasible_modes:
         "CO2_Emissions_Tons": co2_tons,
         "Geopolitical_Risk": "High" if is_choked else "Low",
         "Weather_Condition": orig_weather["condition"],
-        "Port_Congestion_Index": 7.5 if is_choked else 3.5,
+        "Port_Congestion_Index": auto_dest_idx if m == "Sea Freight" else 3.5,
         "Delay_Days": round((1.2 if is_choked else 0.8) + weather_delay_adj, 1),
     })
 
 route_candidates = pd.DataFrame(candidate_rows)
 
-mm_df = generate_multimodal_routes(selected_origin, selected_dest, cargo_value, wacc_rate, carbon_tax_rate, blocked_canals)
+mm_df = generate_multimodal_routes(selected_origin, selected_dest, cargo_value, wacc_rate, carbon_tax_rate, blocked_canals, effective_port_delay)
 if not mm_df.empty:
     route_candidates = pd.concat([route_candidates, mm_df], ignore_index=True)
 
@@ -464,10 +498,12 @@ optimal_route = optimize_supply_chain(route_candidates, cost_weight, time_weight
 st.subheader("📍 Active Corridor Infrastructure & Live Conditions")
 st.markdown(f"### 🚀 **{selected_origin}** ➡️ **{selected_dest}**")
 
-# 🔥 FEATURE 3: Canlı Hava Durumu Göstergesi
 wcol1, wcol2 = st.columns(2)
 wcol1.info(f"🌤️ **{selected_origin} Live Weather:** {orig_weather['temp']}°C | Wind: {orig_weather['wind_speed']} km/h | Status: **{orig_weather['condition']}**")
 wcol2.info(f"🌤️ **{selected_dest} Live Weather:** {dest_weather['temp']}°C | Wind: {dest_weather['wind_speed']} km/h | Status: **{dest_weather['condition']}**")
+
+# 🔥 PORT CONGESTION BANNER
+st.warning(f"⚓ **Port Dwell & Congestion Impact ({selected_dest}):** Status: **{port_delay_source}** | Added Delay to Transit: **+{effective_port_delay} Days**")
 
 bcol1, bcol2 = st.columns(2)
 bcol1.caption(
@@ -488,7 +524,7 @@ m4.metric("Inventory Holding Cost", f"${optimal_route['Inventory_Holding_Cost_US
 m5, m6, m7 = st.columns(3)
 m5.metric("EU ETS Carbon Tax", f"${optimal_route['Carbon_Tax_USD']:,.2f}")
 m6.metric("Total Landed Cost", f"${optimal_route['Total_Landed_Cost_USD']:,.2f}")
-m7.metric("Total Estimated ETA (Incl. Weather Delay)", f"{total_eta} Days")
+m7.metric("Total Estimated ETA (Incl. Port & Weather Delay)", f"{total_eta} Days")
 
 st.divider()
 
