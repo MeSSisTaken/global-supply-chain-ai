@@ -295,3 +295,39 @@ summary_text = (
     f"- **ESG Impact:** Estimated carbon footprint of **{optimal_route['CO2_Emissions_Tons']} Tons**."
 )
 st.success(summary_text)
+
+# --- 1. DOSYANIN ÜST KISMI (Fonksiyon Tanımları) ---
+LOCATION_CONTINENTS = {
+    "Istanbul, TR": "Europe_Asia",
+    "Hamburg, DE": "Europe_Asia",
+    "New York, US": "North_America",
+    "Shanghai, CN": "Europe_Asia",
+}
+
+
+def get_feasible_modes(origin, destination):
+    origin_cont = LOCATION_CONTINENTS.get(origin)
+    dest_cont = LOCATION_CONTINENTS.get(destination)
+
+    if (origin_cont == "North_America" and dest_cont != "North_America") or (
+        dest_cont == "North_America" and origin_cont != "North_America"
+    ):
+        return ["Air Freight", "Sea Freight"]
+
+    return ["Air Freight", "Sea Freight", "Rail Freight", "Road Freight"]
+
+
+# --- 2. ARAYÜZ (Sidebar / Route Selection) ---
+origin_selected = st.sidebar.selectbox("1. Çıkış Bölgesi (Origin):", options=...)
+destination_selected = st.sidebar.selectbox(
+    "2. Varış Bölgesi (Destination):", options=...
+)
+
+# --- 3. UYGUN MODLARIN FİLTRELENMESİ (Kullanıcı seçiminden hemen sonra) ---
+feasible_modes = get_feasible_modes(origin_selected, destination_selected)
+
+# --- 4. HESAPLAMA VE GRAFİK ÇİZİMİ ---
+# Rota verilerinizi içeren DataFrame'i (df) filtreleyin:
+filtered_df = df[df["Transport_Mode"].isin(feasible_modes)]
+
+# "Candidate Cost Comparison" grafiğinizi ve Haritanızı artık 'filtered_df' ile besleyin
