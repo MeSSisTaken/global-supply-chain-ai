@@ -147,7 +147,6 @@ NORTH_ATLANTIC_EU_HUBS = {"Rotterdam, NL", "Hamburg, DE", "Antwerp, BE", "London
 
 
 def get_maritime_waypoints(origin, destination, is_detoured=False):
-    """Deniz yolu çizilirken kalkış limanına göre akıllı deniz koridoru ara noktaları üretir."""
     is_origin_med = origin in MED_BLACK_SEA_HUBS
     is_dest_north = destination in NORTH_ATLANTIC_EU_HUBS
     is_origin_north = origin in NORTH_ATLANTIC_EU_HUBS
@@ -156,34 +155,27 @@ def get_maritime_waypoints(origin, destination, is_detoured=False):
     pts = []
     if (is_origin_med and is_dest_north) or (is_origin_north and is_dest_med):
         if not is_detoured:
-            # Çanakkale Boğazı sadece İstanbul çıkışlı/varışlı ise eklenir
             if origin == "Istanbul, TR" or destination == "Istanbul, TR":
                 pts.append((39.8, 25.8))
-            
-            # İstanbul veya Yunanistan için Mora Burnu dönülür
             if origin in ["Istanbul, TR", "Piraeus, GR"] or destination in ["Istanbul, TR", "Piraeus, GR"]:
                 pts.append((36.2, 22.5))
-            
-            # Akdeniz - Atlantik Ortak Deniz Rotası
             pts.extend([
-                (37.2, 11.2),   # Sicilya Kanalı
-                (36.1, -5.3),   # Cebelitarık Boğazı
-                (43.5, -9.6),   # İspanya / Atlantik Açıkları
-                (48.2, -5.2),   # Manş Denizi Girişi
-                (50.8, 1.4),    # Dover Boğazı
+                (37.2, 11.2),
+                (36.1, -5.3),
+                (43.5, -9.6),
+                (48.2, -5.2),
+                (50.8, 1.4),
             ])
         else:
-            # Cebelitarık Kapalı / Cape Detour Rotası
             if origin == "Istanbul, TR" or destination == "Istanbul, TR":
                 pts.append((39.8, 25.8))
-            
             pts.extend([
-                (33.0, 32.5),   # Doğu Akdeniz
-                (12.5, 43.5),   # Babülmendep Boğazı
-                (-34.8, 20.0),  # Ümit Burnu
-                (0.0, -10.0),   # Atlantik Ekvator Hattı
-                (48.2, -5.2),   # Manş Denizi Girişi
-                (50.8, 1.4),    # Dover Boğazı
+                (33.0, 32.5),
+                (12.5, 43.5),
+                (-34.8, 20.0),
+                (0.0, -10.0),
+                (48.2, -5.2),
+                (50.8, 1.4),
             ])
 
         if is_origin_north and is_dest_med:
@@ -247,7 +239,7 @@ def calculate_chokepoint_impact(origin, destination, mode, blocked_chokepoints):
     return total_extra_km, total_extra_days, total_extra_cost, is_affected
 
 
-def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
+def generate_multimodal_routes(origin, destination, cargo_val, wacc, blocked_chokepoints=[]):
     orig_info = GLOBAL_HUBS_DB[origin]
     dest_info = GLOBAL_HUBS_DB[destination]
     direct_dist = haversine(orig_info["lat"], orig_info["lon"], dest_info["lat"], dest_info["lon"])
@@ -291,8 +283,12 @@ def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
     )
 
     total_dist = (best_d1 * 1.3) + (best_d2 * 1.3) + extra_km
-    total_transit_days = seg1_days + hub_transshipment_dwell + seg2_days + extra_days
-    cost = (best_d1 * 0.45) + (best_d2 * 0.75) + 500.0 + extra_cost
+    total_transit_days = round(seg1_days + hub_transshipment_dwell + seg2_days + extra_days, 1)
+    base_cost = round((best_d1 * 0.45) + (best_d2 * 0.75) + 500.0 + extra_cost, 2)
+
+    # 🔥 FEATURE 1: Stok Elde Tutma Maliyeti Hesabı
+    holding_cost = round(cargo_val * (wacc / 100.0) * (total_transit_days / 365.0), 2)
+    total_landed_cost = round(base_cost + holding_cost, 2)
 
     return pd.DataFrame([{
         "Shipment_ID": f"MULTI-{origin[:3]}-{best_hub[:3]}-{destination[:3]}".upper(),
@@ -307,8 +303,10 @@ def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
         "Hub_Lon": hub_info["lon"],
         "Transport_Mode": f"Multimodal (Trans-Hub: {best_hub.split(',')[0]})" + (" (Detoured)" if is_choked else ""),
         "Distance_KM": round(total_dist, 1),
-        "Base_Cost_USD": round(cost, 2),
-        "Transit_Days": round(total_transit_days, 1),
+        "Base_Cost_USD": base_cost,
+        "Inventory_Holding_Cost_USD": holding_cost,
+        "Total_Landed_Cost_USD": total_landed_cost,
+        "Transit_Days": total_transit_days,
         "CO2_Emissions_Tons": round((best_d1 * 0.00012) + (best_d2 * 0.00025), 2),
         "Geopolitical_Risk": "High" if is_choked else "Low",
         "Weather_Condition": "Clear",
@@ -341,12 +339,17 @@ def get_trained_model(dataframe):
 predictor = get_trained_model(df)
 all_hub_names = sorted(list(GLOBAL_HUBS_DB.keys()))
 
-# --- 5. SIDEBAR & KRİZ SİMÜLATÖRÜ ---
+# --- 5. SIDEBAR & PARAMETRELER ---
 st.sidebar.header("📍 Global Route Selection")
-
 selected_origin = st.sidebar.selectbox("1. Çıkış Noktası (Origin):", options=all_hub_names, index=0)
 dest_options = [h for h in all_hub_names if h != selected_origin]
 selected_dest = st.sidebar.selectbox("2. Varış Noktası (Destination):", options=dest_options, index=min(1, len(dest_options) - 1))
+
+# 🔥 FEATURE 1 SIDEBAR INPUTS: Yük Değeri ve Sermaye Maliyeti Oranı
+st.sidebar.divider()
+st.sidebar.header("📦 Cargo & Financial Parameters")
+cargo_value = st.sidebar.number_input("Cargo Value ($):", min_value=1000, value=500000, step=25000, help="Taşınan yükün toplam piyasa değeri.")
+wacc_rate = st.sidebar.slider("Annual Holding / WACC Rate (%):", 1.0, 30.0, 15.0, 0.5, help="Yıllık stok elde tutma / sermaye maliyeti oranı.")
 
 st.sidebar.divider()
 st.sidebar.header("🎯 C-Level Strategy Priorities")
@@ -376,7 +379,11 @@ for m in feasible_modes:
     actual_distance = (haversine_dist_km * cfg["circuity"]) + extra_km
     pure_travel_hours = actual_distance / cfg["effective_speed_kmh"]
     transit_days = round((pure_travel_hours / 24) + cfg["fixed_op_days"] + extra_days, 1)
-    final_cost = round((actual_distance * cfg["cost_per_km"]) + extra_cost, 2)
+    base_cost = round((actual_distance * cfg["cost_per_km"]) + extra_cost, 2)
+
+    # 🔥 FEATURE 1: Stok Elde Tutma Maliyeti Hesabı
+    holding_cost = round(cargo_value * (wacc_rate / 100.0) * (transit_days / 365.0), 2)
+    total_landed_cost = round(base_cost + holding_cost, 2)
 
     candidate_rows.append({
         "Shipment_ID": f"ROUTE-{selected_origin[:3]}-{selected_dest[:3]}-{m[:2]}".upper(),
@@ -388,7 +395,9 @@ for m in feasible_modes:
         "Destination_Lon": dest_info["lon"],
         "Transport_Mode": m + (" (Detoured)" if is_choked else ""),
         "Distance_KM": round(actual_distance, 1),
-        "Base_Cost_USD": final_cost,
+        "Base_Cost_USD": base_cost,
+        "Inventory_Holding_Cost_USD": holding_cost,
+        "Total_Landed_Cost_USD": total_landed_cost,
         "Transit_Days": transit_days,
         "CO2_Emissions_Tons": round(actual_distance * cfg["co2"], 2),
         "Geopolitical_Risk": "High" if is_choked else "Low",
@@ -399,10 +408,11 @@ for m in feasible_modes:
 
 route_candidates = pd.DataFrame(candidate_rows)
 
-mm_df = generate_multimodal_routes(selected_origin, selected_dest, blocked_canals)
+mm_df = generate_multimodal_routes(selected_origin, selected_dest, cargo_value, wacc_rate, blocked_canals)
 if not mm_df.empty:
     route_candidates = pd.concat([route_candidates, mm_df], ignore_index=True)
 
+# Optimizer güncellenmiş toplam Landed Cost üzerinden çalışır
 optimal_route = optimize_supply_chain(route_candidates, cost_weight, time_weight, co2_weight)
 
 # --- PANEL 1: SEÇİLEN KORİDOR VE ALTYAPI DURUMU ---
@@ -419,27 +429,25 @@ bcol2.caption(
 
 total_eta = round(optimal_route["Transit_Days"] + optimal_route["Delay_Days"], 1)
 
-m1, m2, m3, m4, m5 = st.columns(5)
+m1, m2, m3, m4, m5, m6 = st.columns(6)
 m1.metric("Selected Route ID", optimal_route["Shipment_ID"])
 m2.metric("Optimal Mode", optimal_route["Transport_Mode"])
-m3.metric("Base Transit Time", f"{optimal_route['Transit_Days']} Days")
-m4.metric("AI Predicted Delay", f"+{optimal_route['Delay_Days']} Days")
-m5.metric(
-    "Total Estimated ETA",
-    f"{total_eta} Days",
-    delta=f"{optimal_route['Delay_Days']} Days Delay",
-    delta_color="inverse",
-)
+m3.metric("Freight Cost", f"${optimal_route['Base_Cost_USD']:,.2f}")
+m4.metric("Inventory Holding Cost", f"${optimal_route['Inventory_Holding_Cost_USD']:,.2f}")
+m5.metric("Total Landed Cost", f"${optimal_route['Total_Landed_Cost_USD']:,.2f}")
+m6.metric("Total Estimated ETA", f"{total_eta} Days")
 
 st.divider()
 
 # --- PANEL 2: BENCHMARK TABLOSU ---
-st.subheader("⚖️ Modal Feasibility & Cost Benchmark")
+st.subheader("⚖️ Modal Feasibility & Financial Landed Cost Benchmark")
 st.table(
     route_candidates[[
         "Transport_Mode",
         "Distance_KM",
         "Base_Cost_USD",
+        "Inventory_Holding_Cost_USD",
+        "Total_Landed_Cost_USD",
         "Transit_Days",
         "CO2_Emissions_Tons",
         "Geopolitical_Risk",
@@ -455,7 +463,6 @@ with col_left:
     st.subheader("🌐 Global Route Map")
     fig = go.Figure()
 
-    # 1. Tüm Hub'ları Haritaya Ekle
     fig.add_trace(
         go.Scattergeo(
             lon=[h["lon"] for h in GLOBAL_HUBS_DB.values()],
@@ -467,7 +474,6 @@ with col_left:
         )
     )
 
-    # 2. Optimal Rota Koordinatlarını Hesapla
     opt_mode = str(optimal_route["Transport_Mode"])
     is_sea_freight = "Sea Freight" in opt_mode
     is_detoured = "Detoured" in opt_mode
@@ -487,7 +493,6 @@ with col_left:
         route_lats = [optimal_route["Origin_Lat"], optimal_route["Destination_Lat"]]
         route_lons = [optimal_route["Origin_Lon"], optimal_route["Destination_Lon"]]
 
-    # 3. Rota Çizgisini Ekle
     fig.add_trace(
         go.Scattergeo(
             lon=route_lons,
@@ -499,7 +504,6 @@ with col_left:
         )
     )
 
-    # 4. Dinamik Zoom / Odaklanma Alanı Hesaplama
     lat_margin = max((max(route_lats) - min(route_lats)) * 0.25, 4.0)
     lon_margin = max((max(route_lons) - min(route_lons)) * 0.25, 4.0)
 
@@ -521,23 +525,37 @@ with col_left:
     st.plotly_chart(fig, use_container_width=True)
 
 with col_right:
-    st.subheader("📊 Cost Comparison ($)")
+    st.subheader("📊 Financial Cost Breakdown ($)")
+    
+    # Navlun vs Stok Taşıma Maliyeti Kıyaslama Grafiği
+    cost_df = route_candidates.melt(
+        id_vars=["Transport_Mode"],
+        value_vars=["Base_Cost_USD", "Inventory_Holding_Cost_USD"],
+        var_name="Cost_Type",
+        value_name="USD"
+    )
+    cost_df["Cost_Type"] = cost_df["Cost_Type"].replace({
+        "Base_Cost_USD": "Freight Cost",
+        "Inventory_Holding_Cost_USD": "Inventory Holding Cost"
+    })
+    
     fig_bar = px.bar(
-        route_candidates,
+        cost_df,
         x="Transport_Mode",
-        y="Base_Cost_USD",
-        color="Transport_Mode",
-        title="Freight Cost by Available Mode",
+        y="USD",
+        color="Cost_Type",
+        title="Freight vs. Holding Cost Breakdown",
+        barmode="stack"
     )
     st.plotly_chart(fig_bar, use_container_width=True)
 
 st.divider()
 
 # --- PANEL 4: C-LEVEL ÖZET ---
-st.subheader("📝 Executive Summary")
+st.subheader("📝 Executive Financial Summary")
 if blocked_canals:
     st.warning(f"⚠️ **Chokepoint Active Blockage:** **{', '.join(blocked_canals)}** selected as CLOSED.")
 
 st.success(
-    f"**Recommended Route:** **{selected_origin}** ➔ **{selected_dest}** via **{optimal_route['Transport_Mode']}** | Total Freight Cost: **${optimal_route['Base_Cost_USD']:,.2f}** | Total ETA: **{total_eta} days**."
+    f"**Recommended Route:** **{selected_origin}** ➔ **{selected_dest}** via **{optimal_route['Transport_Mode']}** | Freight: **${optimal_route['Base_Cost_USD']:,.2f}** | Inventory Holding Cost: **${optimal_route['Inventory_Holding_Cost_USD']:,.2f}** | Total Landed Cost: **${optimal_route['Total_Landed_Cost_USD']:,.2f}** | ETA: **{total_eta} days**."
 )
