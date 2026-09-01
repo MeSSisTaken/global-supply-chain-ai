@@ -17,12 +17,12 @@ st.set_page_config(
 
 st.title("🌍 Global Multi-Modal Supply Chain Resilience & ESG Engine")
 st.markdown(
-    "**Enterprise AI Platform** | Dynamic Global Route Optimization &"
-    " Infrastructure Intelligence"
+    "**Enterprise AI Platform** | Dynamic Global Route Optimization & Real-World"
+    " Logistics Intelligence"
 )
 st.divider()
 
-# --- 1. GENİŞLETİLMİŞ KÜRESEL ŞEHİR VE ALTYAPI VERİTABANI ---
+# --- 1. KÜRESEL ŞEHİR VE ALTYAPI VERİTABANI ---
 GLOBAL_HUBS_DB = {
     # --- AVRUPA & TÜRKİYE ---
     "Istanbul, TR": {
@@ -401,34 +401,34 @@ GLOBAL_HUBS_DB = {
     },
 }
 
-# --- 2. LOJİSTİK PARAMETRELERİ ---
+# --- 2. GERÇEKÇİ 24 SAATLİK SEYİR HIZLARI VE LİMAN PARAMETRELERİ ---
 MODE_CONFIGS = {
     "Air Freight": {
         "cost_per_km": 2.10,
-        "speed_kmh": 700,
+        "effective_speed_kmh": 350,  # Uçuş + kargo terminal elleçleme ortalaması
         "circuity": 1.10,
-        "fixed_op_days": 0.5,
+        "fixed_op_days": 1.5,  # Gümrük ve terminal kabul
         "co2": 0.0006,
     },
     "Road Freight": {
         "cost_per_km": 0.95,
-        "speed_kmh": 50,
+        "effective_speed_kmh": 25,  # Takograf ve sürücü dinlenme limitli 24h net (600 km/gün)
         "circuity": 1.30,
-        "fixed_op_days": 1.5,
+        "fixed_op_days": 1.0,  # Yükleme ve çıkış gümrük
         "co2": 0.00035,
     },
     "Rail Freight": {
         "cost_per_km": 0.55,
-        "speed_kmh": 30,
+        "effective_speed_kmh": 20,  # Gar, aktarma ve hat değişimi dahil (480 km/gün)
         "circuity": 1.35,
-        "fixed_op_days": 3.0,
+        "fixed_op_days": 2.0,  # Katar hazırlık ve gümrük
         "co2": 0.00018,
     },
     "Sea Freight": {
         "cost_per_km": 0.25,
-        "speed_kmh": 25,
+        "effective_speed_kmh": 22,  # ~12 Knot konteyner gemisi net seyri (528 km/gün)
         "circuity": 1.40,
-        "fixed_op_days": 3.5,
+        "fixed_op_days": 4.5,  # Çıkış ve varış limanı berthing/unloading operasyonu
         "co2": 0.00008,
     },
 }
@@ -501,7 +501,7 @@ CHOKEPOINTS_DB = {
 }
 
 
-# --- 3. DİNAMİK ALTYAPI VE KRİZ KONTROL DİZGELERİ ---
+# --- 3. DİNAMİK ALTYAPI VE ETA MOTORU ---
 def get_infrastructure_supported_modes(origin, destination):
     orig = GLOBAL_HUBS_DB.get(
         origin,
@@ -599,14 +599,42 @@ def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
     if not best_hub:
         return pd.DataFrame()
 
-    total_dist = (best_d1 * 1.3) + (best_d2 * 1.35)
+    hub_info = GLOBAL_HUBS_DB[best_hub]
+
+    # Etap 1 Fiziksel Modu (Kıta farkı veya Akdeniz/Deniz aşırı geçiş kontrolü)
+    if (
+        orig_info["continent"] != hub_info["continent"]
+        or not orig_info["has_rail"]
+    ):
+        seg1_speed = 22.0  # Deniz hızı (km/s)
+        seg1_op = 2.0  # Çıkış liman operasyonu (Gün)
+    else:
+        seg1_speed = 25.0  # Karayolu hızı (km/s)
+        seg1_op = 1.0
+
+    # Etap 2 Fiziksel Modu
+    if hub_info["continent"] != dest_info["continent"]:
+        seg2_speed = 22.0
+        seg2_op = 2.0
+    else:
+        seg2_speed = 25.0
+        seg2_op = 1.0
+
+    seg1_days = ((best_d1 * 1.3) / (seg1_speed * 24)) + seg1_op
+    seg2_days = ((best_d2 * 1.3) / (seg2_speed * 24)) + seg2_op
+    hub_transshipment_dwell = (
+        2.5  # Hub limanında gemiden indirme/sahada bekleme/yükleme
+    )
+
     extra_km, extra_days, extra_cost, is_choked = calculate_chokepoint_impact(
         best_hub, destination, "Sea Freight", blocked_chokepoints
     )
 
-    total_dist += extra_km
-    cost = (best_d1 * 0.55) + (best_d2 * 0.25) + 400.0 + extra_cost
-    days = (best_d1 / (50 * 24)) + (best_d2 / (25 * 24)) + 2.5 + extra_days
+    total_dist = (best_d1 * 1.3) + (best_d2 * 1.3) + extra_km
+    total_transit_days = (
+        seg1_days + hub_transshipment_dwell + seg2_days + extra_days
+    )
+    cost = (best_d1 * 0.45) + (best_d2 * 0.75) + 500.0 + extra_cost
 
     return pd.DataFrame([{
         "Shipment_ID": (
@@ -619,16 +647,18 @@ def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
         "Destination_Lat": dest_info["lat"],
         "Destination_Lon": dest_info["lon"],
         "Hub_Name": best_hub,
-        "Hub_Lat": GLOBAL_HUBS_DB[best_hub]["lat"],
-        "Hub_Lon": GLOBAL_HUBS_DB[best_hub]["lon"],
+        "Hub_Lat": hub_info["lat"],
+        "Hub_Lon": hub_info["lon"],
         "Transport_Mode": (
             f"Multimodal (Trans-Hub: {best_hub.split(',')[0]})"
             + (" (Detoured)" if is_choked else "")
         ),
         "Distance_KM": round(total_dist, 1),
         "Base_Cost_USD": round(cost, 2),
-        "Transit_Days": round(days, 1),
-        "CO2_Emissions_Tons": round((best_d1 * 0.00018) + (best_d2 * 0.00008), 2),
+        "Transit_Days": round(total_transit_days, 1),
+        "CO2_Emissions_Tons": round(
+            (best_d1 * 0.00012) + (best_d2 * 0.00025), 2
+        ),
         "Geopolitical_Risk": "High" if is_choked else "Low",
         "Weather_Condition": "Clear",
         "Port_Congestion_Index": 6.5 if is_choked else 4.0,
@@ -709,7 +739,7 @@ for m in feasible_modes:
     )
 
     actual_distance = (haversine_dist_km * cfg["circuity"]) + extra_km
-    pure_travel_hours = actual_distance / cfg["speed_kmh"]
+    pure_travel_hours = actual_distance / cfg["effective_speed_kmh"]
     transit_days = round(
         (pure_travel_hours / 24) + cfg["fixed_op_days"] + extra_days, 1
     )
