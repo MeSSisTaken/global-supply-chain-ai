@@ -1,4 +1,5 @@
 import os
+import requests
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -146,6 +147,31 @@ MED_BLACK_SEA_HUBS = {"Istanbul, TR", "Piraeus, GR", "Alexandria, EG"}
 NORTH_ATLANTIC_EU_HUBS = {"Rotterdam, NL", "Hamburg, DE", "Antwerp, BE", "London, GB"}
 
 
+# 🔥 FEATURE 3: Canlı Hava Durumu API Entegrasyonu (Open-Meteo API)
+@st.cache_data(ttl=1800)
+def fetch_live_weather(lat, lon):
+    try:
+        url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+        resp = requests.get(url, timeout=3).json()
+        curr = resp.get("current_weather", {})
+        temp = curr.get("temperature", 20.0)
+        wind = curr.get("windspeed", 10.0)
+        
+        # Rüzgar hızına göre hava durumu riski ve ekstra gecikme
+        weather_desc = "Clear"
+        weather_delay = 0.0
+        if wind > 35.0:
+            weather_desc = "Stormy & High Wind"
+            weather_delay = 1.5
+        elif wind > 20.0:
+            weather_desc = "Windy / Rain"
+            weather_delay = 0.5
+            
+        return {"temp": temp, "wind_speed": wind, "condition": weather_desc, "delay_impact": weather_delay}
+    except Exception:
+        return {"temp": 20.0, "wind_speed": 12.0, "condition": "Clear (Simulated)", "delay_impact": 0.0}
+
+
 def get_maritime_waypoints(origin, destination, is_detoured=False):
     is_origin_med = origin in MED_BLACK_SEA_HUBS
     is_dest_north = destination in NORTH_ATLANTIC_EU_HUBS
@@ -286,10 +312,7 @@ def generate_multimodal_routes(origin, destination, cargo_val, wacc, carbon_tax_
     total_transit_days = round(seg1_days + hub_transshipment_dwell + seg2_days + extra_days, 1)
     base_cost = round((best_d1 * 0.45) + (best_d2 * 0.75) + 500.0 + extra_cost, 2)
 
-    # FEATURE 1: Stok Elde Tutma Maliyeti
     holding_cost = round(cargo_val * (wacc / 100.0) * (total_transit_days / 365.0), 2)
-    
-    # 🔥 FEATURE 2: EU ETS & Karbon Vergisi Hesabı
     co2_tons = round((best_d1 * 0.00012) + (best_d2 * 0.00025), 2)
     carbon_tax_cost = round(co2_tons * carbon_tax_rate, 2)
     
@@ -357,7 +380,7 @@ st.sidebar.header("📦 Cargo & Financial Parameters")
 cargo_value = st.sidebar.number_input("Cargo Value ($):", min_value=1000, value=500000, step=25000, help="Taşınan yükün toplam piyasa değeri.")
 wacc_rate = st.sidebar.slider("Annual Holding / WACC Rate (%):", 1.0, 30.0, 15.0, 0.5, help="Yıllık stok elde tutma / sermaye maliyeti oranı.")
 
-# 🔥 FEATURE 2 SIDEBAR INPUTS: EU ETS Karbon Vergisi ($/Ton)
+# FEATURE 2 SIDEBAR INPUTS: EU ETS Karbon Vergisi ($/Ton)
 st.sidebar.divider()
 st.sidebar.header("🌱 ESG & EU ETS Carbon Tax")
 carbon_tax_rate = st.sidebar.number_input("Carbon Tax / EU ETS ($/Ton CO2):", min_value=0.0, value=85.0, step=5.0, help="Ton başına uygulanan Karbon Vergisi veya EU ETS ceza maliyeti.")
@@ -376,10 +399,16 @@ blocked_canals = st.sidebar.multiselect(
     default=[],
 )
 
-# --- 6. HESAPLAMA MOTORU ---
-feasible_modes = get_infrastructure_supported_modes(selected_origin, selected_dest)
+# 🔥 FEATURE 3: Canlı Hava Durumu Verisi Çekimi
 orig_info = GLOBAL_HUBS_DB[selected_origin]
 dest_info = GLOBAL_HUBS_DB[selected_dest]
+
+orig_weather = fetch_live_weather(orig_info["lat"], orig_info["lon"])
+dest_weather = fetch_live_weather(dest_info["lat"], dest_info["lon"])
+total_weather_delay = orig_weather["delay_impact"] + dest_weather["delay_impact"]
+
+# --- 6. HESAPLAMA MOTORU ---
+feasible_modes = get_infrastructure_supported_modes(selected_origin, selected_dest)
 haversine_dist_km = haversine(orig_info["lat"], orig_info["lon"], dest_info["lat"], dest_info["lon"])
 
 candidate_rows = []
@@ -392,14 +421,14 @@ for m in feasible_modes:
     transit_days = round((pure_travel_hours / 24) + cfg["fixed_op_days"] + extra_days, 1)
     base_cost = round((actual_distance * cfg["cost_per_km"]) + extra_cost, 2)
 
-    # FEATURE 1: Stok Elde Tutma Maliyeti
     holding_cost = round(cargo_value * (wacc_rate / 100.0) * (transit_days / 365.0), 2)
-    
-    # 🔥 FEATURE 2: Karbon Vergisi
     co2_tons = round(actual_distance * cfg["co2"], 2)
     carbon_tax_cost = round(co2_tons * carbon_tax_rate, 2)
     
     total_landed_cost = round(base_cost + holding_cost + carbon_tax_cost, 2)
+    
+    # 🔥 Live Weather Delay Impact
+    weather_delay_adj = total_weather_delay if m in ["Sea Freight", "Air Freight"] else 0.2
 
     candidate_rows.append({
         "Shipment_ID": f"ROUTE-{selected_origin[:3]}-{selected_dest[:3]}-{m[:2]}".upper(),
@@ -418,9 +447,9 @@ for m in feasible_modes:
         "Transit_Days": transit_days,
         "CO2_Emissions_Tons": co2_tons,
         "Geopolitical_Risk": "High" if is_choked else "Low",
-        "Weather_Condition": "Clear",
+        "Weather_Condition": orig_weather["condition"],
         "Port_Congestion_Index": 7.5 if is_choked else 3.5,
-        "Delay_Days": 1.2 if is_choked else 0.8,
+        "Delay_Days": round((1.2 if is_choked else 0.8) + weather_delay_adj, 1),
     })
 
 route_candidates = pd.DataFrame(candidate_rows)
@@ -432,8 +461,13 @@ if not mm_df.empty:
 optimal_route = optimize_supply_chain(route_candidates, cost_weight, time_weight, co2_weight)
 
 # --- PANEL 1: SEÇİLEN KORİDOR VE ALTYAPI DURUMU ---
-st.subheader("📍 Active Corridor Infrastructure Status")
+st.subheader("📍 Active Corridor Infrastructure & Live Conditions")
 st.markdown(f"### 🚀 **{selected_origin}** ➡️ **{selected_dest}**")
+
+# 🔥 FEATURE 3: Canlı Hava Durumu Göstergesi
+wcol1, wcol2 = st.columns(2)
+wcol1.info(f"🌤️ **{selected_origin} Live Weather:** {orig_weather['temp']}°C | Wind: {orig_weather['wind_speed']} km/h | Status: **{orig_weather['condition']}**")
+wcol2.info(f"🌤️ **{selected_dest} Live Weather:** {dest_weather['temp']}°C | Wind: {dest_weather['wind_speed']} km/h | Status: **{dest_weather['condition']}**")
 
 bcol1, bcol2 = st.columns(2)
 bcol1.caption(
@@ -454,7 +488,7 @@ m4.metric("Inventory Holding Cost", f"${optimal_route['Inventory_Holding_Cost_US
 m5, m6, m7 = st.columns(3)
 m5.metric("EU ETS Carbon Tax", f"${optimal_route['Carbon_Tax_USD']:,.2f}")
 m6.metric("Total Landed Cost", f"${optimal_route['Total_Landed_Cost_USD']:,.2f}")
-m7.metric("Total Estimated ETA", f"{total_eta} Days")
+m7.metric("Total Estimated ETA (Incl. Weather Delay)", f"{total_eta} Days")
 
 st.divider()
 
@@ -547,7 +581,6 @@ with col_left:
 with col_right:
     st.subheader("📊 Complete Financial Cost Breakdown ($)")
     
-    # 🔥 FEATURE 2: Navlun + Stok Taşıma + Karbon Vergisi Kıyaslama Grafiği
     cost_df = route_candidates.melt(
         id_vars=["Transport_Mode"],
         value_vars=["Base_Cost_USD", "Inventory_Holding_Cost_USD", "Carbon_Tax_USD"],
@@ -578,5 +611,5 @@ if blocked_canals:
     st.warning(f"⚠️ **Chokepoint Active Blockage:** **{', '.join(blocked_canals)}** selected as CLOSED.")
 
 st.success(
-    f"**Recommended Route:** **{selected_origin}** ➔ **{selected_dest}** via **{optimal_route['Transport_Mode']}** | Freight: **${optimal_route['Base_Cost_USD']:,.2f}** | Holding: **${optimal_route['Inventory_Holding_Cost_USD']:,.2f}** | Carbon Tax: **${optimal_route['Carbon_Tax_USD']:,.2f}** | Total Landed Cost: **${optimal_route['Total_Landed_Cost_USD']:,.2f}** | ETA: **{total_eta} days**."
+    f"**Recommended Route:** **{selected_origin}** ➔ **{selected_dest}** via **{optimal_route['Transport_Mode']}** | Freight: **${optimal_route['Base_Cost_USD']:,.2f}** | Holding: **${optimal_route['Inventory_Holding_Cost_USD']:,.2f}** | Carbon Tax: **${optimal_route['Carbon_Tax_USD']:,.2f}** | Total Landed Cost: **${optimal_route['Total_Landed_Cost_USD']:,.2f}** | Total ETA: **{total_eta} days**."
 )
