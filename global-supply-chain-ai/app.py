@@ -142,50 +142,54 @@ CHOKEPOINTS_DB = {
     },
 }
 
-# --- MARİTİME HASSAS BÖLGE TANIMLARI ---
 MED_BLACK_SEA_HUBS = {"Istanbul, TR", "Piraeus, GR", "Alexandria, EG"}
 NORTH_ATLANTIC_EU_HUBS = {"Rotterdam, NL", "Hamburg, DE", "Antwerp, BE", "London, GB"}
 
-# --- DENİZ YOLU ARA NOKTALARI (MARITIME WAYPOINTS) ---
-MARITIME_WAYPOINTS_DB = {
-    # Akdeniz & Karadeniz Limanları -> Kuzey Avrupa Limanları (Açık Cebelitarık)
-    ("MED_BLACK_SEA", "NORTH_ATLANTIC_EU"): [
-        (39.8, 25.8),   # Çanakkale Boğazı Çıkışı
-        (36.2, 22.5),   # Mora Burnu (Yunanistan Güneyi)
-        (37.2, 11.2),   # Sicilya Kanalı
-        (36.1, -5.3),   # Cebelitarık Boğazı
-        (43.5, -9.6),   # İspanya / Atlantik Okyanusu
-        (48.2, -5.2),   # Manş Denizi Girişi
-        (50.8, 1.4),    # Dover Boğazı
-    ],
-    # Cebelitarık Kapalıysa: Afrika Etrafından Dolanma (Cape of Good Hope Detour)
-    ("MED_BLACK_SEA", "NORTH_ATLANTIC_EU_DETOUR"): [
-        (39.8, 25.8),   # Çanakkale Boğazı Çıkışı
-        (33.0, 32.5),   # Doğu Akdeniz / Mısır Açıkları
-        (12.5, 43.5),   # Babülmendep Boğazı / Kızıldeniz
-        (-34.8, 20.0),  # Ümit Burnu (Güney Afrika)
-        (0.0, -10.0),   # Atlantik Ekvator Hattı
-        (48.2, -5.2),   # Manş Denizi Girişi
-        (50.8, 1.4),    # Dover Boğazı
-    ]
-}
-
 
 def get_maritime_waypoints(origin, destination, is_detoured=False):
-    """Deniz yolu haritada çizilirken karaların üzerinden geçmemesi için deniz koordinat dizisi üretir."""
+    """Deniz yolu çizilirken kalkış limanına göre akıllı deniz koridoru ara noktaları üretir."""
     is_origin_med = origin in MED_BLACK_SEA_HUBS
     is_dest_north = destination in NORTH_ATLANTIC_EU_HUBS
-    
     is_origin_north = origin in NORTH_ATLANTIC_EU_HUBS
     is_dest_med = destination in MED_BLACK_SEA_HUBS
 
+    pts = []
     if (is_origin_med and is_dest_north) or (is_origin_north and is_dest_med):
-        key = ("MED_BLACK_SEA", "NORTH_ATLANTIC_EU_DETOUR" if is_detoured else "NORTH_ATLANTIC_EU")
-        pts = MARITIME_WAYPOINTS_DB.get(key, [])
+        if not is_detoured:
+            # Çanakkale Boğazı sadece İstanbul çıkışlı/varışlı ise eklenir
+            if origin == "Istanbul, TR" or destination == "Istanbul, TR":
+                pts.append((39.8, 25.8))
+            
+            # İstanbul veya Yunanistan için Mora Burnu dönülür
+            if origin in ["Istanbul, TR", "Piraeus, GR"] or destination in ["Istanbul, TR", "Piraeus, GR"]:
+                pts.append((36.2, 22.5))
+            
+            # Akdeniz - Atlantik Ortak Deniz Rotası
+            pts.extend([
+                (37.2, 11.2),   # Sicilya Kanalı
+                (36.1, -5.3),   # Cebelitarık Boğazı
+                (43.5, -9.6),   # İspanya / Atlantik Açıkları
+                (48.2, -5.2),   # Manş Denizi Girişi
+                (50.8, 1.4),    # Dover Boğazı
+            ])
+        else:
+            # Cebelitarık Kapalı / Cape Detour Rotası
+            if origin == "Istanbul, TR" or destination == "Istanbul, TR":
+                pts.append((39.8, 25.8))
+            
+            pts.extend([
+                (33.0, 32.5),   # Doğu Akdeniz
+                (12.5, 43.5),   # Babülmendep Boğazı
+                (-34.8, 20.0),  # Ümit Burnu
+                (0.0, -10.0),   # Atlantik Ekvator Hattı
+                (48.2, -5.2),   # Manş Denizi Girişi
+                (50.8, 1.4),    # Dover Boğazı
+            ])
+
         if is_origin_north and is_dest_med:
             pts = pts[::-1]
-        return pts
-    return []
+
+    return pts
 
 
 def get_infrastructure_supported_modes(origin, destination):
@@ -463,7 +467,7 @@ with col_left:
         )
     )
 
-    # 2. Optimal Rota Koordinatlarını Hesapla (Deniz Yolu / Multimodal / Standart)
+    # 2. Optimal Rota Koordinatlarını Hesapla
     opt_mode = str(optimal_route["Transport_Mode"])
     is_sea_freight = "Sea Freight" in opt_mode
     is_detoured = "Detoured" in opt_mode
@@ -495,12 +499,21 @@ with col_left:
         )
     )
 
+    # 4. Dinamik Zoom / Odaklanma Alanı Hesaplama
+    lat_margin = max((max(route_lats) - min(route_lats)) * 0.25, 4.0)
+    lon_margin = max((max(route_lons) - min(route_lons)) * 0.25, 4.0)
+
+    min_lat, max_lat = min(route_lats) - lat_margin, max(route_lats) + lat_margin
+    min_lon, max_lon = min(route_lons) - lon_margin, max(route_lons) + lon_margin
+
     fig.update_layout(
         geo=dict(
             projection_type="natural earth",
             showland=True,
             landcolor="rgb(240, 240, 240)",
             countrycolor="rgb(200, 200, 200)",
+            lataxis_range=[min_lat, max_lat],
+            lonaxis_range=[min_lon, max_lon],
         ),
         margin=dict(l=0, r=0, t=30, b=0),
         height=450,
