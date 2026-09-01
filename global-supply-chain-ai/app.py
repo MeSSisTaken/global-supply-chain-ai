@@ -1,7 +1,13 @@
+import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 from optimizer import DelayPredictor, optimize_supply_chain
+from data_generator import generate_global_logistics_data
+
+# Bulunulan klasörün tam yolunu dinamik olarak al
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(BASE_DIR, "global_logistics_data.csv")
 
 # Streamlit Sayfa Düzenleme (Geniş Ekran)
 st.set_page_config(
@@ -15,13 +21,20 @@ st.title("🌍 Global Multi-Modal Supply Chain Resilience & ESG Engine")
 st.markdown("**Enterprise AI Platform** | Real-Time Route Optimization, ML Delay Forecasting & Emissions Control")
 st.divider()
 
-# Veri ve ML Modelini Yükleme (Önbellekli)
+# Veri Yükleme (Dinamik Yol Korumalı)
 @st.cache_data
 def load_data():
-    return pd.read_csv("global_logistics_data.csv")
+    if os.path.exists(DATA_PATH):
+        return pd.read_csv(DATA_PATH)
+    else:
+        # Dosya yoksa otomatik üret ve tam yola kaydet
+        df_gen = generate_global_logistics_data()
+        df_gen.to_csv(DATA_PATH, index=False)
+        return df_gen
 
 df = load_data()
 
+# ML Modelini Eğitme
 @st.cache_resource
 def get_trained_model(dataframe):
     predictor = DelayPredictor()
@@ -116,7 +129,7 @@ else:
 
     st.divider()
 
-    # --- CEO YÖNETİCİ ÖZET RAPORU (GENAI SIMULATION) ---
+    # --- CEO YÖNETİCİ ÖZET RAPORU ---
     st.subheader("📝 Executive Briefing (Automated C-Level Summary)")
     st.success(f"""
     **Strategic AI Recommendation:**
@@ -126,5 +139,4 @@ else:
     
     - **Financial Impact:** Operational cost maintained at **${optimal_route['Base_Cost_USD']:,.2f}**.
     - **ESG Compliance:** Carbon emissions reduced/optimized to **{optimal_route['CO2_Emissions_Tons']} Tons**.
-    - **Disruption Strategy:** Rerouted away from high-risk corridors while absorbing a predicted delay of **{optimal_route['Delay_Days']} days**.
-    """)
+    - **
