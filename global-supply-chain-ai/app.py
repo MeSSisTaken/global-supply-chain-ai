@@ -945,7 +945,50 @@ if blocked_canals:
         f"⚠️ **Chokepoint Active Blockage:** **{', '.join(blocked_canals)}**"
         " selected as CLOSED."
     )
+# --- DENİZ YOLU GERÇEK ROTA ARA NOKTALARI (MARITIME WAYPOINTS) ---
+MARITIME_WAYPOINTS_DB = {
+    # Akdeniz & Karadeniz Limanları -> Kuzey Avrupa Limanları (Standart Cebelitarık Rotalı)
+    ("MED_BLACK_SEA", "NORTH_ATLANTIC_EU"): [
+        (39.8, 25.8),  # Çanakkale Boğazı Çıkışı / Ege Denizi
+        (36.2, 22.5),  # Mora Burnu (Yunanistan Güneyi)
+        (37.2, 11.2),  # Sicilya Kanalı (İtalya-Tunus Arası)
+        (36.1, -5.3),  # Cebelitarık Boğazı
+        (43.5, -9.6),  # İspanya / Atlantik Okyanusu Açıkları
+        (48.2, -5.2),  # Manş Denizi Girişi
+        (50.8, 1.4),   # Dover Boğazı
+    ],
+    # Cebelitarık Kapalıysa: Afrika Etrafından Dolanma (Cape of Good Hope Detour)
+    ("MED_BLACK_SEA", "NORTH_ATLANTIC_EU_DETOUR"): [
+        (39.8, 25.8),  # Çanakkale Boğazı Çıkışı
+        (33.0, 32.5),  # Doğu Akdeniz / Port Said Girişi (Mısır Açıkları)
+        (12.5, 43.5),  # Babülmendep Boğazı / Kızıldeniz
+        (-34.8, 20.0), # Ümit Burnu (Güney Afrika)
+        (0.0, -10.0),  # Atlantik Ekvator Hattı
+        (48.2, -5.2),  # Manş Denizi Girişi
+        (50.8, 1.4),   # Dover Boğazı
+    ]
+}
 
+def get_maritime_waypoints(origin, destination, is_detoured=False):
+    """Deniz yolu seçildiğinde karaların üzerinden geçmemesi için deniz koordinat dizisini döner."""
+    is_origin_med = origin in MED_BLACK_SEA_HUBS
+    is_dest_north = destination in NORTH_ATLANTIC_EU_HUBS
+    
+    is_origin_north = origin in NORTH_ATLANTIC_EU_HUBS
+    is_dest_med = destination in MED_BLACK_SEA_HUBS
+
+    if (is_origin_med and is_dest_north) or (is_origin_north and is_dest_med):
+        key = ("MED_BLACK_SEA", "NORTH_ATLANTIC_EU_DETOUR" if is_detoured else "NORTH_ATLANTIC_EU")
+        pts = MARITIME_WAYPOINTS_DB.get(key, [])
+        
+        # Eğer dönüş rotasıysa koordinatları tersine çevir
+        if is_origin_north and is_dest_med:
+            pts = pts[::-1]
+            
+        return pts
+        
+    return []
+    
 st.success(
     f"**Recommended Route:** **{selected_origin}** ➔ **{selected_dest}** via"
     f" **{optimal_route['Transport_Mode']}** | Total Freight Cost:"
