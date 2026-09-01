@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 import pandas as pd
+import plotly.graph_objects as go
 import plotly.express as px
 from optimizer import DelayPredictor, optimize_supply_chain
 from data_generator import generate_global_logistics_data
@@ -16,7 +17,7 @@ st.set_page_config(
     page_icon="🌍"
 )
 
-# Başlık ve Alt Başlık
+# Başlık
 st.title("🌍 Global Multi-Modal Supply Chain Resilience & ESG Engine")
 st.markdown("**Enterprise AI Platform** | Real-Time Route Optimization, ML Delay Forecasting & Emissions Control")
 st.divider()
@@ -42,13 +43,14 @@ def get_trained_model(dataframe):
 
 predictor = get_trained_model(df)
 
-# --- SIDEBAR: CEO STRATEJİ PANELİ ---
+# --- SIDEBAR: C-LEVEL STRATEJİ KONTROLLERİ ---
 st.sidebar.header("🎯 C-Level Strategy Controls")
+st.sidebar.caption("Bu paneller şirketin önceliğine göre yapay zeka optimizasyon ağırlıklarını değiştirir.")
 
 st.sidebar.subheader("1. Optimization Weights")
-cost_weight = st.sidebar.slider("Cost Priority (%)", 0.0, 1.0, 0.4, 0.05)
-time_weight = st.sidebar.slider("Transit & Delay Priority (%)", 0.0, 1.0, 0.3, 0.05)
-co2_weight = st.sidebar.slider("CO2 Emission Priority (%)", 0.0, 1.0, 0.3, 0.05)
+cost_weight = st.sidebar.slider("💰 Cost Priority (%)", 0.0, 1.0, 0.4, 0.05)
+time_weight = st.sidebar.slider("⏱️ Transit & Delay Priority (%)", 0.0, 1.0, 0.3, 0.05)
+co2_weight = st.sidebar.slider("🌱 CO2 Emission Priority (%)", 0.0, 1.0, 0.3, 0.05)
 
 st.sidebar.divider()
 st.sidebar.subheader("2. Crisis Scenario Simulation")
@@ -67,31 +69,115 @@ else:
     # PuLP Optimizasyon Motoru
     optimal_route = optimize_supply_chain(filtered_df, cost_weight, time_weight, co2_weight)
 
-    # KPI GÖSTERGELERİ
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Selected Optimal Route", optimal_route["Shipment_ID"])
-    col2.metric("Optimal Transport Mode", optimal_route["Transport_Mode"])
-    col3.metric("Total Cost", f"${optimal_route['Base_Cost_USD']:,.2f}")
-    col4.metric("CO2 Footprint", f"{optimal_route['CO2_Emissions_Tons']} Tons")
+    # --- ROTA DETAY KARTI (NEREDEN NEREYE & ZAMAN TAHMİNİ) ---
+    st.subheader("📍 Active Optimal Corridor & Detailed ETA Breakdown")
+    
+    st.markdown(f"### 🚀 **{optimal_route['Origin_Name']}** ➡️ **{optimal_route['Destination_Name']}**")
+    
+    total_eta = round(optimal_route['Transit_Days'] + optimal_route['Delay_Days'], 1)
+    
+    m_col1, m_col2, m_col3, m_col4, m_col5 = st.columns(5)
+    m_col1.metric("Selected Route ID", optimal_route["Shipment_ID"])
+    m_col2.metric("Transport Mode", optimal_route["Transport_Mode"])
+    m_col3.metric("Base Transit Time", f"{optimal_route['Transit_Days']} Days")
+    m_col4.metric("AI Predicted Delay", f"+{optimal_route['Delay_Days']} Days")
+    m_col5.metric("Total ETA (Arrival Time)", f"{total_eta} Days", delta=f"{optimal_route['Delay_Days']} Days Delay", delta_color="inverse")
 
     st.divider()
 
-    # GRAFİKLER VE HARİTA
+    # --- STRATEJİK SENARYO KARŞILAŞTIRMASI (C-LEVEL CONTROLS NEDEN ÖNEMLİ?) ---
+    st.subheader("⚖️ Strategic Scenario Benchmark (C-Level Trade-off Analysis)")
+    st.caption("Aşağıdaki tablo, sizin seçtiğiniz stratejik ağırlıklar ile alternatif stratejilerin karşılaştırmasını gösterir:")
+
+    # Alternatif Senaryolar
+    pure_cost_route = optimize_supply_chain(filtered_df, cost_weight=1.0, time_weight=0.0, co2_weight=0.0)
+    pure_time_route = optimize_supply_chain(filtered_df, cost_weight=0.0, time_weight=1.0, co2_weight=0.0)
+    pure_co2_route  = optimize_supply_chain(filtered_df, cost_weight=0.0, time_weight=0.0, co2_weight=1.0)
+
+    comparison_data = [
+        {
+            "Strategy": "🎯 CEO Custom Strategy (Your Selection)",
+            "Mode": optimal_route["Transport_Mode"],
+            "Total Cost ($)": f"${optimal_route['Base_Cost_USD']:,.2f}",
+            "Total ETA (Days)": f"{total_eta} Days",
+            "CO2 Emissions": f"{optimal_route['CO2_Emissions_Tons']} Tons"
+        },
+        {
+            "Strategy": "💵 Pure Cost Optimization (Lowest Price)",
+            "Mode": pure_cost_route["Transport_Mode"],
+            "Total Cost ($)": f"${pure_cost_route['Base_Cost_USD']:,.2f}",
+            "Total ETA (Days)": f"{round(pure_cost_route['Transit_Days'] + pure_cost_route['Delay_Days'], 1)} Days",
+            "CO2 Emissions": f"{pure_cost_route['CO2_Emissions_Tons']} Tons"
+        },
+        {
+            "Strategy": "⚡ Fastest Delivery (Minimum Delay)",
+            "Mode": pure_time_route["Transport_Mode"],
+            "Total Cost ($)": f"${pure_time_route['Base_Cost_USD']:,.2f}",
+            "Total ETA (Days)": f"{round(pure_time_route['Transit_Days'] + pure_time_route['Delay_Days'], 1)} Days",
+            "CO2 Emissions": f"{pure_time_route['CO2_Emissions_Tons']} Tons"
+        },
+        {
+            "Strategy": "🌱 Green / Low Emission (ESG Target)",
+            "Mode": pure_co2_route["Transport_Mode"],
+            "Total Cost ($)": f"${pure_co2_route['Base_Cost_USD']:,.2f}",
+            "Total ETA (Days)": f"{round(pure_co2_route['Transit_Days'] + pure_co2_route['Delay_Days'], 1)} Days",
+            "CO2 Emissions": f"{pure_co2_route['CO2_Emissions_Tons']} Tons"
+        }
+    ]
+    st.table(pd.DataFrame(comparison_data))
+
+    st.divider()
+
+    # --- CANLI ROTA HARİTASI (ÇİZGİSEL VE MODA GÖRE STİL) ---
     col_left, col_right = st.columns([2, 1])
 
     with col_left:
-        st.subheader("🌐 Global Route & Risk Map Visualizer")
-        fig_map = px.scatter_geo(
-            filtered_df,
-            lat="Origin_Lat",
-            lon="Origin_Lon",
-            hover_name="Origin_Name",
-            size="Distance_KM",
-            color="Geopolitical_Risk",
-            projection="natural earth",
-            title="Global Logistics Hubs & Active Risk Profiles"
+        st.subheader("🌐 Interactive Global Route Trajectory Visualizer")
+        
+        fig = go.Figure()
+
+        # Tüm Çıkış ve Varış Noktaları (Arka plan)
+        fig.add_trace(go.Scattergeo(
+            lon = filtered_df['Origin_Lon'].tolist() + filtered_df['Destination_Lon'].tolist(),
+            lat = filtered_df['Origin_Lat'].tolist() + filtered_df['Destination_Lat'].tolist(),
+            hovertext = filtered_df['Origin_Name'].tolist() + filtered_df['Destination_Name'].tolist(),
+            mode = 'markers',
+            marker = dict(size=8, color='gray', opacity=0.5),
+            name = "Logistics Hubs"
+        ))
+
+        # Modlara Göre Çizgi Stilleri ve Renkler
+        mode_styles = {
+            "Air Freight": {"color": "#ef553b", "dash": "dash", "width": 2},
+            "Sea Freight": {"color": "#00cc96", "dash": "solid", "width": 4},
+            "Rail Freight": {"color": "#ab63fa", "dash": "dot", "width": 3},
+            "Road Freight": {"color": "#ffa15a", "dash": "solid", "width": 3}
+        }
+
+        # Seçilen Optimal Rotayı Çiz
+        opt_mode = optimal_route["Transport_Mode"]
+        style = mode_styles.get(opt_mode, {"color": "red", "dash": "solid", "width": 3})
+
+        fig.add_trace(go.Scattergeo(
+            lon = [optimal_route["Origin_Lon"], optimal_route["Destination_Lon"]],
+            lat = [optimal_route["Origin_Lat"], optimal_route["Destination_Lat"]],
+            mode = 'lines+markers',
+            line = dict(width=style["width"], color=style["color"], dash=style["dash"]),
+            marker = dict(size=12, color=style["color"]),
+            name = f"OPTIMAL: {optimal_route['Origin_Name']} ➡️ {optimal_route['Destination_Name']} ({opt_mode})"
+        ))
+
+        fig.update_layout(
+            geo = dict(
+                projection_type = 'natural earth',
+                showland = True,
+                landcolor = 'rgb(243, 243, 243)',
+                countrycolor = 'rgb(204, 204, 204)'
+            ),
+            margin = dict(l=0, r=0, t=30, b=0),
+            height = 450
         )
-        st.plotly_chart(fig_map, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)
 
     with col_right:
         st.subheader("📊 Transport Mode Cost Trade-Off")
@@ -108,7 +194,7 @@ else:
 
     # ML GECİKME TAHMİNCİSİ
     st.subheader("🤖 Real-Time ML Delay Predictor")
-    st.caption("Parametreleri değiştirerek Makine Öğrenmesi modelinin tahmini gecikmesini test edin:")
+    st.caption("Operasyonel senaryolara göre Makine Öğrenmesi modelinin gecikme tahminini test edin:")
     
     p_col1, p_col2, p_col3, p_col4 = st.columns(4)
     mode_input = p_col1.selectbox("Transport Mode", df["Transport_Mode"].unique())
@@ -148,6 +234,6 @@ else:
         f"the engine identifies **{ship_id}** via **{t_mode}** as the optimal resilient route connecting **{o_name}** to **{d_name}**.\n\n"
         f"- **Financial Impact:** Operational cost maintained at **${cost_val:,.2f}**.\n"
         f"- **ESG Compliance:** Carbon emissions reduced/optimized to **{co2_val} Tons**.\n"
-        f"- **Disruption Strategy:** Rerouted away from high-risk corridors while absorbing a predicted delay of **{delay_val} days**."
+        f"- **Disruption Strategy:** Rerouted away from high-risk corridors while absorbing a predicted delay of **{delay_val} days** (Total ETA: **{total_eta} Days**)."
     )
     st.success(summary_text)
