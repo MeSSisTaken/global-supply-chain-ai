@@ -239,7 +239,7 @@ def calculate_chokepoint_impact(origin, destination, mode, blocked_chokepoints):
     return total_extra_km, total_extra_days, total_extra_cost, is_affected
 
 
-def generate_multimodal_routes(origin, destination, cargo_val, wacc, blocked_chokepoints=[]):
+def generate_multimodal_routes(origin, destination, cargo_val, wacc, carbon_tax_rate, blocked_chokepoints=[]):
     orig_info = GLOBAL_HUBS_DB[origin]
     dest_info = GLOBAL_HUBS_DB[destination]
     direct_dist = haversine(orig_info["lat"], orig_info["lon"], dest_info["lat"], dest_info["lon"])
@@ -286,9 +286,14 @@ def generate_multimodal_routes(origin, destination, cargo_val, wacc, blocked_cho
     total_transit_days = round(seg1_days + hub_transshipment_dwell + seg2_days + extra_days, 1)
     base_cost = round((best_d1 * 0.45) + (best_d2 * 0.75) + 500.0 + extra_cost, 2)
 
-    # 🔥 FEATURE 1: Stok Elde Tutma Maliyeti Hesabı
+    # FEATURE 1: Stok Elde Tutma Maliyeti
     holding_cost = round(cargo_val * (wacc / 100.0) * (total_transit_days / 365.0), 2)
-    total_landed_cost = round(base_cost + holding_cost, 2)
+    
+    # 🔥 FEATURE 2: EU ETS & Karbon Vergisi Hesabı
+    co2_tons = round((best_d1 * 0.00012) + (best_d2 * 0.00025), 2)
+    carbon_tax_cost = round(co2_tons * carbon_tax_rate, 2)
+    
+    total_landed_cost = round(base_cost + holding_cost + carbon_tax_cost, 2)
 
     return pd.DataFrame([{
         "Shipment_ID": f"MULTI-{origin[:3]}-{best_hub[:3]}-{destination[:3]}".upper(),
@@ -305,9 +310,10 @@ def generate_multimodal_routes(origin, destination, cargo_val, wacc, blocked_cho
         "Distance_KM": round(total_dist, 1),
         "Base_Cost_USD": base_cost,
         "Inventory_Holding_Cost_USD": holding_cost,
+        "Carbon_Tax_USD": carbon_tax_cost,
         "Total_Landed_Cost_USD": total_landed_cost,
         "Transit_Days": total_transit_days,
-        "CO2_Emissions_Tons": round((best_d1 * 0.00012) + (best_d2 * 0.00025), 2),
+        "CO2_Emissions_Tons": co2_tons,
         "Geopolitical_Risk": "High" if is_choked else "Low",
         "Weather_Condition": "Clear",
         "Port_Congestion_Index": 6.5 if is_choked else 4.0,
@@ -345,11 +351,16 @@ selected_origin = st.sidebar.selectbox("1. Çıkış Noktası (Origin):", option
 dest_options = [h for h in all_hub_names if h != selected_origin]
 selected_dest = st.sidebar.selectbox("2. Varış Noktası (Destination):", options=dest_options, index=min(1, len(dest_options) - 1))
 
-# 🔥 FEATURE 1 SIDEBAR INPUTS: Yük Değeri ve Sermaye Maliyeti Oranı
+# FEATURE 1 SIDEBAR INPUTS: Yük Değeri ve Sermaye Maliyeti Oranı
 st.sidebar.divider()
 st.sidebar.header("📦 Cargo & Financial Parameters")
 cargo_value = st.sidebar.number_input("Cargo Value ($):", min_value=1000, value=500000, step=25000, help="Taşınan yükün toplam piyasa değeri.")
 wacc_rate = st.sidebar.slider("Annual Holding / WACC Rate (%):", 1.0, 30.0, 15.0, 0.5, help="Yıllık stok elde tutma / sermaye maliyeti oranı.")
+
+# 🔥 FEATURE 2 SIDEBAR INPUTS: EU ETS Karbon Vergisi ($/Ton)
+st.sidebar.divider()
+st.sidebar.header("🌱 ESG & EU ETS Carbon Tax")
+carbon_tax_rate = st.sidebar.number_input("Carbon Tax / EU ETS ($/Ton CO2):", min_value=0.0, value=85.0, step=5.0, help="Ton başına uygulanan Karbon Vergisi veya EU ETS ceza maliyeti.")
 
 st.sidebar.divider()
 st.sidebar.header("🎯 C-Level Strategy Priorities")
@@ -381,9 +392,14 @@ for m in feasible_modes:
     transit_days = round((pure_travel_hours / 24) + cfg["fixed_op_days"] + extra_days, 1)
     base_cost = round((actual_distance * cfg["cost_per_km"]) + extra_cost, 2)
 
-    # 🔥 FEATURE 1: Stok Elde Tutma Maliyeti Hesabı
+    # FEATURE 1: Stok Elde Tutma Maliyeti
     holding_cost = round(cargo_value * (wacc_rate / 100.0) * (transit_days / 365.0), 2)
-    total_landed_cost = round(base_cost + holding_cost, 2)
+    
+    # 🔥 FEATURE 2: Karbon Vergisi
+    co2_tons = round(actual_distance * cfg["co2"], 2)
+    carbon_tax_cost = round(co2_tons * carbon_tax_rate, 2)
+    
+    total_landed_cost = round(base_cost + holding_cost + carbon_tax_cost, 2)
 
     candidate_rows.append({
         "Shipment_ID": f"ROUTE-{selected_origin[:3]}-{selected_dest[:3]}-{m[:2]}".upper(),
@@ -397,9 +413,10 @@ for m in feasible_modes:
         "Distance_KM": round(actual_distance, 1),
         "Base_Cost_USD": base_cost,
         "Inventory_Holding_Cost_USD": holding_cost,
+        "Carbon_Tax_USD": carbon_tax_cost,
         "Total_Landed_Cost_USD": total_landed_cost,
         "Transit_Days": transit_days,
-        "CO2_Emissions_Tons": round(actual_distance * cfg["co2"], 2),
+        "CO2_Emissions_Tons": co2_tons,
         "Geopolitical_Risk": "High" if is_choked else "Low",
         "Weather_Condition": "Clear",
         "Port_Congestion_Index": 7.5 if is_choked else 3.5,
@@ -408,11 +425,10 @@ for m in feasible_modes:
 
 route_candidates = pd.DataFrame(candidate_rows)
 
-mm_df = generate_multimodal_routes(selected_origin, selected_dest, cargo_value, wacc_rate, blocked_canals)
+mm_df = generate_multimodal_routes(selected_origin, selected_dest, cargo_value, wacc_rate, carbon_tax_rate, blocked_canals)
 if not mm_df.empty:
     route_candidates = pd.concat([route_candidates, mm_df], ignore_index=True)
 
-# Optimizer güncellenmiş toplam Landed Cost üzerinden çalışır
 optimal_route = optimize_supply_chain(route_candidates, cost_weight, time_weight, co2_weight)
 
 # --- PANEL 1: SEÇİLEN KORİDOR VE ALTYAPI DURUMU ---
@@ -429,13 +445,16 @@ bcol2.caption(
 
 total_eta = round(optimal_route["Transit_Days"] + optimal_route["Delay_Days"], 1)
 
-m1, m2, m3, m4, m5, m6 = st.columns(6)
+m1, m2, m3, m4 = st.columns(4)
 m1.metric("Selected Route ID", optimal_route["Shipment_ID"])
 m2.metric("Optimal Mode", optimal_route["Transport_Mode"])
 m3.metric("Freight Cost", f"${optimal_route['Base_Cost_USD']:,.2f}")
 m4.metric("Inventory Holding Cost", f"${optimal_route['Inventory_Holding_Cost_USD']:,.2f}")
-m5.metric("Total Landed Cost", f"${optimal_route['Total_Landed_Cost_USD']:,.2f}")
-m6.metric("Total Estimated ETA", f"{total_eta} Days")
+
+m5, m6, m7 = st.columns(3)
+m5.metric("EU ETS Carbon Tax", f"${optimal_route['Carbon_Tax_USD']:,.2f}")
+m6.metric("Total Landed Cost", f"${optimal_route['Total_Landed_Cost_USD']:,.2f}")
+m7.metric("Total Estimated ETA", f"{total_eta} Days")
 
 st.divider()
 
@@ -447,6 +466,7 @@ st.table(
         "Distance_KM",
         "Base_Cost_USD",
         "Inventory_Holding_Cost_USD",
+        "Carbon_Tax_USD",
         "Total_Landed_Cost_USD",
         "Transit_Days",
         "CO2_Emissions_Tons",
@@ -525,18 +545,19 @@ with col_left:
     st.plotly_chart(fig, use_container_width=True)
 
 with col_right:
-    st.subheader("📊 Financial Cost Breakdown ($)")
+    st.subheader("📊 Complete Financial Cost Breakdown ($)")
     
-    # Navlun vs Stok Taşıma Maliyeti Kıyaslama Grafiği
+    # 🔥 FEATURE 2: Navlun + Stok Taşıma + Karbon Vergisi Kıyaslama Grafiği
     cost_df = route_candidates.melt(
         id_vars=["Transport_Mode"],
-        value_vars=["Base_Cost_USD", "Inventory_Holding_Cost_USD"],
+        value_vars=["Base_Cost_USD", "Inventory_Holding_Cost_USD", "Carbon_Tax_USD"],
         var_name="Cost_Type",
         value_name="USD"
     )
     cost_df["Cost_Type"] = cost_df["Cost_Type"].replace({
         "Base_Cost_USD": "Freight Cost",
-        "Inventory_Holding_Cost_USD": "Inventory Holding Cost"
+        "Inventory_Holding_Cost_USD": "Inventory Holding Cost",
+        "Carbon_Tax_USD": "EU ETS Carbon Tax"
     })
     
     fig_bar = px.bar(
@@ -544,7 +565,7 @@ with col_right:
         x="Transport_Mode",
         y="USD",
         color="Cost_Type",
-        title="Freight vs. Holding Cost Breakdown",
+        title="Freight vs. Holding vs. Carbon Tax Cost",
         barmode="stack"
     )
     st.plotly_chart(fig_bar, use_container_width=True)
@@ -552,10 +573,10 @@ with col_right:
 st.divider()
 
 # --- PANEL 4: C-LEVEL ÖZET ---
-st.subheader("📝 Executive Financial Summary")
+st.subheader("📝 Executive Financial & ESG Summary")
 if blocked_canals:
     st.warning(f"⚠️ **Chokepoint Active Blockage:** **{', '.join(blocked_canals)}** selected as CLOSED.")
 
 st.success(
-    f"**Recommended Route:** **{selected_origin}** ➔ **{selected_dest}** via **{optimal_route['Transport_Mode']}** | Freight: **${optimal_route['Base_Cost_USD']:,.2f}** | Inventory Holding Cost: **${optimal_route['Inventory_Holding_Cost_USD']:,.2f}** | Total Landed Cost: **${optimal_route['Total_Landed_Cost_USD']:,.2f}** | ETA: **{total_eta} days**."
+    f"**Recommended Route:** **{selected_origin}** ➔ **{selected_dest}** via **{optimal_route['Transport_Mode']}** | Freight: **${optimal_route['Base_Cost_USD']:,.2f}** | Holding: **${optimal_route['Inventory_Holding_Cost_USD']:,.2f}** | Carbon Tax: **${optimal_route['Carbon_Tax_USD']:,.2f}** | Total Landed Cost: **${optimal_route['Total_Landed_Cost_USD']:,.2f}** | ETA: **{total_eta} days**."
 )
