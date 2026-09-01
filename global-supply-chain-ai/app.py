@@ -22,24 +22,157 @@ st.markdown(
 )
 st.divider()
 
+# --- 1. KÜRESEL AKTARMA HUBLARI VE UYGUNLUK FİLTRELERİ ---
+GLOBAL_TRANSSHIPMENT_HUBS = [
+    "Rotterdam, NL",
+    "Hamburg, DE",
+    "Shanghai, CN",
+    "Singapore, SG",
+    "Dubai, AE",
+    "Istanbul, TR",
+    "Los Angeles, US",
+    "New York, US",
+    "Antwerp, BE",
+    "Busan, KR",
+]
 
-# --- 1. OTOMATİK UYGUNLUK FİLTRESİ (200+ HUB DESTEKLİ) ---
+
 def is_north_america(hub_name):
-    """Kuzey Amerika liman/şehirlerini uzantıdan algılar."""
+    """Kuzey Amerika liman/şehirlerini algılar."""
     na_codes = [", US", ", CA", ", MX"]
     return any(hub_name.endswith(code) for code in na_codes)
 
 
 def get_feasible_modes(origin, destination):
-    """Okyanus aşırı rotalarda Demir ve Karayolunu engeller."""
+    """Direkt (tek modlu) rotalarda fiziksel imkansız modları engeller."""
     orig_is_na = is_north_america(origin)
     dest_is_na = is_north_america(destination)
 
-    # Bir uç Kuzey Amerika'da, diğeri başka bir kıtadaysa okyanus aşırıdır
+    # Okyanus aşırı direkt geçişlerde sadece Deniz ve Hava yolu geçerlidir
     if orig_is_na != dest_is_na:
         return ["Air Freight", "Sea Freight"]
 
     return ["Air Freight", "Sea Freight", "Rail Freight", "Road Freight"]
+
+
+def find_best_transshipment_hub(origin, destination):
+    """Origin ve Destination arasındaki en optimum aktarma hub'ını dinamik seçer."""
+    orig_info = next(
+        (h for h in HUBS if h["name"] == origin), {"lat": 41.0, "lon": 28.9}
+    )
+    dest_info = next(
+        (h for h in HUBS if h["name"] == destination),
+        {"lat": 40.7, "lon": -74.0},
+    )
+
+    candidates = [
+        h
+        for h in GLOBAL_TRANSSHIPMENT_HUBS
+        if h != origin and h != destination
+    ]
+    if not candidates:
+        candidates = [
+            h["name"]
+            for h in HUBS
+            if h["name"] != origin and h["name"] != destination
+        ][:5]
+
+    best_hub = None
+    min_dist = float("inf")
+
+    for hub_name in candidates:
+        hub_info = next((h for h in HUBS if h["name"] == hub_name), None)
+        if not hub_info:
+            continue
+        d1 = haversine(
+            orig_info["lat"], orig_info["lon"], hub_info["lat"], hub_info["lon"]
+        )
+        d2 = haversine(
+            hub_info["lat"], hub_info["lon"], dest_info["lat"], dest_info["lon"]
+        )
+        if (d1 + d2) < min_dist:
+            min_dist = d1 + d2
+            best_hub = hub_name
+
+    return best_hub if best_hub else "Rotterdam, NL"
+
+
+def generate_multimodal_routes(origin, destination):
+    """DÜNYADAKİ HER YER İÇİN dinamik Multimodal (Karma) Rotalar üretir."""
+    hub_name = find_best_transshipment_hub(origin, destination)
+
+    orig_info = next(h for h in HUBS if h["name"] == origin)
+    hub_info = next(h for h in HUBS if h["name"] == hub_name)
+    dest_info = next(h for h in HUBS if h["name"] == destination)
+
+    dist_leg1 = haversine(
+        orig_info["lat"], orig_info["lon"], hub_info["lat"], hub_info["lon"]
+    )
+    dist_leg2 = haversine(
+        hub_info["lat"], hub_info["lon"], dest_info["lat"], dest_info["lon"]
+    )
+    total_dist = dist_leg1 + dist_leg2
+
+    orig_is_na = is_north_america(origin)
+    dest_is_na = is_north_america(destination)
+    hub_is_na = is_north_america(hub_name)
+
+    multimodal_candidates = []
+
+    # Senaryo A: Karasal/Demiryolu ➔ Hub ➔ Deniz/Havayolu (Veya tersi)
+    leg1_mode = "Rail Freight" if orig_is_na == hub_is_na else "Sea Freight"
+    leg2_mode = "Sea Freight" if hub_is_na != dest_is_na else "Rail Freight"
+
+    if leg1_mode == "Rail Freight" and leg2_mode == "Rail Freight":
+        leg2_mode = "Road Freight"  # Çeşitlilik sağla
+
+    # Birim maliyet ve süre katsayıları
+    rates = {
+        "Air Freight": (2.1, 750, 0.0006),
+        "Sea Freight": (0.25, 35, 0.00008),
+        "Rail Freight": (0.55, 60, 0.00018),
+        "Road Freight": (0.95, 70, 0.00035),
+    }
+
+    c1, s1, co1 = rates[leg1_mode]
+    c2, s2, co2 = rates[leg2_mode]
+
+    cost = (dist_leg1 * c1) + (dist_leg2 * c2) + 350.0  # +$350 Aktarma Liman Ücreti
+    days = (dist_leg1 / (s1 * 24)) + (
+        dist_leg2 / (s2 * 24)
+    ) + 1.2  # +1.2 Gün Liman Aktarma Süresi
+    co2_total = (dist_leg1 * co1) + (dist_leg2 * co2)
+
+    mode_label = (
+        f"Multimodal ({leg1_mode.split()[0]} ➔ {hub_name.split(',')[0]} ➔"
+        f" {leg2_mode.split()[0]})"
+    )
+
+    multimodal_candidates.append({
+        "Shipment_ID": (
+            f"MULTI-{origin[:3]}-{hub_name[:3]}-{destination[:3]}".upper()
+        ),
+        "Origin_Name": origin,
+        "Origin_Lat": orig_info["lat"],
+        "Origin_Lon": orig_info["lon"],
+        "Destination_Name": destination,
+        "Destination_Lat": dest_info["lat"],
+        "Destination_Lon": dest_info["lon"],
+        "Hub_Name": hub_name,
+        "Hub_Lat": hub_info["lat"],
+        "Hub_Lon": hub_info["lon"],
+        "Transport_Mode": mode_label,
+        "Distance_KM": round(total_dist, 1),
+        "Base_Cost_USD": round(cost, 2),
+        "Transit_Days": round(days, 1) if round(days, 1) > 0.5 else 0.5,
+        "CO2_Emissions_Tons": round(co2_total, 2),
+        "Geopolitical_Risk": "Low",
+        "Weather_Condition": "Clear",
+        "Port_Congestion_Index": 5.0,
+        "Delay_Days": 1.2,
+    })
+
+    return pd.DataFrame(multimodal_candidates)
 
 
 # --- 2. VERİ VE MODEL YÜKLEME ---
@@ -114,7 +247,7 @@ risk_filter = st.sidebar.multiselect(
     default=df["Geopolitical_Risk"].unique(),
 )
 
-# --- 4. ROTA VE MOD FİLTRELEME ---
+# --- 4. ROTA VE MOD FİLTRELEME & DİNAMİK MULTIMODAL EKLEME ---
 feasible_modes = get_feasible_modes(selected_origin, selected_dest)
 
 route_candidates = df[
@@ -124,7 +257,7 @@ route_candidates = df[
     & (df["Geopolitical_Risk"].isin(risk_filter))
 ].reset_index(drop=True)
 
-# Seçilen noktalar arasında veri yoksa dinamik oluştur (yalnızca uygun modlarla)
+# Seçilen noktalar arası veri yoksa tekli modları üret
 if route_candidates.empty:
     orig_info = next(h for h in HUBS if h["name"] == selected_origin)
     dest_info = next(h for h in HUBS if h["name"] == selected_dest)
@@ -171,6 +304,13 @@ if route_candidates.empty:
         })
     route_candidates = pd.DataFrame(dyn_rows)
 
+# HER YER İÇİN MULTIMODAL ALTERNATİFİ EKLE
+mm_df = generate_multimodal_routes(selected_origin, selected_dest)
+if not mm_df.empty:
+    route_candidates = pd.concat(
+        [route_candidates, mm_df], ignore_index=True
+    )
+
 # Optimizasyonu Çalıştır
 optimal_route = optimize_supply_chain(
     route_candidates, cost_weight, time_weight, co2_weight
@@ -202,7 +342,7 @@ st.divider()
 st.subheader("⚖️ Strategic Scenario Benchmark for Selected Route")
 st.caption(
     "Seçtiğiniz bu koridorda farklı stratejilere göre yapay zeka tarafından"
-    " önerilen taşıma modları:"
+    " önerilen taşıma modları (Multimodal Dahil):"
 )
 
 pure_cost_route = optimize_supply_chain(
@@ -262,6 +402,7 @@ with col_left:
     st.subheader("🌐 Trajectory Map Visualizer")
     fig = go.Figure()
 
+    # Tüm Hub Noktaları
     fig.add_trace(
         go.Scattergeo(
             lon=df["Origin_Lon"].tolist(),
@@ -273,31 +414,44 @@ with col_left:
         )
     )
 
-    mode_styles = {
-        "Air Freight": {"color": "#ef553b", "dash": "dash", "width": 3},
-        "Sea Freight": {"color": "#00cc96", "dash": "solid", "width": 5},
-        "Rail Freight": {"color": "#ab63fa", "dash": "dot", "width": 4},
-        "Road Freight": {"color": "#ffa15a", "dash": "solid", "width": 4},
-    }
-
-    opt_mode = optimal_route["Transport_Mode"]
-    style = mode_styles.get(
-        opt_mode, {"color": "red", "dash": "solid", "width": 4}
-    )
+    # Rota Koordinatları (Multimodal ise Hub üzerinden geçer)
+    if "Hub_Lat" in optimal_route and pd.notnull(optimal_route.get("Hub_Lat")):
+        route_lons = [
+            optimal_route["Origin_Lon"],
+            optimal_route["Hub_Lon"],
+            optimal_route["Destination_Lon"],
+        ]
+        route_lats = [
+            optimal_route["Origin_Lat"],
+            optimal_route["Hub_Lat"],
+            optimal_route["Destination_Lat"],
+        ]
+        route_label = (
+            f"OPTIMAL MULTIMODAL ROUTE: {selected_origin} ➔"
+            f" {optimal_route['Hub_Name']} ➔ {selected_dest}"
+        )
+    else:
+        route_lons = [
+            optimal_route["Origin_Lon"],
+            optimal_route["Destination_Lon"],
+        ]
+        route_lats = [
+            optimal_route["Origin_Lat"],
+            optimal_route["Destination_Lat"],
+        ]
+        route_label = (
+            f"OPTIMAL ROUTE: {selected_origin} ➡️ {selected_dest}"
+            f" ({optimal_route['Transport_Mode']})"
+        )
 
     fig.add_trace(
         go.Scattergeo(
-            lon=[optimal_route["Origin_Lon"], optimal_route["Destination_Lon"]],
-            lat=[optimal_route["Origin_Lat"], optimal_route["Destination_Lat"]],
+            lon=route_lons,
+            lat=route_lats,
             mode="lines+markers",
-            line=dict(
-                width=style["width"], color=style["color"], dash=style["dash"]
-            ),
-            marker=dict(size=12, color=style["color"]),
-            name=(
-                f"OPTIMAL ROUTE: {selected_origin} ➡️ {selected_dest}"
-                f" ({opt_mode})"
-            ),
+            line=dict(width=4, color="#ab63fa", dash="dashdot"),
+            marker=dict(size=10, color="#ef553b"),
+            name=route_label,
         )
     )
 
@@ -329,8 +483,9 @@ st.divider()
 # --- PANEL 4: ANLIK GECİKME TAHMİNİ ---
 st.subheader("🤖 Real-Time ML Delay Predictor")
 
+available_predict_modes = route_candidates["Transport_Mode"].tolist()
 p_col1, p_col2, p_col3, p_col4 = st.columns(4)
-mode_input = p_col1.selectbox("Transport Mode", feasible_modes)
+mode_input = p_col1.selectbox("Transport Mode", available_predict_modes)
 weather_input = p_col2.selectbox(
     "Weather Condition", df["Weather_Condition"].unique()
 )
@@ -342,7 +497,9 @@ dist_input = p_col4.number_input(
 )
 
 sample_to_predict = {
-    "Transport_Mode": mode_input,
+    "Transport_Mode": (
+        mode_input if "Multimodal" not in mode_input else "Rail Freight"
+    ),
     "Weather_Condition": weather_input,
     "Geopolitical_Risk": geo_input,
     "Distance_KM": dist_input,
@@ -366,8 +523,9 @@ summary_text = (
     f" weights (Cost: **{c_pct}%**, Time: **{t_pct}%**, CO2: **{co2_pct}%**),"
     f" the engine selects **{optimal_route['Shipment_ID']}** via"
     f" **{optimal_route['Transport_Mode']}**.\n\n"
-    f"- **Distance & Cost:** Distance of **{optimal_route['Distance_KM']} KM**"
-    f" with total base cost **${optimal_route['Base_Cost_USD']:,.2f}**.\n"
+    f"- **Distance & Cost:** Total journey of **{optimal_route['Distance_KM']}"
+    f" KM** with total estimated base cost"
+    f" **${optimal_route['Base_Cost_USD']:,.2f}**.\n"
     f"- **ETA & Reliability:** Base transit time **{optimal_route['Transit_Days']}"
     f" days** + **{optimal_route['Delay_Days']} days predicted delay** (Total"
     f" ETA: **{total_eta} Days**).\n"
