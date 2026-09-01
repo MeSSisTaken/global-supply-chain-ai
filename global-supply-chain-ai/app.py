@@ -401,34 +401,33 @@ GLOBAL_HUBS_DB = {
     },
 }
 
-# --- 2. GERÇEKÇİ 24 SAATLİK SEYİR HIZLARI VE LİMAN PARAMETRELERİ ---
 MODE_CONFIGS = {
     "Air Freight": {
         "cost_per_km": 2.10,
-        "effective_speed_kmh": 350,  # Uçuş + kargo terminal elleçleme ortalaması
+        "effective_speed_kmh": 350,
         "circuity": 1.10,
-        "fixed_op_days": 1.5,  # Gümrük ve terminal kabul
+        "fixed_op_days": 1.5,
         "co2": 0.0006,
     },
     "Road Freight": {
         "cost_per_km": 0.95,
-        "effective_speed_kmh": 25,  # Takograf ve sürücü dinlenme limitli 24h net (600 km/gün)
+        "effective_speed_kmh": 25,
         "circuity": 1.30,
-        "fixed_op_days": 1.0,  # Yükleme ve çıkış gümrük
+        "fixed_op_days": 1.0,
         "co2": 0.00035,
     },
     "Rail Freight": {
         "cost_per_km": 0.55,
-        "effective_speed_kmh": 20,  # Gar, aktarma ve hat değişimi dahil (480 km/gün)
+        "effective_speed_kmh": 20,
         "circuity": 1.35,
-        "fixed_op_days": 2.0,  # Katar hazırlık ve gümrük
+        "fixed_op_days": 2.0,
         "co2": 0.00018,
     },
     "Sea Freight": {
         "cost_per_km": 0.25,
-        "effective_speed_kmh": 22,  # ~12 Knot konteyner gemisi net seyri (528 km/gün)
+        "effective_speed_kmh": 22,
         "circuity": 1.40,
-        "fixed_op_days": 4.5,  # Çıkış ve varış limanı berthing/unloading operasyonu
+        "fixed_op_days": 4.5,
         "co2": 0.00008,
     },
 }
@@ -442,9 +441,9 @@ CHOKEPOINTS_DB = {
             ("EU", "SA"),
             ("EU", "AF"),
         ],
-        "detour_km": 5200,
-        "detour_days": 9.5,
-        "cost_penalty": 3100,
+        "detour_km": 11500,  # Afrika etrafından dolaşma mesafesi (Cape of Good Hope detour)
+        "detour_days": 18.0,
+        "cost_penalty": 4200,
     },
     "Suez Canal (Egypt)": {
         "affected_regions": [
@@ -500,8 +499,17 @@ CHOKEPOINTS_DB = {
     },
 }
 
+# --- MARİTİME HASSAS BÖLGE TANIMLARI ---
+MED_BLACK_SEA_HUBS = {"Istanbul, TR", "Piraeus, GR", "Alexandria, EG"}
+NORTH_ATLANTIC_EU_HUBS = {
+    "Rotterdam, NL",
+    "Hamburg, DE",
+    "Antwerp, BE",
+    "London, GB",
+}
 
-# --- 3. DİNAMİK ALTYAPI VE ETA MOTORU ---
+
+# --- 3. DİNAMİK ALTYAPI VE KRİZ KONTROL DİZGELERİ ---
 def get_infrastructure_supported_modes(origin, destination):
     orig = GLOBAL_HUBS_DB.get(
         origin,
@@ -553,15 +561,43 @@ def calculate_chokepoint_impact(
 
     for cp_name in blocked_chokepoints:
         cp_info = CHOKEPOINTS_DB.get(cp_name, {})
-        affected_pairs = cp_info.get("affected_regions", [])
-        if (orig_cont, dest_cont) in affected_pairs or (
-            dest_cont,
-            orig_cont,
-        ) in affected_pairs:
-            total_extra_km += cp_info["detour_km"]
-            total_extra_days += cp_info["detour_days"]
-            total_extra_cost += cp_info["cost_penalty"]
-            is_affected = True
+
+        # Cebelitarık Özel Akdeniz <-> Kuzey Avrupa/Amerika Deniz Rotası Kontrolü
+        if cp_name == "Strait of Gibraltar (ES/MA)":
+            is_med_to_north_sea = (
+                origin in MED_BLACK_SEA_HUBS
+                and destination in NORTH_ATLANTIC_EU_HUBS
+            ) or (
+                destination in MED_BLACK_SEA_HUBS
+                and origin in NORTH_ATLANTIC_EU_HUBS
+            )
+            is_cross_continent = (
+                orig_cont,
+                dest_cont,
+            ) in cp_info.get(
+                "affected_regions", []
+            ) or (
+                dest_cont,
+                orig_cont,
+            ) in cp_info.get(
+                "affected_regions", []
+            )
+
+            if is_med_to_north_sea or is_cross_continent:
+                total_extra_km += cp_info["detour_km"]
+                total_extra_days += cp_info["detour_days"]
+                total_extra_cost += cp_info["cost_penalty"]
+                is_affected = True
+        else:
+            affected_pairs = cp_info.get("affected_regions", [])
+            if (orig_cont, dest_cont) in affected_pairs or (
+                dest_cont,
+                orig_cont,
+            ) in affected_pairs:
+                total_extra_km += cp_info["detour_km"]
+                total_extra_days += cp_info["detour_days"]
+                total_extra_cost += cp_info["cost_penalty"]
+                is_affected = True
 
     return total_extra_km, total_extra_days, total_extra_cost, is_affected
 
@@ -601,18 +637,16 @@ def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
 
     hub_info = GLOBAL_HUBS_DB[best_hub]
 
-    # Etap 1 Fiziksel Modu (Kıta farkı veya Akdeniz/Deniz aşırı geçiş kontrolü)
     if (
         orig_info["continent"] != hub_info["continent"]
         or not orig_info["has_rail"]
     ):
-        seg1_speed = 22.0  # Deniz hızı (km/s)
-        seg1_op = 2.0  # Çıkış liman operasyonu (Gün)
+        seg1_speed = 22.0
+        seg1_op = 2.0
     else:
-        seg1_speed = 25.0  # Karayolu hızı (km/s)
+        seg1_speed = 25.0
         seg1_op = 1.0
 
-    # Etap 2 Fiziksel Modu
     if hub_info["continent"] != dest_info["continent"]:
         seg2_speed = 22.0
         seg2_op = 2.0
@@ -622,9 +656,7 @@ def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
 
     seg1_days = ((best_d1 * 1.3) / (seg1_speed * 24)) + seg1_op
     seg2_days = ((best_d2 * 1.3) / (seg2_speed * 24)) + seg2_op
-    hub_transshipment_dwell = (
-        2.5  # Hub limanında gemiden indirme/sahada bekleme/yükleme
-    )
+    hub_transshipment_dwell = 2.5
 
     extra_km, extra_days, extra_cost, is_choked = calculate_chokepoint_impact(
         best_hub, destination, "Sea Freight", blocked_chokepoints
