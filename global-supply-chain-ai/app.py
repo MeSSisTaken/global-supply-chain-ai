@@ -19,15 +19,6 @@ st.title("🌍 Global Multi-Modal Supply Chain Resilience & ESG Engine")
 st.markdown("**Enterprise AI Platform** | Real-Time Route Optimization, ML Delay Forecasting & Emissions Control")
 st.divider()
 
-# --- 1. DOSYANIN ÜST KISMI (Fonksiyon Tanımları) ---
-LOCATION_CONTINENTS = {
-    "Istanbul, TR": "Europe_Asia",
-    "Hamburg, DE": "Europe_Asia",
-    "New York, US": "North_America",
-    "Shanghai, CN": "Europe_Asia",
-}
-
-
 def get_feasible_modes(origin, destination):
     origin_cont = LOCATION_CONTINENTS.get(origin)
     dest_cont = LOCATION_CONTINENTS.get(destination)
