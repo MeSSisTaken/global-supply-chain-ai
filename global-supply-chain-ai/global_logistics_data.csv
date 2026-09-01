@@ -1,0 +1,501 @@
+Shipment_ID,Origin_Name,Origin_Lat,Origin_Lon,Destination_Name,Destination_Lat,Destination_Lon,Transport_Mode,Distance_KM,Base_Cost_USD,Transit_Days,Delay_Days,CO2_Emissions_Tons,Weather_Condition,Geopolitical_Risk,Port_Congestion_Index
+GLOBAL-EXP-10001,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Sea Freight,11549.6,12844.12,25.9,0.0,0.57,Clear,Medium,4.0
+GLOBAL-EXP-10002,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,15319.08,46631.12,16.1,13.0,1.62,Clear,High (Suez Crisis),5.7
+GLOBAL-EXP-10003,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Sea Freight,2746.65,4069.52,16.9,0.0,0.13,Clear,Low,6.6
+GLOBAL-EXP-10004,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,11720.72,31900.06,12.0,0.0,2.43,Clear,Low,9.7
+GLOBAL-EXP-10005,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Sea Freight,5856.41,7486.15,26.5,0.0,0.31,Clear,Low,2.6
+GLOBAL-EXP-10006,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,10321.09,54908.87,2.7,0.0,11.29,Minor Storm,Low,8.0
+GLOBAL-EXP-10007,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,7224.65,38692.82,2.9,10.8,7.89,Severe Typhoon,Medium,7.7
+GLOBAL-EXP-10008,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,10683.14,28665.01,14.1,0.0,1.8,Clear,Low,9.9
+GLOBAL-EXP-10009,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Road Freight,5181.48,17745.24,9.5,0.0,1.0,Clear,Low,9.3
+GLOBAL-EXP-10010,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,7294.37,18838.62,9.3,9.8,1.31,Severe Typhoon,Low,6.7
+GLOBAL-EXP-10011,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,15582.62,27457.11,33.0,10.4,0.74,Clear,Extreme (Chokepoint Blocked),7.4
+GLOBAL-EXP-10012,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Road Freight,12182.57,35434.98,14.2,0.0,2.51,Clear,Low,3.2
+GLOBAL-EXP-10013,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,11581.85,44306.95,17.1,13.0,1.38,Clear,High (Suez Crisis),1.9
+GLOBAL-EXP-10014,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Road Freight,10629.48,50937.06,14.4,11.1,1.91,Clear,High (Suez Crisis),3.1
+GLOBAL-EXP-10015,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,4634.49,14804.04,7.8,0.0,0.91,Clear,Low,3.4
+GLOBAL-EXP-10016,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,13248.3,32277.58,18.7,0.0,1.71,Clear,Low,3.3
+GLOBAL-EXP-10017,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,6268.5,12555.18,24.0,13.5,0.28,Clear,Extreme (Chokepoint Blocked),6.7
+GLOBAL-EXP-10018,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Sea Freight,5872.88,10072.98,28.8,17.3,0.28,Clear,Extreme (Chokepoint Blocked),4.3
+GLOBAL-EXP-10019,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Air Freight,14773.52,69820.79,3.9,0.0,15.35,Clear,Medium,8.7
+GLOBAL-EXP-10020,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,5623.93,18776.76,7.4,0.0,1.1,Clear,Low,4.5
+GLOBAL-EXP-10021,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,5345.15,6302.0,27.1,0.0,0.25,Minor Storm,Medium,2.6
+GLOBAL-EXP-10022,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Road Freight,3489.64,12794.36,8.5,0.0,0.68,Clear,Low,4.1
+GLOBAL-EXP-10023,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,8472.13,30958.02,12.5,0.0,1.75,Minor Storm,Medium,8.1
+GLOBAL-EXP-10024,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Air Freight,12616.03,56867.91,2.9,0.0,12.74,Clear,Low,7.2
+GLOBAL-EXP-10025,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Sea Freight,9902.3,9161.37,27.9,0.0,0.52,Clear,Low,7.5
+GLOBAL-EXP-10026,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Road Freight,6243.24,17588.37,11.1,0.0,1.14,Clear,Low,9.0
+GLOBAL-EXP-10027,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,12702.78,73628.53,3.0,0.0,12.7,Clear,Low,6.1
+GLOBAL-EXP-10028,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Road Freight,17262.86,85979.16,17.9,19.3,2.86,Clear,High (Suez Crisis),4.9
+GLOBAL-EXP-10029,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,6891.15,15361.02,10.9,7.0,0.79,Heavy Snow,Low,4.6
+GLOBAL-EXP-10030,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Rail Freight,11840.12,37747.05,13.6,0.0,1.37,Clear,Low,8.9
+GLOBAL-EXP-10031,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Sea Freight,10845.12,10927.08,29.9,0.0,0.52,Clear,Medium,6.5
+GLOBAL-EXP-10032,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Rail Freight,12399.42,35243.63,17.2,0.0,1.57,Clear,Medium,4.0
+GLOBAL-EXP-10033,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Air Freight,7250.44,34313.17,3.9,0.0,7.74,Clear,Low,8.7
+GLOBAL-EXP-10034,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,4032.97,21307.64,3.0,0.0,3.8,Minor Storm,Low,6.6
+GLOBAL-EXP-10035,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Sea Freight,13192.2,11831.38,28.5,0.0,0.72,Clear,Low,7.4
+GLOBAL-EXP-10036,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,3255.3,8245.54,8.6,0.0,0.66,Clear,Low,7.3
+GLOBAL-EXP-10037,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Air Freight,5836.6,27086.54,2.1,9.1,6.34,Severe Typhoon,Low,5.7
+GLOBAL-EXP-10038,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,5963.7,6257.0,28.8,0.0,0.27,Minor Storm,Low,2.0
+GLOBAL-EXP-10039,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,4805.28,5267.64,27.5,13.5,0.26,Clear,Extreme (Chokepoint Blocked),5.2
+GLOBAL-EXP-10040,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,2724.86,13793.04,2.6,0.0,2.73,Minor Storm,Low,8.7
+GLOBAL-EXP-10041,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Road Freight,17108.03,83776.87,18.8,16.8,3.44,Minor Storm,High (Suez Crisis),6.2
+GLOBAL-EXP-10042,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,8177.64,16259.81,33.8,10.7,0.38,Clear,High (Suez Crisis),1.9
+GLOBAL-EXP-10043,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Rail Freight,12491.56,30760.17,16.7,0.0,1.38,Minor Storm,Low,3.3
+GLOBAL-EXP-10044,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Air Freight,16039.55,89863.3,4.6,0.0,15.34,Minor Storm,Low,2.6
+GLOBAL-EXP-10045,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Road Freight,4043.04,11421.66,7.7,0.0,0.82,Clear,Medium,6.1
+GLOBAL-EXP-10046,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,3649.98,11253.13,10.0,0.0,0.46,Minor Storm,Medium,3.9
+GLOBAL-EXP-10047,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,15554.29,22015.32,43.8,14.8,0.81,Clear,High (Suez Crisis),5.4
+GLOBAL-EXP-10048,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Sea Freight,12760.3,16928.6,37.8,0.0,0.67,Clear,Low,1.8
+GLOBAL-EXP-10049,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Rail Freight,13792.57,36620.63,17.7,9.5,1.78,Heavy Snow,Low,8.5
+GLOBAL-EXP-10050,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Air Freight,3164.21,18139.74,2.8,0.0,2.9,Clear,Medium,1.8
+GLOBAL-EXP-10051,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Road Freight,5786.96,28749.65,9.2,24.5,1.05,Severe Typhoon,High (Suez Crisis),4.4
+GLOBAL-EXP-10052,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,9882.0,44637.3,3.2,5.0,9.01,Severe Typhoon,Low,2.1
+GLOBAL-EXP-10053,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,8403.57,9533.01,21.7,0.0,0.42,Minor Storm,Low,4.9
+GLOBAL-EXP-10054,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,16258.29,19012.29,45.2,8.4,0.74,Heavy Snow,Low,9.7
+GLOBAL-EXP-10055,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,17933.3,23095.36,38.2,0.0,0.94,Clear,Low,9.2
+GLOBAL-EXP-10056,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Road Freight,11922.12,34104.37,12.7,6.8,2.22,Severe Typhoon,Low,6.3
+GLOBAL-EXP-10057,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Sea Freight,2517.06,2506.57,19.3,0.0,0.13,Clear,Low,3.4
+GLOBAL-EXP-10058,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Rail Freight,13611.51,50277.29,16.2,18.7,1.74,Minor Storm,High (Suez Crisis),1.4
+GLOBAL-EXP-10059,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Sea Freight,17764.58,18896.49,43.4,0.0,0.87,Minor Storm,Low,8.5
+GLOBAL-EXP-10060,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,6374.51,5351.17,30.9,0.0,0.34,Clear,Low,10.0
+GLOBAL-EXP-10061,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,14113.3,15023.54,31.3,0.0,0.66,Clear,Medium,3.3
+GLOBAL-EXP-10062,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Road Freight,11890.05,35261.27,12.4,0.0,2.32,Clear,Low,5.7
+GLOBAL-EXP-10063,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,17487.58,36830.42,20.6,0.0,2.06,Clear,Medium,5.3
+GLOBAL-EXP-10064,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,5407.43,4842.13,17.0,0.0,0.26,Minor Storm,Medium,6.3
+GLOBAL-EXP-10065,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,10759.14,27339.97,16.7,0.0,1.17,Clear,Medium,5.7
+GLOBAL-EXP-10066,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,9873.86,13073.4,29.2,14.9,0.54,Clear,High (Suez Crisis),4.0
+GLOBAL-EXP-10067,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,9361.91,30521.65,11.4,0.0,1.84,Clear,Low,2.6
+GLOBAL-EXP-10068,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,12680.92,11674.36,28.7,5.4,0.58,Severe Typhoon,Low,3.5
+GLOBAL-EXP-10069,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Sea Freight,7695.86,10973.93,21.6,0.0,0.37,Clear,Low,3.9
+GLOBAL-EXP-10070,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Rail Freight,15977.26,49610.14,16.0,0.0,1.73,Minor Storm,Low,8.3
+GLOBAL-EXP-10071,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,16784.67,16201.93,42.4,9.8,0.84,Heavy Snow,Low,1.6
+GLOBAL-EXP-10072,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,10186.84,36285.76,12.3,15.3,1.16,Minor Storm,High (Suez Crisis),3.2
+GLOBAL-EXP-10073,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,15451.36,13325.92,37.3,0.0,0.73,Clear,Low,4.1
+GLOBAL-EXP-10074,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,3390.72,17990.03,2.6,0.0,3.56,Minor Storm,Low,4.9
+GLOBAL-EXP-10075,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,11720.88,15365.07,32.1,19.3,0.57,Clear,High (Suez Crisis),1.1
+GLOBAL-EXP-10076,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Air Freight,4985.07,24564.66,2.0,0.0,5.38,Clear,Low,1.7
+GLOBAL-EXP-10077,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,16345.76,71690.51,19.3,19.8,2.7,Minor Storm,Extreme (Chokepoint Blocked),5.4
+GLOBAL-EXP-10078,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,11145.8,54837.0,3.9,6.6,10.45,Severe Typhoon,Low,4.8
+GLOBAL-EXP-10079,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Sea Freight,14284.47,12300.4,35.4,0.0,0.78,Clear,Medium,3.9
+GLOBAL-EXP-10080,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Air Freight,3014.0,18038.61,2.0,0.0,3.2,Clear,Low,3.3
+GLOBAL-EXP-10081,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,11697.63,15862.02,26.2,0.0,0.63,Clear,Low,7.7
+GLOBAL-EXP-10082,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Sea Freight,4899.73,5599.6,27.2,18.4,0.25,Minor Storm,High (Suez Crisis),2.3
+GLOBAL-EXP-10083,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Air Freight,4982.48,24182.65,2.9,0.0,5.39,Minor Storm,Medium,3.8
+GLOBAL-EXP-10084,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Air Freight,8031.11,41713.75,2.6,0.0,8.43,Minor Storm,Low,5.5
+GLOBAL-EXP-10085,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,3065.91,2944.24,22.0,0.0,0.15,Clear,Low,4.0
+GLOBAL-EXP-10086,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Air Freight,11921.16,63184.45,4.3,0.0,12.61,Clear,Medium,2.4
+GLOBAL-EXP-10087,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,5272.71,6853.71,24.0,0.0,0.28,Minor Storm,Low,1.9
+GLOBAL-EXP-10088,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,8356.6,24708.4,11.3,0.0,0.89,Minor Storm,Low,7.5
+GLOBAL-EXP-10089,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,13458.87,36592.44,18.1,0.0,1.73,Clear,Low,4.1
+GLOBAL-EXP-10090,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Rail Freight,4453.62,16254.35,10.5,10.2,0.53,Clear,High (Suez Crisis),8.8
+GLOBAL-EXP-10091,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Road Freight,2368.36,7926.38,7.1,4.6,0.43,Severe Typhoon,Medium,1.7
+GLOBAL-EXP-10092,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,3811.81,5677.27,27.3,11.4,0.18,Severe Typhoon,Low,8.8
+GLOBAL-EXP-10093,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,13907.99,38486.95,16.7,0.0,2.67,Minor Storm,Low,2.0
+GLOBAL-EXP-10094,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Air Freight,7551.25,42334.22,2.8,7.6,7.14,Severe Typhoon,Low,2.3
+GLOBAL-EXP-10095,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,6983.57,20507.92,11.0,0.0,0.74,Clear,Low,2.9
+GLOBAL-EXP-10096,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,8633.99,7423.02,35.7,8.8,0.43,Heavy Snow,Low,1.6
+GLOBAL-EXP-10097,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,9491.71,26101.93,13.2,0.0,1.19,Minor Storm,Low,6.3
+GLOBAL-EXP-10098,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Rail Freight,9052.2,22457.75,13.8,0.0,0.95,Clear,Low,2.6
+GLOBAL-EXP-10099,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,16358.89,43054.86,19.9,0.0,2.12,Minor Storm,Low,8.6
+GLOBAL-EXP-10100,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,5697.2,19219.27,6.8,0.0,0.97,Clear,Low,8.2
+GLOBAL-EXP-10101,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,14885.04,22210.12,37.7,0.0,0.79,Clear,Medium,9.7
+GLOBAL-EXP-10102,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Air Freight,16341.37,73854.88,3.2,0.0,15.39,Clear,Low,1.2
+GLOBAL-EXP-10103,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,16569.98,54882.93,17.2,0.0,3.35,Minor Storm,Medium,4.3
+GLOBAL-EXP-10104,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Road Freight,10832.75,33223.67,12.2,0.0,2.25,Minor Storm,Low,7.9
+GLOBAL-EXP-10105,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Air Freight,9537.05,61454.51,3.2,17.4,9.56,Clear,Extreme (Chokepoint Blocked),7.3
+GLOBAL-EXP-10106,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,17750.43,20732.21,34.8,0.0,0.85,Clear,Medium,1.2
+GLOBAL-EXP-10107,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,3074.81,3332.09,21.3,0.0,0.16,Minor Storm,Low,2.0
+GLOBAL-EXP-10108,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Rail Freight,11558.61,31446.59,16.0,11.3,1.22,Severe Typhoon,Medium,4.8
+GLOBAL-EXP-10109,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Air Freight,17338.03,82816.1,3.3,0.0,18.28,Clear,Low,1.6
+GLOBAL-EXP-10110,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,6753.95,18098.46,11.9,0.0,0.81,Clear,Medium,9.4
+GLOBAL-EXP-10111,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Sea Freight,4592.22,6378.92,28.4,0.0,0.25,Clear,Low,2.4
+GLOBAL-EXP-10112,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Air Freight,13651.02,71575.53,4.1,0.0,13.47,Clear,Low,3.2
+GLOBAL-EXP-10113,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,2084.06,2453.82,17.3,19.6,0.11,Clear,High (Suez Crisis),8.1
+GLOBAL-EXP-10114,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,15967.13,20957.78,42.1,0.0,0.82,Clear,Low,7.2
+GLOBAL-EXP-10115,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,13090.8,10945.44,36.4,8.7,0.59,Severe Typhoon,Low,10.0
+GLOBAL-EXP-10116,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Air Freight,13158.72,65083.36,4.5,11.6,14.4,Severe Typhoon,Low,5.3
+GLOBAL-EXP-10117,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Rail Freight,12312.75,34231.91,15.0,0.0,1.44,Clear,Low,5.3
+GLOBAL-EXP-10118,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Rail Freight,3045.7,7243.74,9.7,0.0,0.38,Clear,Medium,3.9
+GLOBAL-EXP-10119,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,8680.1,26912.86,13.2,0.0,1.43,Clear,Medium,2.7
+GLOBAL-EXP-10120,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Road Freight,7611.39,35936.53,10.0,16.3,1.42,Minor Storm,Extreme (Chokepoint Blocked),8.9
+GLOBAL-EXP-10121,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Air Freight,10360.31,58001.22,2.3,0.0,10.29,Clear,Low,3.7
+GLOBAL-EXP-10122,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Air Freight,2285.98,13673.8,2.1,0.0,2.23,Clear,Low,7.1
+GLOBAL-EXP-10123,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,11416.87,68198.61,4.2,0.0,11.65,Minor Storm,Low,9.1
+GLOBAL-EXP-10124,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Rail Freight,17083.71,47485.47,19.4,5.8,1.97,Heavy Snow,Low,2.6
+GLOBAL-EXP-10125,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Sea Freight,14812.31,18379.78,31.8,8.8,0.74,Heavy Snow,Medium,5.7
+GLOBAL-EXP-10126,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Rail Freight,4462.33,13293.29,9.1,0.0,0.48,Minor Storm,Low,5.8
+GLOBAL-EXP-10127,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,8258.72,40545.66,3.0,10.8,7.51,Severe Typhoon,Low,1.3
+GLOBAL-EXP-10128,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Sea Freight,8535.25,9054.89,24.6,0.0,0.45,Clear,Low,5.5
+GLOBAL-EXP-10129,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,17863.61,62218.27,20.4,19.1,3.36,Clear,High (Suez Crisis),6.1
+GLOBAL-EXP-10130,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,16058.08,56791.87,18.0,0.0,3.26,Clear,Low,8.8
+GLOBAL-EXP-10131,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Rail Freight,3693.35,14154.25,8.4,19.6,0.47,Clear,High (Suez Crisis),5.2
+GLOBAL-EXP-10132,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,13896.13,65883.51,4.4,0.0,14.82,Clear,Low,5.6
+GLOBAL-EXP-10133,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Road Freight,10957.51,29043.94,12.6,0.0,1.81,Clear,Low,8.4
+GLOBAL-EXP-10134,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Rail Freight,17407.87,41957.26,19.8,0.0,2.23,Minor Storm,Low,1.9
+GLOBAL-EXP-10135,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Road Freight,4662.04,22042.49,8.7,10.6,0.87,Minor Storm,High (Suez Crisis),1.7
+GLOBAL-EXP-10136,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,13994.43,88702.64,4.3,17.4,12.66,Heavy Snow,High (Suez Crisis),5.4
+GLOBAL-EXP-10137,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,9496.63,56186.39,2.4,0.0,10.17,Clear,Low,5.7
+GLOBAL-EXP-10138,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Rail Freight,12887.99,35898.38,15.0,0.0,1.66,Clear,Low,2.4
+GLOBAL-EXP-10139,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Sea Freight,17432.33,23221.01,38.4,6.6,0.84,Severe Typhoon,Medium,7.5
+GLOBAL-EXP-10140,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Rail Freight,7896.42,23983.25,12.6,0.0,1.02,Clear,Low,2.7
+GLOBAL-EXP-10141,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,10485.67,8519.64,35.1,0.0,0.5,Clear,Low,9.2
+GLOBAL-EXP-10142,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,3876.93,10323.27,8.0,0.0,0.71,Minor Storm,Low,2.8
+GLOBAL-EXP-10143,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Rail Freight,11444.22,28838.25,17.6,0.0,1.2,Minor Storm,Low,5.2
+GLOBAL-EXP-10144,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Air Freight,6666.6,36949.46,3.6,0.0,7.04,Clear,Low,1.4
+GLOBAL-EXP-10145,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,11134.47,28102.05,13.2,0.0,1.94,Clear,Low,4.1
+GLOBAL-EXP-10146,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Air Freight,3405.86,17117.67,1.5,0.0,3.12,Clear,Low,4.6
+GLOBAL-EXP-10147,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Rail Freight,15143.05,31034.48,18.4,0.0,1.95,Clear,Low,2.1
+GLOBAL-EXP-10148,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,10660.74,13819.97,36.4,10.4,0.56,Severe Typhoon,Low,4.1
+GLOBAL-EXP-10149,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,11559.61,33992.19,15.1,0.0,1.17,Minor Storm,Low,2.5
+GLOBAL-EXP-10150,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,4552.71,26440.69,2.0,0.0,4.99,Clear,Low,4.0
+GLOBAL-EXP-10151,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,4586.76,9288.34,11.3,0.0,0.5,Clear,Low,5.9
+GLOBAL-EXP-10152,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,3155.17,8013.66,5.7,0.0,0.59,Clear,Low,8.8
+GLOBAL-EXP-10153,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,13765.6,18410.21,34.8,0.0,0.69,Minor Storm,Low,5.6
+GLOBAL-EXP-10154,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,15974.77,93469.23,3.8,0.0,15.26,Minor Storm,Low,6.3
+GLOBAL-EXP-10155,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,15375.97,43153.11,17.9,0.0,2.82,Clear,Low,6.4
+GLOBAL-EXP-10156,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Air Freight,15670.16,82086.84,3.5,7.6,16.83,Heavy Snow,Low,5.6
+GLOBAL-EXP-10157,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,6994.37,35661.27,3.6,0.0,6.31,Clear,Low,6.3
+GLOBAL-EXP-10158,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Road Freight,5776.81,14993.97,7.5,6.7,1.09,Heavy Snow,Low,8.5
+GLOBAL-EXP-10159,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Road Freight,6040.44,24194.91,8.6,13.6,1.16,Clear,High (Suez Crisis),5.8
+GLOBAL-EXP-10160,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Road Freight,15892.34,43983.54,15.7,0.0,2.82,Minor Storm,Low,1.5
+GLOBAL-EXP-10161,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,5595.22,15297.4,7.0,0.0,0.95,Clear,Low,6.3
+GLOBAL-EXP-10162,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,2079.04,10489.65,6.3,22.8,0.42,Heavy Snow,High (Suez Crisis),5.4
+GLOBAL-EXP-10163,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,4296.68,15991.23,8.5,0.0,0.74,Clear,Low,2.7
+GLOBAL-EXP-10164,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Sea Freight,4834.4,6211.42,28.6,0.0,0.26,Clear,Medium,7.1
+GLOBAL-EXP-10165,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Sea Freight,14296.31,12568.98,39.8,0.0,0.77,Minor Storm,Medium,6.4
+GLOBAL-EXP-10166,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Air Freight,3705.49,20331.16,3.5,0.0,3.37,Clear,Low,9.8
+GLOBAL-EXP-10167,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Road Freight,6618.97,17486.28,10.1,0.0,1.32,Minor Storm,Low,9.3
+GLOBAL-EXP-10168,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Air Freight,8969.33,51365.14,2.4,0.0,9.05,Minor Storm,Medium,1.1
+GLOBAL-EXP-10169,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,8086.72,25983.02,11.1,0.0,1.53,Minor Storm,Low,5.0
+GLOBAL-EXP-10170,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Rail Freight,11911.85,30448.97,14.8,0.0,1.5,Minor Storm,Low,5.7
+GLOBAL-EXP-10171,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,4383.87,5123.15,19.2,0.0,0.22,Minor Storm,Low,4.5
+GLOBAL-EXP-10172,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Air Freight,2291.72,14830.76,1.3,19.0,2.36,Minor Storm,High (Suez Crisis),3.2
+GLOBAL-EXP-10173,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,5112.93,11246.4,11.5,0.0,0.59,Clear,Low,7.0
+GLOBAL-EXP-10174,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,11765.34,40366.83,12.9,0.0,2.16,Clear,Low,2.1
+GLOBAL-EXP-10175,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,4953.36,11661.87,12.3,11.3,0.52,Severe Typhoon,Medium,4.8
+GLOBAL-EXP-10176,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,12130.42,71898.29,3.7,0.0,12.9,Clear,Low,9.0
+GLOBAL-EXP-10177,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Sea Freight,7772.36,11146.53,31.3,0.0,0.39,Minor Storm,Low,3.3
+GLOBAL-EXP-10178,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,12680.8,33276.9,15.1,0.0,2.35,Minor Storm,Low,6.3
+GLOBAL-EXP-10179,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Rail Freight,10565.73,23393.95,13.6,5.6,1.13,Severe Typhoon,Low,6.7
+GLOBAL-EXP-10180,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Sea Freight,17804.57,15944.13,42.7,0.0,0.87,Clear,Low,4.9
+GLOBAL-EXP-10181,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Sea Freight,15099.31,18455.19,33.9,0.0,0.82,Clear,Low,8.0
+GLOBAL-EXP-10182,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,7173.94,6877.37,24.3,8.2,0.33,Severe Typhoon,Low,1.6
+GLOBAL-EXP-10183,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Rail Freight,11484.99,32343.56,13.8,0.0,1.31,Minor Storm,Low,2.7
+GLOBAL-EXP-10184,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,13690.41,42505.53,13.6,0.0,2.61,Minor Storm,Low,9.6
+GLOBAL-EXP-10185,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Rail Freight,8551.65,21440.92,14.8,0.0,0.86,Minor Storm,Low,3.7
+GLOBAL-EXP-10186,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,8389.05,18312.46,15.6,8.3,1.07,Severe Typhoon,Low,8.6
+GLOBAL-EXP-10187,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,15834.98,85710.46,4.0,0.0,14.76,Clear,Medium,1.6
+GLOBAL-EXP-10188,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,3402.28,10629.92,10.0,0.0,0.37,Clear,Low,4.6
+GLOBAL-EXP-10189,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Road Freight,14580.42,47342.08,16.4,8.0,2.66,Severe Typhoon,Low,4.6
+GLOBAL-EXP-10190,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Sea Freight,15888.91,21674.82,41.7,0.0,0.76,Clear,Medium,1.7
+GLOBAL-EXP-10191,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,17317.17,92812.43,5.0,0.0,17.58,Clear,Low,5.3
+GLOBAL-EXP-10192,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Rail Freight,14236.96,31460.92,17.0,0.0,1.59,Clear,Low,2.3
+GLOBAL-EXP-10193,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Road Freight,5720.82,14896.76,9.9,0.0,0.98,Clear,Low,6.3
+GLOBAL-EXP-10194,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Road Freight,12253.22,34074.37,14.7,0.0,2.38,Clear,Low,2.4
+GLOBAL-EXP-10195,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Rail Freight,9753.63,28335.3,14.6,0.0,1.06,Clear,Low,4.9
+GLOBAL-EXP-10196,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,3616.73,4645.74,15.5,0.0,0.18,Clear,Low,10.0
+GLOBAL-EXP-10197,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Rail Freight,12491.58,37694.83,16.9,0.0,1.55,Clear,Low,4.6
+GLOBAL-EXP-10198,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,15240.61,43898.09,19.0,0.0,1.53,Clear,Low,4.7
+GLOBAL-EXP-10199,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Air Freight,12895.6,61699.53,3.8,0.0,12.44,Minor Storm,Low,8.5
+GLOBAL-EXP-10200,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,9805.66,11606.97,30.5,18.4,0.49,Minor Storm,High (Suez Crisis),1.9
+GLOBAL-EXP-10201,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Road Freight,12427.37,44165.53,14.8,7.1,2.53,Severe Typhoon,Low,9.6
+GLOBAL-EXP-10202,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Road Freight,13010.16,39926.66,13.9,0.0,2.64,Minor Storm,Low,1.3
+GLOBAL-EXP-10203,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,8181.58,9123.18,23.6,0.0,0.44,Minor Storm,Low,5.1
+GLOBAL-EXP-10204,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,12883.64,10682.74,27.4,0.0,0.67,Minor Storm,Low,1.6
+GLOBAL-EXP-10205,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,8201.52,25429.08,12.8,0.0,1.71,Clear,Low,9.5
+GLOBAL-EXP-10206,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,12564.84,36654.75,14.7,0.0,1.26,Clear,Low,1.7
+GLOBAL-EXP-10207,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,17615.85,49338.84,16.8,0.0,1.9,Minor Storm,Low,3.3
+GLOBAL-EXP-10208,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,17495.82,23778.57,36.3,0.0,0.96,Clear,Low,6.4
+GLOBAL-EXP-10209,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Rail Freight,4506.21,9248.93,8.6,0.0,0.53,Clear,Low,1.9
+GLOBAL-EXP-10210,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,17089.21,83071.33,3.4,0.0,16.06,Clear,Low,9.0
+GLOBAL-EXP-10211,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,16068.3,37119.66,18.4,0.0,1.91,Minor Storm,Low,3.0
+GLOBAL-EXP-10212,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Air Freight,12498.59,59570.07,3.7,0.0,13.71,Minor Storm,Medium,9.4
+GLOBAL-EXP-10213,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Air Freight,3469.93,20638.11,2.4,0.0,3.23,Clear,Low,4.1
+GLOBAL-EXP-10214,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,6760.78,8082.61,28.8,0.0,0.36,Clear,Low,6.7
+GLOBAL-EXP-10215,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,14988.04,43316.24,19.4,0.0,1.62,Clear,Low,2.7
+GLOBAL-EXP-10216,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Air Freight,13729.14,74466.56,3.1,0.0,13.33,Clear,Low,8.1
+GLOBAL-EXP-10217,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Air Freight,15322.89,69206.55,4.4,0.0,16.12,Minor Storm,Medium,7.1
+GLOBAL-EXP-10218,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,17941.35,43812.26,19.2,0.0,2.18,Clear,Medium,9.0
+GLOBAL-EXP-10219,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,4853.96,3981.95,18.6,0.0,0.23,Minor Storm,Low,4.5
+GLOBAL-EXP-10220,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,3037.66,8189.47,9.8,0.0,0.35,Clear,Low,6.4
+GLOBAL-EXP-10221,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,7153.73,39021.7,2.2,0.0,7.43,Minor Storm,Low,7.7
+GLOBAL-EXP-10222,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Sea Freight,9043.18,8167.96,26.2,0.0,0.45,Minor Storm,Low,1.8
+GLOBAL-EXP-10223,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,13737.85,32412.16,15.0,0.0,1.64,Minor Storm,Medium,5.5
+GLOBAL-EXP-10224,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,8141.33,21869.61,13.4,0.0,0.86,Clear,Medium,4.3
+GLOBAL-EXP-10225,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,11383.67,14666.37,38.2,0.0,0.6,Minor Storm,Low,1.5
+GLOBAL-EXP-10226,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Air Freight,4977.62,28392.19,2.5,5.1,4.96,Severe Typhoon,Medium,1.7
+GLOBAL-EXP-10227,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,2112.47,9687.61,1.7,7.2,1.96,Severe Typhoon,Medium,9.3
+GLOBAL-EXP-10228,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Sea Freight,6514.99,6405.5,21.8,0.0,0.35,Clear,Low,3.2
+GLOBAL-EXP-10229,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Air Freight,6290.22,29781.52,3.5,0.0,5.72,Clear,Medium,6.6
+GLOBAL-EXP-10230,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Sea Freight,7557.49,10806.33,19.8,0.0,0.39,Clear,Low,9.7
+GLOBAL-EXP-10231,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,14603.41,40149.3,17.2,0.0,1.89,Clear,Medium,2.3
+GLOBAL-EXP-10232,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,17552.09,21518.31,37.2,0.0,0.81,Clear,Low,2.4
+GLOBAL-EXP-10233,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,10721.69,64016.79,2.8,0.0,10.52,Clear,Low,5.9
+GLOBAL-EXP-10234,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,9332.81,10632.75,24.2,0.0,0.51,Clear,Low,8.6
+GLOBAL-EXP-10235,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,13988.54,69045.77,4.3,6.8,12.9,Severe Typhoon,Low,9.8
+GLOBAL-EXP-10236,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,4635.3,4779.69,27.1,0.0,0.23,Clear,Low,2.8
+GLOBAL-EXP-10237,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,17146.21,91565.43,4.6,0.0,17.35,Clear,Low,6.0
+GLOBAL-EXP-10238,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Rail Freight,9965.0,21191.25,14.9,7.0,1.24,Severe Typhoon,Low,8.0
+GLOBAL-EXP-10239,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,7706.74,26855.87,9.5,0.0,1.38,Clear,Low,6.8
+GLOBAL-EXP-10240,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Air Freight,13134.39,74733.24,3.3,0.0,14.07,Clear,Low,9.2
+GLOBAL-EXP-10241,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,2534.14,7533.49,7.0,0.0,0.51,Clear,Low,3.8
+GLOBAL-EXP-10242,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,14857.66,105460.3,4.8,19.8,14.61,Clear,High (Suez Crisis),7.0
+GLOBAL-EXP-10243,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Road Freight,12498.14,45028.88,15.2,22.5,2.11,Heavy Snow,Extreme (Chokepoint Blocked),2.9
+GLOBAL-EXP-10244,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Rail Freight,15105.02,40012.47,18.6,0.0,1.65,Clear,Medium,5.2
+GLOBAL-EXP-10245,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Road Freight,15108.08,55050.35,16.7,0.0,2.66,Clear,Low,2.0
+GLOBAL-EXP-10246,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Sea Freight,7567.06,8439.13,30.7,0.0,0.39,Clear,Low,6.6
+GLOBAL-EXP-10247,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Sea Freight,6063.6,4982.95,28.7,0.0,0.28,Minor Storm,Medium,3.8
+GLOBAL-EXP-10248,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,5634.87,16929.69,10.2,0.0,0.67,Clear,Medium,7.2
+GLOBAL-EXP-10249,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,14210.48,72650.53,4.3,0.0,15.36,Clear,Low,3.1
+GLOBAL-EXP-10250,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,16515.12,55688.19,18.0,0.0,2.81,Minor Storm,Low,5.0
+GLOBAL-EXP-10251,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Road Freight,8604.18,30485.12,11.1,0.0,1.43,Clear,Low,4.8
+GLOBAL-EXP-10252,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,6675.49,39159.47,3.3,0.0,7.08,Clear,Medium,1.2
+GLOBAL-EXP-10253,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Rail Freight,10522.81,29065.14,14.3,0.0,1.12,Clear,Low,2.1
+GLOBAL-EXP-10254,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,9500.29,9603.7,30.9,0.0,0.46,Clear,Low,3.7
+GLOBAL-EXP-10255,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,16036.19,46978.5,16.7,0.0,3.36,Clear,Medium,6.6
+GLOBAL-EXP-10256,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Air Freight,11324.91,67871.95,4.1,0.0,11.37,Minor Storm,Low,1.6
+GLOBAL-EXP-10257,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,10403.84,21215.24,16.3,0.0,1.06,Clear,Medium,9.6
+GLOBAL-EXP-10258,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,8953.54,26221.82,14.0,0.0,1.14,Clear,Low,5.0
+GLOBAL-EXP-10259,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,12233.69,34397.61,13.8,0.0,1.31,Clear,Medium,8.1
+GLOBAL-EXP-10260,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Road Freight,13897.5,43890.34,16.1,6.0,2.34,Heavy Snow,Low,4.3
+GLOBAL-EXP-10261,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Air Freight,9514.27,49242.98,3.1,7.8,9.75,Severe Typhoon,Low,5.0
+GLOBAL-EXP-10262,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,2122.62,2023.6,13.2,0.0,0.1,Clear,Low,4.0
+GLOBAL-EXP-10263,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,2710.2,2695.23,25.6,0.0,0.13,Clear,Low,8.4
+GLOBAL-EXP-10264,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,9896.75,28133.58,16.6,0.0,1.03,Clear,Medium,3.5
+GLOBAL-EXP-10265,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Road Freight,12735.09,48751.12,15.3,17.2,2.27,Minor Storm,High (Suez Crisis),9.6
+GLOBAL-EXP-10266,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Sea Freight,6121.72,5152.45,26.7,0.0,0.32,Minor Storm,Low,2.0
+GLOBAL-EXP-10267,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Rail Freight,11541.14,30693.68,17.2,0.0,1.29,Minor Storm,Low,3.9
+GLOBAL-EXP-10268,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,7790.72,41995.81,2.0,0.0,8.0,Minor Storm,Low,9.2
+GLOBAL-EXP-10269,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,13855.7,44185.67,16.9,0.0,2.9,Clear,Low,8.4
+GLOBAL-EXP-10270,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Road Freight,11235.2,28726.84,11.9,0.0,2.14,Clear,Low,4.1
+GLOBAL-EXP-10271,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Sea Freight,15629.46,16922.46,30.7,0.0,0.79,Clear,Low,8.8
+GLOBAL-EXP-10272,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Road Freight,15721.0,58036.04,16.8,0.0,2.82,Minor Storm,Medium,6.2
+GLOBAL-EXP-10273,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,10413.0,12060.1,25.5,0.0,0.54,Clear,Low,1.4
+GLOBAL-EXP-10274,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Rail Freight,12333.16,34092.34,14.9,0.0,1.26,Clear,Low,4.7
+GLOBAL-EXP-10275,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Air Freight,15467.57,83066.01,4.1,0.0,14.25,Minor Storm,Low,2.5
+GLOBAL-EXP-10276,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Air Freight,17424.28,88451.04,3.3,0.0,15.79,Clear,Low,4.5
+GLOBAL-EXP-10277,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,9805.62,46038.08,3.9,0.0,9.55,Clear,Low,4.4
+GLOBAL-EXP-10278,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,17744.21,87525.24,5.1,0.0,17.35,Minor Storm,Medium,4.5
+GLOBAL-EXP-10279,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,10516.12,28591.63,11.8,6.8,2.13,Heavy Snow,Low,8.4
+GLOBAL-EXP-10280,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,6323.96,37625.22,2.9,0.0,6.13,Clear,Low,6.2
+GLOBAL-EXP-10281,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,5316.94,15625.79,12.2,0.0,0.58,Clear,Medium,3.9
+GLOBAL-EXP-10282,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Rail Freight,2631.35,6764.3,9.5,0.0,0.28,Clear,Low,9.7
+GLOBAL-EXP-10283,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Rail Freight,2607.71,7549.39,9.5,0.0,0.27,Clear,Low,7.1
+GLOBAL-EXP-10284,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Air Freight,9402.81,56148.7,3.1,8.7,10.09,Severe Typhoon,Low,4.4
+GLOBAL-EXP-10285,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,11692.08,16873.01,30.0,0.0,0.61,Clear,Low,9.1
+GLOBAL-EXP-10286,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Road Freight,11176.46,41831.95,12.1,0.0,1.9,Minor Storm,Medium,8.7
+GLOBAL-EXP-10287,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,6990.39,6845.22,19.2,0.0,0.38,Clear,Low,3.0
+GLOBAL-EXP-10288,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Air Freight,13563.31,75124.45,3.0,0.0,13.02,Clear,Low,4.2
+GLOBAL-EXP-10289,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,14694.3,55657.76,15.0,0.0,3.08,Minor Storm,Low,1.8
+GLOBAL-EXP-10290,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,13847.62,30069.0,18.0,0.0,1.7,Minor Storm,Medium,6.9
+GLOBAL-EXP-10291,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,8385.6,28847.27,10.1,0.0,1.64,Minor Storm,Low,1.2
+GLOBAL-EXP-10292,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,17163.01,44521.04,20.1,0.0,3.24,Clear,Medium,3.7
+GLOBAL-EXP-10293,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,9652.16,20986.07,15.0,0.0,1.16,Minor Storm,Low,2.9
+GLOBAL-EXP-10294,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,8481.64,35350.64,12.3,12.3,0.97,Minor Storm,High (Suez Crisis),6.8
+GLOBAL-EXP-10295,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,14153.78,13184.11,38.5,0.0,0.76,Clear,Low,5.1
+GLOBAL-EXP-10296,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Air Freight,5870.91,32706.41,3.4,0.0,6.23,Clear,Low,6.0
+GLOBAL-EXP-10297,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Sea Freight,8423.13,7673.78,33.8,9.8,0.45,Severe Typhoon,Medium,3.4
+GLOBAL-EXP-10298,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,2749.63,2731.26,24.0,0.0,0.13,Clear,Low,8.6
+GLOBAL-EXP-10299,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Sea Freight,16894.2,23292.04,33.1,10.9,0.86,Severe Typhoon,Low,6.1
+GLOBAL-EXP-10300,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,8037.09,34252.52,10.8,14.9,0.97,Clear,High (Suez Crisis),4.5
+GLOBAL-EXP-10301,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,6067.7,22075.3,7.8,0.0,1.08,Minor Storm,Low,2.2
+GLOBAL-EXP-10302,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,14509.18,18149.6,28.9,0.0,0.71,Clear,Low,9.6
+GLOBAL-EXP-10303,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,12150.79,16276.54,25.2,0.0,0.65,Clear,Low,2.7
+GLOBAL-EXP-10304,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Road Freight,12517.66,38979.56,16.0,9.4,2.19,Severe Typhoon,Low,6.5
+GLOBAL-EXP-10305,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,13793.54,51959.86,13.7,7.7,2.7,Severe Typhoon,Low,6.2
+GLOBAL-EXP-10306,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Rail Freight,3784.2,9910.94,8.9,0.0,0.47,Clear,Low,1.1
+GLOBAL-EXP-10307,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Road Freight,17181.54,43655.68,19.3,0.0,3.09,Minor Storm,Medium,9.2
+GLOBAL-EXP-10308,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,10304.52,17726.63,27.6,17.7,0.54,Clear,High (Suez Crisis),5.7
+GLOBAL-EXP-10309,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Rail Freight,8121.29,19826.33,11.3,0.0,0.92,Clear,Low,4.0
+GLOBAL-EXP-10310,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Rail Freight,7947.83,15908.57,11.8,0.0,0.95,Clear,Low,9.8
+GLOBAL-EXP-10311,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,11698.35,11742.81,27.7,0.0,0.54,Clear,Medium,9.1
+GLOBAL-EXP-10312,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,13959.11,15797.06,28.3,0.0,0.76,Clear,Low,9.5
+GLOBAL-EXP-10313,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Road Freight,10980.7,38542.32,12.0,0.0,2.17,Minor Storm,Low,6.6
+GLOBAL-EXP-10314,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Sea Freight,4351.4,5951.79,25.0,0.0,0.21,Minor Storm,Low,7.1
+GLOBAL-EXP-10315,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Sea Freight,13599.7,16009.15,27.9,9.5,0.71,Severe Typhoon,Low,9.4
+GLOBAL-EXP-10316,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,17326.95,20285.73,35.3,0.0,0.87,Clear,Low,7.1
+GLOBAL-EXP-10317,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Air Freight,10749.75,51281.29,3.3,10.9,10.88,Severe Typhoon,Medium,5.3
+GLOBAL-EXP-10318,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,14690.29,71591.53,15.2,12.0,3.06,Minor Storm,Extreme (Chokepoint Blocked),9.6
+GLOBAL-EXP-10319,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Road Freight,5505.88,17049.8,10.3,5.7,0.95,Heavy Snow,Low,1.1
+GLOBAL-EXP-10320,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Road Freight,17099.23,86522.73,18.3,17.6,3.57,Minor Storm,High (Suez Crisis),2.5
+GLOBAL-EXP-10321,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,9331.75,32808.15,13.6,0.0,1.86,Clear,Low,8.7
+GLOBAL-EXP-10322,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Sea Freight,16819.11,16147.58,40.5,0.0,0.79,Clear,Low,3.9
+GLOBAL-EXP-10323,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,5932.92,17938.74,10.5,0.0,0.98,Minor Storm,Low,9.1
+GLOBAL-EXP-10324,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Rail Freight,2718.58,10691.72,8.7,29.2,0.3,Severe Typhoon,Extreme (Chokepoint Blocked),9.6
+GLOBAL-EXP-10325,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Air Freight,8181.17,59207.37,2.9,19.0,8.75,Minor Storm,Extreme (Chokepoint Blocked),8.9
+GLOBAL-EXP-10326,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,2622.88,5359.13,7.6,0.0,0.33,Clear,Low,3.5
+GLOBAL-EXP-10327,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Sea Freight,8840.03,9091.41,33.6,0.0,0.41,Minor Storm,Low,4.9
+GLOBAL-EXP-10328,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,14485.85,75536.51,3.8,8.7,13.63,Severe Typhoon,Low,2.7
+GLOBAL-EXP-10329,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,7829.67,18433.31,14.6,0.0,0.89,Clear,Low,1.9
+GLOBAL-EXP-10330,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,14337.97,39939.56,15.3,0.0,1.81,Clear,Low,5.9
+GLOBAL-EXP-10331,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,10747.21,28355.71,15.1,6.9,1.09,Severe Typhoon,Low,7.5
+GLOBAL-EXP-10332,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,5686.67,11383.39,12.4,0.0,0.73,Clear,Low,3.0
+GLOBAL-EXP-10333,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,11754.1,36146.77,16.9,0.0,1.26,Clear,Medium,3.4
+GLOBAL-EXP-10334,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Road Freight,17757.73,61806.2,18.4,9.3,3.4,Severe Typhoon,Medium,1.7
+GLOBAL-EXP-10335,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Air Freight,10281.54,50413.17,3.5,0.0,10.24,Clear,Low,4.3
+GLOBAL-EXP-10336,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,3640.26,9525.18,10.0,0.0,0.4,Minor Storm,Medium,9.4
+GLOBAL-EXP-10337,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,14856.29,39497.52,14.9,0.0,3.02,Clear,Low,4.1
+GLOBAL-EXP-10338,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,7369.77,10943.87,32.1,0.0,0.38,Clear,Low,7.5
+GLOBAL-EXP-10339,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Rail Freight,9720.01,25349.85,13.4,0.0,1.24,Clear,Low,1.1
+GLOBAL-EXP-10340,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,17524.11,44251.78,17.9,0.0,2.12,Clear,Medium,8.4
+GLOBAL-EXP-10341,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,6941.35,7896.38,20.5,0.0,0.38,Clear,Low,7.4
+GLOBAL-EXP-10342,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Road Freight,4516.37,13109.78,6.9,0.0,0.92,Clear,Medium,7.1
+GLOBAL-EXP-10343,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Rail Freight,15610.88,66981.42,18.5,11.6,1.68,Clear,High (Suez Crisis),2.7
+GLOBAL-EXP-10344,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Sea Freight,11940.68,12344.69,35.9,0.0,0.59,Clear,Low,1.6
+GLOBAL-EXP-10345,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Air Freight,12840.66,59171.88,3.0,0.0,12.54,Clear,Low,9.8
+GLOBAL-EXP-10346,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Rail Freight,8693.34,25220.5,11.3,0.0,0.94,Minor Storm,Low,3.5
+GLOBAL-EXP-10347,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Sea Freight,17633.67,15379.82,40.3,0.0,0.97,Clear,Low,6.0
+GLOBAL-EXP-10348,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Road Freight,8361.8,23777.27,9.8,0.0,1.56,Clear,Low,3.4
+GLOBAL-EXP-10349,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Air Freight,11525.75,54841.45,4.3,0.0,10.53,Minor Storm,Low,4.9
+GLOBAL-EXP-10350,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,6278.43,12670.71,14.0,0.0,0.68,Minor Storm,Low,7.1
+GLOBAL-EXP-10351,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Road Freight,5992.39,14996.7,7.7,0.0,1.02,Clear,Low,5.0
+GLOBAL-EXP-10352,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,5242.12,19143.65,12.0,14.1,0.63,Minor Storm,High (Suez Crisis),1.1
+GLOBAL-EXP-10353,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,5527.74,9760.94,26.2,12.1,0.29,Clear,High (Suez Crisis),7.0
+GLOBAL-EXP-10354,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Rail Freight,13974.15,43284.35,16.5,0.0,1.51,Clear,Low,4.9
+GLOBAL-EXP-10355,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,10750.02,59189.73,3.7,9.2,10.11,Heavy Snow,Low,8.4
+GLOBAL-EXP-10356,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Road Freight,5430.5,15488.06,7.5,0.0,0.91,Clear,Low,5.1
+GLOBAL-EXP-10357,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Air Freight,7955.21,39772.47,3.8,0.0,7.77,Clear,Low,5.4
+GLOBAL-EXP-10358,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,13886.1,48036.1,15.7,0.0,2.33,Clear,Low,4.3
+GLOBAL-EXP-10359,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Air Freight,15843.09,93044.68,4.7,0.0,14.37,Minor Storm,Low,8.1
+GLOBAL-EXP-10360,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Air Freight,8841.62,45656.53,3.4,0.0,9.61,Clear,Medium,1.6
+GLOBAL-EXP-10361,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,5217.58,28098.49,2.5,0.0,5.19,Minor Storm,Low,1.3
+GLOBAL-EXP-10362,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,12482.78,12260.16,28.0,0.0,0.58,Minor Storm,Low,1.6
+GLOBAL-EXP-10363,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,15223.81,16934.07,41.1,0.0,0.69,Minor Storm,Medium,9.3
+GLOBAL-EXP-10364,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Air Freight,7660.63,43993.7,3.5,0.0,7.37,Clear,Low,9.2
+GLOBAL-EXP-10365,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Road Freight,6343.98,17771.51,8.6,0.0,1.3,Minor Storm,Low,1.7
+GLOBAL-EXP-10366,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,12831.05,38563.6,17.8,0.0,1.57,Clear,Medium,5.0
+GLOBAL-EXP-10367,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Sea Freight,13550.87,14490.79,34.3,0.0,0.67,Clear,Low,7.7
+GLOBAL-EXP-10368,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Sea Freight,4581.8,3933.42,16.0,0.0,0.21,Minor Storm,Low,9.0
+GLOBAL-EXP-10369,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,3894.64,18763.76,2.1,0.0,3.64,Minor Storm,Low,3.2
+GLOBAL-EXP-10370,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,11860.81,85429.59,3.3,15.4,11.69,Clear,High (Suez Crisis),7.3
+GLOBAL-EXP-10371,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,10746.96,12926.3,23.8,0.0,0.59,Clear,Low,7.3
+GLOBAL-EXP-10372,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Sea Freight,13073.18,12346.0,32.2,0.0,0.71,Clear,Low,2.8
+GLOBAL-EXP-10373,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,15716.94,19980.52,35.8,0.0,0.85,Minor Storm,Low,3.0
+GLOBAL-EXP-10374,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Road Freight,10570.51,37915.91,14.1,0.0,2.15,Clear,Medium,5.4
+GLOBAL-EXP-10375,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,15129.58,16388.33,36.2,0.0,0.68,Clear,Low,4.7
+GLOBAL-EXP-10376,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,3071.58,17864.38,2.2,11.7,3.1,Severe Typhoon,Low,1.6
+GLOBAL-EXP-10377,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,17827.48,17151.54,46.4,0.0,0.81,Clear,Low,5.0
+GLOBAL-EXP-10378,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Air Freight,7913.19,41119.75,3.4,0.0,8.16,Clear,Low,7.4
+GLOBAL-EXP-10379,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Rail Freight,7971.86,21989.47,10.8,0.0,0.82,Minor Storm,Medium,1.4
+GLOBAL-EXP-10380,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,14027.95,19107.49,35.3,0.0,0.65,Clear,Medium,7.0
+GLOBAL-EXP-10381,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Sea Freight,7551.4,8106.65,21.8,0.0,0.36,Clear,Low,6.4
+GLOBAL-EXP-10382,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,12118.26,57376.51,3.5,6.2,12.64,Severe Typhoon,Low,2.8
+GLOBAL-EXP-10383,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,15898.23,54716.12,18.2,0.0,3.02,Clear,Medium,6.3
+GLOBAL-EXP-10384,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Rail Freight,14739.86,34289.86,18.3,0.0,1.59,Minor Storm,Low,9.5
+GLOBAL-EXP-10385,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Sea Freight,9409.84,9362.04,31.6,0.0,0.5,Clear,Medium,1.6
+GLOBAL-EXP-10386,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,5003.56,10537.8,11.8,0.0,0.56,Minor Storm,Medium,4.9
+GLOBAL-EXP-10387,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Rail Freight,16215.43,48471.03,19.0,0.0,2.04,Clear,Low,8.1
+GLOBAL-EXP-10388,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,16415.37,98397.64,4.7,6.0,17.55,Severe Typhoon,Low,6.2
+GLOBAL-EXP-10389,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,16937.14,80982.65,18.8,14.7,2.8,Minor Storm,High (Suez Crisis),6.1
+GLOBAL-EXP-10390,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Sea Freight,7766.83,10474.48,28.2,0.0,0.37,Clear,Low,6.9
+GLOBAL-EXP-10391,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Air Freight,13298.54,89108.65,2.9,10.1,13.33,Clear,High (Suez Crisis),9.4
+GLOBAL-EXP-10392,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,17850.87,23736.5,38.9,0.0,0.93,Clear,Low,4.5
+GLOBAL-EXP-10393,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,7943.78,21783.68,13.5,7.5,0.91,Severe Typhoon,Low,5.4
+GLOBAL-EXP-10394,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Air Freight,2853.57,14787.61,2.7,0.0,2.95,Minor Storm,Low,4.4
+GLOBAL-EXP-10395,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,12308.11,18240.29,26.4,0.0,0.62,Minor Storm,Low,7.7
+GLOBAL-EXP-10396,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Sea Freight,9282.75,11765.26,34.2,0.0,0.43,Clear,Medium,1.2
+GLOBAL-EXP-10397,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,9277.96,26190.2,15.7,0.0,1.11,Clear,Low,9.6
+GLOBAL-EXP-10398,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Air Freight,16740.92,89978.87,4.3,0.0,16.26,Clear,Low,1.5
+GLOBAL-EXP-10399,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Road Freight,11861.03,45157.7,14.6,15.0,2.28,Clear,High (Suez Crisis),9.8
+GLOBAL-EXP-10400,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,14842.24,47445.99,15.0,0.0,1.88,Minor Storm,Low,6.6
+GLOBAL-EXP-10401,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,4046.99,11945.74,7.1,9.4,0.74,Severe Typhoon,Medium,9.0
+GLOBAL-EXP-10402,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,5372.69,26025.57,2.6,0.0,5.12,Clear,Low,1.9
+GLOBAL-EXP-10403,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,4656.35,5532.38,16.0,12.1,0.22,Clear,Extreme (Chokepoint Blocked),6.7
+GLOBAL-EXP-10404,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Road Freight,7685.12,25946.43,8.7,0.0,1.34,Clear,Low,8.3
+GLOBAL-EXP-10405,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Road Freight,6341.86,22500.99,10.6,16.2,1.25,Clear,Extreme (Chokepoint Blocked),2.4
+GLOBAL-EXP-10406,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Air Freight,11983.98,58846.84,3.5,0.0,10.98,Clear,Low,5.1
+GLOBAL-EXP-10407,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Sea Freight,7820.95,7300.92,25.0,0.0,0.39,Minor Storm,Low,9.9
+GLOBAL-EXP-10408,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,15441.73,92406.04,4.7,0.0,15.04,Clear,Low,2.8
+GLOBAL-EXP-10409,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,12992.63,43596.85,13.3,0.0,2.61,Minor Storm,Low,2.1
+GLOBAL-EXP-10410,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,5142.71,16157.02,9.3,0.0,0.6,Minor Storm,Low,6.2
+GLOBAL-EXP-10411,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Rail Freight,16917.16,66000.56,17.7,18.5,1.76,Clear,Extreme (Chokepoint Blocked),2.5
+GLOBAL-EXP-10412,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,6571.32,20453.56,14.2,0.0,0.77,Clear,Medium,2.3
+GLOBAL-EXP-10413,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Rail Freight,7399.69,28723.59,12.8,22.2,0.81,Severe Typhoon,High (Suez Crisis),3.3
+GLOBAL-EXP-10414,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Road Freight,2010.45,7301.71,6.8,0.0,0.39,Clear,Low,7.8
+GLOBAL-EXP-10415,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,6703.19,6475.0,32.6,0.0,0.36,Clear,Low,6.5
+GLOBAL-EXP-10416,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Rail Freight,9460.79,27556.36,12.1,7.4,1.08,Severe Typhoon,Low,6.4
+GLOBAL-EXP-10417,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,9611.01,32453.67,13.1,0.0,1.61,Clear,Medium,6.8
+GLOBAL-EXP-10418,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Rail Freight,10020.41,20644.97,11.9,7.5,1.17,Severe Typhoon,Low,8.6
+GLOBAL-EXP-10419,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Rail Freight,7376.11,18874.14,13.8,0.0,0.94,Minor Storm,Low,2.7
+GLOBAL-EXP-10420,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Road Freight,8273.5,28758.68,9.4,0.0,1.65,Clear,Medium,3.1
+GLOBAL-EXP-10421,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Sea Freight,7854.17,10843.13,31.1,10.9,0.39,Minor Storm,High (Suez Crisis),3.5
+GLOBAL-EXP-10422,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,12685.89,63591.49,13.6,16.8,2.44,Clear,High (Suez Crisis),3.9
+GLOBAL-EXP-10423,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Rail Freight,7606.61,23546.4,11.8,0.0,0.86,Clear,Low,7.1
+GLOBAL-EXP-10424,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Road Freight,6990.07,27762.12,8.1,12.6,1.29,Minor Storm,Extreme (Chokepoint Blocked),4.1
+GLOBAL-EXP-10425,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,9245.02,27934.34,12.0,22.4,0.99,Heavy Snow,High (Suez Crisis),4.1
+GLOBAL-EXP-10426,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Rail Freight,9535.36,26644.63,15.1,0.0,1.17,Clear,Low,6.2
+GLOBAL-EXP-10427,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Sea Freight,14547.3,22067.67,41.2,17.2,0.69,Clear,High (Suez Crisis),8.7
+GLOBAL-EXP-10428,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Road Freight,13056.89,37252.92,13.6,6.7,2.26,Severe Typhoon,Low,4.9
+GLOBAL-EXP-10429,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,3870.78,21379.19,3.4,0.0,3.59,Clear,Low,7.6
+GLOBAL-EXP-10430,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Road Freight,16438.61,48446.96,18.6,0.0,3.2,Clear,Low,9.4
+GLOBAL-EXP-10431,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,8573.71,45791.09,4.0,0.0,7.86,Clear,Low,3.3
+GLOBAL-EXP-10432,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Air Freight,3899.35,23282.42,1.9,0.0,3.56,Clear,Low,6.4
+GLOBAL-EXP-10433,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Road Freight,5568.99,20243.52,9.8,0.0,1.11,Minor Storm,Medium,6.1
+GLOBAL-EXP-10434,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Road Freight,17515.58,53608.25,18.0,4.4,2.93,Heavy Snow,Low,7.2
+GLOBAL-EXP-10435,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Road Freight,4206.16,14281.57,9.1,4.6,0.84,Heavy Snow,Low,9.1
+GLOBAL-EXP-10436,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Air Freight,5344.95,24731.26,2.6,0.0,5.33,Minor Storm,Low,8.6
+GLOBAL-EXP-10437,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Rail Freight,14190.14,41687.88,15.8,0.0,1.51,Clear,Low,1.2
+GLOBAL-EXP-10438,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Air Freight,2522.54,13151.02,2.1,0.0,2.35,Minor Storm,Low,6.9
+GLOBAL-EXP-10439,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,5583.72,5401.69,24.7,4.4,0.29,Severe Typhoon,Medium,7.2
+GLOBAL-EXP-10440,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,15338.3,54590.13,17.2,0.0,2.79,Clear,Low,3.3
+GLOBAL-EXP-10441,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,10604.53,30345.17,11.7,0.0,1.89,Minor Storm,Low,6.0
+GLOBAL-EXP-10442,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Road Freight,4691.26,17090.86,8.1,0.0,0.82,Clear,Low,5.5
+GLOBAL-EXP-10443,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,2803.43,3154.5,19.2,0.0,0.14,Clear,Medium,3.6
+GLOBAL-EXP-10444,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,8855.33,49565.43,3.8,0.0,8.23,Clear,Low,8.5
+GLOBAL-EXP-10445,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Air Freight,14290.05,75033.0,3.7,0.0,13.57,Clear,Low,5.9
+GLOBAL-EXP-10446,Shanghai Port,31.2304,121.4737,Rotterdam Hub,51.9244,4.4777,Air Freight,2628.31,12899.74,1.3,0.0,2.88,Clear,Low,9.7
+GLOBAL-EXP-10447,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Sea Freight,15126.83,16766.6,30.9,0.0,0.74,Clear,Medium,6.6
+GLOBAL-EXP-10448,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,12552.1,69439.05,2.8,0.0,13.65,Clear,Low,2.6
+GLOBAL-EXP-10449,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Rail Freight,16671.07,48872.06,16.8,0.0,1.95,Clear,Low,5.0
+GLOBAL-EXP-10450,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,3603.93,16307.38,2.8,0.0,3.68,Clear,Low,2.5
+GLOBAL-EXP-10451,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,6873.64,21504.28,11.0,10.4,0.74,Minor Storm,High (Suez Crisis),9.3
+GLOBAL-EXP-10452,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,2458.44,8010.15,4.1,0.0,0.49,Clear,Low,3.8
+GLOBAL-EXP-10453,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,2100.12,5419.26,5.9,0.0,0.4,Clear,Low,7.8
+GLOBAL-EXP-10454,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,8817.94,26443.56,14.9,0.0,0.94,Clear,Low,3.0
+GLOBAL-EXP-10455,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Sea Freight,2808.95,3478.94,17.8,0.0,0.13,Clear,Low,4.0
+GLOBAL-EXP-10456,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,7350.42,22146.4,10.2,0.0,1.27,Clear,Low,6.1
+GLOBAL-EXP-10457,Ambarli Port (Istanbul),40.9681,28.6946,Rotterdam Hub,51.9244,4.4777,Rail Freight,13742.49,33200.07,16.2,5.4,1.43,Severe Typhoon,Low,8.4
+GLOBAL-EXP-10458,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Rail Freight,12264.07,28352.0,17.6,0.0,1.56,Minor Storm,Low,3.7
+GLOBAL-EXP-10459,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,14648.33,31777.04,17.5,0.0,1.51,Minor Storm,Medium,1.4
+GLOBAL-EXP-10460,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Rail Freight,6330.3,13277.66,14.2,0.0,0.66,Clear,Low,9.9
+GLOBAL-EXP-10461,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Air Freight,10113.32,55186.89,4.2,0.0,10.66,Clear,Medium,4.9
+GLOBAL-EXP-10462,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Air Freight,15609.19,74959.91,4.8,0.0,16.2,Clear,Low,8.4
+GLOBAL-EXP-10463,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,6057.35,18851.88,9.0,0.0,1.05,Minor Storm,Low,6.9
+GLOBAL-EXP-10464,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Rail Freight,3645.48,7841.96,12.3,0.0,0.44,Clear,Medium,8.6
+GLOBAL-EXP-10465,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Air Freight,14253.26,86744.58,2.8,15.3,13.91,Severe Typhoon,High (Suez Crisis),5.2
+GLOBAL-EXP-10466,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Sea Freight,5499.42,4630.3,18.8,0.0,0.28,Minor Storm,Medium,8.6
+GLOBAL-EXP-10467,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,11506.27,12518.39,26.3,9.0,0.52,Heavy Snow,Low,8.3
+GLOBAL-EXP-10468,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Rail Freight,10770.32,23797.85,13.7,0.0,1.29,Minor Storm,Low,9.7
+GLOBAL-EXP-10469,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,2394.95,7116.77,6.2,0.0,0.49,Clear,Low,2.1
+GLOBAL-EXP-10470,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Air Freight,13435.5,66371.78,3.7,0.0,13.97,Clear,Low,9.1
+GLOBAL-EXP-10471,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Sea Freight,11299.13,11045.4,35.5,0.0,0.52,Minor Storm,Low,9.3
+GLOBAL-EXP-10472,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Rail Freight,13660.45,32624.38,17.4,0.0,1.59,Clear,Low,4.1
+GLOBAL-EXP-10473,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,9983.54,29089.44,13.9,6.3,1.94,Severe Typhoon,Low,3.7
+GLOBAL-EXP-10474,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Sea Freight,6071.7,4912.18,25.7,0.0,0.32,Minor Storm,Low,9.6
+GLOBAL-EXP-10475,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Sea Freight,8144.68,10314.32,35.0,0.0,0.38,Clear,Medium,4.5
+GLOBAL-EXP-10476,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Road Freight,17797.38,54768.49,19.0,0.0,3.64,Clear,Low,10.0
+GLOBAL-EXP-10477,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,7092.87,8102.36,31.8,0.0,0.36,Clear,Low,7.3
+GLOBAL-EXP-10478,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,13094.75,44663.52,15.9,0.0,2.67,Clear,Low,5.5
+GLOBAL-EXP-10479,Shenzhen Port,22.5431,114.0579,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,14279.98,14498.05,35.2,0.0,0.76,Minor Storm,Low,3.1
+GLOBAL-EXP-10480,Ambarli Port (Istanbul),40.9681,28.6946,Port of Los Angeles,33.7423,-118.2705,Road Freight,9655.86,31490.0,12.2,4.5,1.63,Heavy Snow,Low,1.9
+GLOBAL-EXP-10481,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,6730.64,20993.23,12.1,0.0,0.73,Clear,Low,4.6
+GLOBAL-EXP-10482,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Sea Freight,14958.79,24398.66,39.7,16.4,0.73,Minor Storm,High (Suez Crisis),5.2
+GLOBAL-EXP-10483,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Air Freight,17065.23,90353.07,4.6,0.0,18.51,Minor Storm,Low,9.8
+GLOBAL-EXP-10484,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Air Freight,8335.0,46962.54,3.0,0.0,8.19,Clear,Low,9.4
+GLOBAL-EXP-10485,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Rail Freight,7530.0,22431.29,12.4,0.0,0.77,Clear,Low,2.5
+GLOBAL-EXP-10486,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Road Freight,7675.66,23187.51,8.9,7.3,1.57,Heavy Snow,Low,4.5
+GLOBAL-EXP-10487,Singapore Port,1.3521,103.8198,Rotterdam Hub,51.9244,4.4777,Road Freight,9286.13,28224.72,12.7,0.0,1.59,Clear,Low,2.8
+GLOBAL-EXP-10488,Shenzhen Port,22.5431,114.0579,Hamburg Hub,53.5511,9.9937,Sea Freight,8423.39,8732.18,22.4,0.0,0.41,Minor Storm,Low,2.5
+GLOBAL-EXP-10489,Shanghai Port,31.2304,121.4737,Port of Los Angeles,33.7423,-118.2705,Rail Freight,2671.43,6508.59,7.3,0.0,0.28,Minor Storm,Low,3.3
+GLOBAL-EXP-10490,Ambarli Port (Istanbul),40.9681,28.6946,Hamburg Hub,53.5511,9.9937,Road Freight,16528.3,49836.23,17.0,0.0,2.83,Clear,Low,2.4
+GLOBAL-EXP-10491,Singapore Port,1.3521,103.8198,Frankfurt Logistics Hub,50.1109,8.6821,Road Freight,7105.98,22105.91,9.9,0.0,1.24,Minor Storm,Low,3.8
+GLOBAL-EXP-10492,Shenzhen Port,22.5431,114.0579,Port of Los Angeles,33.7423,-118.2705,Road Freight,6433.11,23951.39,7.9,0.0,1.31,Minor Storm,Medium,9.7
+GLOBAL-EXP-10493,Shanghai Port,31.2304,121.4737,Hamburg Hub,53.5511,9.9937,Air Freight,9512.3,48835.99,4.2,0.0,8.58,Minor Storm,Medium,9.1
+GLOBAL-EXP-10494,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Road Freight,17720.34,46285.03,20.0,5.1,3.15,Heavy Snow,Low,5.0
+GLOBAL-EXP-10495,Ambarli Port (Istanbul),40.9681,28.6946,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,5028.54,5639.67,27.6,0.0,0.27,Clear,Low,8.5
+GLOBAL-EXP-10496,Singapore Port,1.3521,103.8198,Hamburg Hub,53.5511,9.9937,Rail Freight,7649.65,22640.96,12.9,0.0,0.95,Minor Storm,Low,6.7
+GLOBAL-EXP-10497,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Sea Freight,15860.68,14516.33,36.1,0.0,0.72,Clear,Low,5.3
+GLOBAL-EXP-10498,Shenzhen Port,22.5431,114.0579,Rotterdam Hub,51.9244,4.4777,Air Freight,14219.08,75149.27,3.2,0.0,14.69,Clear,Low,1.7
+GLOBAL-EXP-10499,Shanghai Port,31.2304,121.4737,Frankfurt Logistics Hub,50.1109,8.6821,Rail Freight,5906.59,16051.8,10.9,0.0,0.74,Clear,Medium,9.6
+GLOBAL-EXP-10500,Singapore Port,1.3521,103.8198,Port of Los Angeles,33.7423,-118.2705,Road Freight,10091.15,26041.76,10.7,0.0,1.93,Minor Storm,Low,6.1
