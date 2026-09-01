@@ -5,11 +5,11 @@ import plotly.express as px
 from optimizer import DelayPredictor, optimize_supply_chain
 from data_generator import generate_global_logistics_data
 
-# Bulunulan klasörün tam yolunu dinamik olarak al
+# Bulunulan klasörün tam yolunu alma
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "global_logistics_data.csv")
 
-# Streamlit Sayfa Düzenleme (Geniş Ekran)
+# Streamlit Sayfa Düzenleme
 st.set_page_config(
     page_title="Global Supply Chain Resilience Engine", 
     layout="wide", 
@@ -21,13 +21,12 @@ st.title("🌍 Global Multi-Modal Supply Chain Resilience & ESG Engine")
 st.markdown("**Enterprise AI Platform** | Real-Time Route Optimization, ML Delay Forecasting & Emissions Control")
 st.divider()
 
-# Veri Yükleme (Dinamik Yol Korumalı)
+# Veri Yükleme
 @st.cache_data
 def load_data():
     if os.path.exists(DATA_PATH):
         return pd.read_csv(DATA_PATH)
     else:
-        # Dosya yoksa otomatik üret ve tam yola kaydet
         df_gen = generate_global_logistics_data()
         df_gen.to_csv(DATA_PATH, index=False)
         return df_gen
@@ -65,10 +64,10 @@ filtered_df = df[df["Geopolitical_Risk"].isin(risk_filter)].reset_index(drop=Tru
 if filtered_df.empty:
     st.error("Seçilen kriz senaryosuna uygun rota verisi bulunamadı!")
 else:
-    # PuLP Optimizasyon Motorunu Çalıştır
+    # PuLP Optimizasyon Motoru
     optimal_route = optimize_supply_chain(filtered_df, cost_weight, time_weight, co2_weight)
 
-    # --- ANA PANEL: KPI GÖSTERGELERİ ---
+    # KPI GÖSTERGELERİ
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Selected Optimal Route", optimal_route["Shipment_ID"])
     col2.metric("Optimal Transport Mode", optimal_route["Transport_Mode"])
@@ -77,7 +76,7 @@ else:
 
     st.divider()
 
-    # --- GRAFİKLER VE KÜRESEL HARİTA ---
+    # GRAFİKLER VE HARİTA
     col_left, col_right = st.columns([2, 1])
 
     with col_left:
@@ -107,7 +106,7 @@ else:
 
     st.divider()
 
-    # --- ANLIK MAKİNE ÖĞRENMESİ GECİKME TAHMİNCİSİ ---
+    # ML GECİKME TAHMİNCİSİ
     st.subheader("🤖 Real-Time ML Delay Predictor")
     st.caption("Parametreleri değiştirerek Makine Öğrenmesi modelinin tahmini gecikmesini test edin:")
     
@@ -129,14 +128,26 @@ else:
 
     st.divider()
 
-    # --- CEO YÖNETİCİ ÖZET RAPORU ---
+    # CEO YÖNETİCİ ÖZET RAPORU
     st.subheader("📝 Executive Briefing (Automated C-Level Summary)")
-    st.success(f"""
-    **Strategic AI Recommendation:**
-    Based on operational constraints (Cost Weight: **{int(cost_weight*100)}%**, Time Weight: **{int(time_weight*100)}%**, CO2 Weight: **{int(co2_weight*100)}%**), 
-    the engine identifies **{optimal_route['Shipment_ID']}** via **{optimal_route['Transport_Mode']}** as the optimal resilient route 
-    connecting **{optimal_route['Origin_Name']}** to **{optimal_route['Destination_Name']}**.
     
-    - **Financial Impact:** Operational cost maintained at **${optimal_route['Base_Cost_USD']:,.2f}**.
-    - **ESG Compliance:** Carbon emissions reduced/optimized to **{optimal_route['CO2_Emissions_Tons']} Tons**.
-    - **
+    c_pct = int(cost_weight * 100)
+    t_pct = int(time_weight * 100)
+    co2_pct = int(co2_weight * 100)
+    ship_id = optimal_route['Shipment_ID']
+    t_mode = optimal_route['Transport_Mode']
+    o_name = optimal_route['Origin_Name']
+    d_name = optimal_route['Destination_Name']
+    cost_val = round(optimal_route['Base_Cost_USD'], 2)
+    co2_val = optimal_route['CO2_Emissions_Tons']
+    delay_val = optimal_route['Delay_Days']
+
+    summary_text = (
+        f"**Strategic AI Recommendation:**\n"
+        f"Based on operational constraints (Cost Weight: **{c_pct}%**, Time Weight: **{t_pct}%**, CO2 Weight: **{co2_pct}%**), "
+        f"the engine identifies **{ship_id}** via **{t_mode}** as the optimal resilient route connecting **{o_name}** to **{d_name}**.\n\n"
+        f"- **Financial Impact:** Operational cost maintained at **${cost_val:,.2f}**.\n"
+        f"- **ESG Compliance:** Carbon emissions reduced/optimized to **{co2_val} Tons**.\n"
+        f"- **Disruption Strategy:** Rerouted away from high-risk corridors while absorbing a predicted delay of **{delay_val} days**."
+    )
+    st.success(summary_text)
