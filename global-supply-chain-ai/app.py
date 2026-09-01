@@ -17,8 +17,8 @@ st.set_page_config(
 
 st.title("🌍 Global Multi-Modal Supply Chain Resilience & ESG Engine")
 st.markdown(
-    "**Enterprise AI Platform** | Real-Time Route Optimization, Dynamic"
-    " Infrastructure & Chokepoint Controls"
+    "**Enterprise AI Platform** | Dynamic Route Optimization & Infrastructure"
+    " Intelligence"
 )
 st.divider()
 
@@ -182,7 +182,7 @@ GLOBAL_HUBS_DB = {
     },
 }
 
-# --- 2. GERÇEKÇİ LOJİSTİK PARAMETRELERİ VE HESAPLAMA FAKTÖRLERİ ---
+# --- 2. LOJİSTİK PARAMETRELERİ ---
 MODE_CONFIGS = {
     "Air Freight": {
         "cost_per_km": 2.10,
@@ -245,13 +245,13 @@ CHOKEPOINTS_DB = {
         "cost_penalty": 1800,
     },
     "Bab el-Mandeb (Red Sea)": {
-        "affected_regions": [("EU", "AS"), ("AS", "EU")],
+        "affected_regions": [("EU", "AS"), ("AS", "EU"), ("EU", "ME")],
         "detour_km": 6000,
         "detour_days": 10.0,
         "cost_penalty": 2900,
     },
     "Strait of Hormuz (Persian Gulf)": {
-        "affected_regions": [("ME", "AS"), ("ME", "EU")],
+        "affected_regions": [("ME", "AS"), ("ME", "EU"), ("EU", "ME")],
         "detour_km": 2500,
         "detour_days": 4.5,
         "cost_penalty": 2100,
@@ -279,7 +279,7 @@ CHOKEPOINTS_DB = {
 
 # --- 3. DİNAMİK ALTYAPI VE KRİZ KONTROL DİZGELERİ ---
 def get_infrastructure_supported_modes(origin, destination):
-    """Liman/Havalimanı varlığı ve karasal kesintisizliğe göre kullanılabilir modları dinamik filtreler."""
+    """Kullanılabilir modları altyapı ve kıta durumuna göre filtreler."""
     orig = GLOBAL_HUBS_DB.get(
         origin,
         {
@@ -300,16 +300,10 @@ def get_infrastructure_supported_modes(origin, destination):
     )
 
     feasible_modes = []
-
-    # 1. Hava Yolu Filtresi: İki tarafta da havalimanı şartı
     if orig["has_airport"] and dest["has_airport"]:
         feasible_modes.append("Air Freight")
-
-    # 2. Deniz Yolu Filtresi: İki tarafta da deniz limanı şartı
     if orig["has_port"] and dest["has_port"]:
         feasible_modes.append("Sea Freight")
-
-    # 3. Kara & Demir Yolu Filtresi: Aynı kıtada olmalı (kesintisiz karasal hat)
     if orig["continent"] == dest["continent"]:
         if orig["has_rail"] and dest["has_rail"]:
             feasible_modes.append("Rail Freight")
@@ -321,22 +315,23 @@ def get_infrastructure_supported_modes(origin, destination):
 def calculate_chokepoint_impact(
     origin, destination, mode, blocked_chokepoints
 ):
-    """Seçilen Boğaz/Kanal kapalıysa deniz rotasına sapma ve maliyet cezası hesaplar."""
+    """Deniz rotalarındaki boğaz/kanal engelinin etkisini hesaplar."""
     if "Sea" not in mode or not blocked_chokepoints:
         return 0, 0, 0, False
 
     orig_cont = GLOBAL_HUBS_DB.get(origin, {}).get("continent", "EU")
     dest_cont = GLOBAL_HUBS_DB.get(destination, {}).get("continent", "NA")
 
-    total_extra_km = 0
-    total_extra_days = 0
-    total_extra_cost = 0
-    is_affected = False
+    total_extra_km, total_extra_days, total_extra_cost, is_affected = (
+        0,
+        0,
+        0,
+        False,
+    )
 
     for cp_name in blocked_chokepoints:
         cp_info = CHOKEPOINTS_DB.get(cp_name, {})
         affected_pairs = cp_info.get("affected_regions", [])
-
         if (orig_cont, dest_cont) in affected_pairs or (
             dest_cont,
             orig_cont,
@@ -349,30 +344,61 @@ def calculate_chokepoint_impact(
     return total_extra_km, total_extra_days, total_extra_cost, is_affected
 
 
-def generate_multimodal_routes(origin, destination):
-    """Aktarmalı Multimodal rotalar üretir."""
+def generate_multimodal_routes(origin, destination, blocked_chokepoints=[]):
+    """Dinamik Akıllı Hub Seçimi: Yolu saçma sapan uzatmayan mantıklı aktarma noktaları bulur."""
     orig_info = GLOBAL_HUBS_DB[origin]
     dest_info = GLOBAL_HUBS_DB[destination]
-
-    hub_name = "Rotterdam, NL" if origin != "Rotterdam, NL" else "Istanbul, TR"
-    if hub_name == destination:
-        hub_name = "Hamburg, DE"
-    hub_info = GLOBAL_HUBS_DB[hub_name]
-
-    d1 = haversine(
-        orig_info["lat"], orig_info["lon"], hub_info["lat"], hub_info["lon"]
+    direct_dist = haversine(
+        orig_info["lat"], orig_info["lon"], dest_info["lat"], dest_info["lon"]
     )
-    d2 = haversine(
-        hub_info["lat"], hub_info["lon"], dest_info["lat"], dest_info["lon"]
-    )
-    total_dist = (d1 * 1.3) + (d2 * 1.3)
 
-    cost = (d1 * 0.55) + (d2 * 0.25) + 400.0
-    days = (d1 / (60 * 24)) + (d2 / (25 * 24)) + 3.0
+    best_hub = None
+    best_extra_ratio = float("inf")
+    best_d1, best_d2 = 0, 0
+
+    # Tüm küresel hub'lar arasından rotaya tam ara nokta olanı ara
+    for hub_name, hub_info in GLOBAL_HUBS_DB.items():
+        if hub_name in [origin, destination]:
+            continue
+
+        d1 = haversine(
+            orig_info["lat"], orig_info["lon"], hub_info["lat"], hub_info["lon"]
+        )
+        d2 = haversine(
+            hub_info["lat"], hub_info["lon"], dest_info["lat"], dest_info["lon"]
+        )
+        total_via_hub = d1 + d2
+
+        ratio = total_via_hub / direct_dist if direct_dist > 0 else 1.0
+
+        # Rota uzaması %35'ten azsa ve en optimal ara noktaysa seç
+        if ratio < 1.35 and ratio < best_extra_ratio:
+            best_extra_ratio = ratio
+            best_hub = hub_name
+            best_d1 = d1
+            best_d2 = d2
+
+    # Eğer mantıklı bir coğrafi ara hub bulunamazsa saçma Multimodal önerisi üretme
+    if not best_hub:
+        return pd.DataFrame()
+
+    hub_info = GLOBAL_HUBS_DB[best_hub]
+
+    # Multimodal Aşama Hesaplaması (Kara/Ray + Deniz)
+    total_dist = (best_d1 * 1.3) + (best_d2 * 1.35)
+
+    # Aktarma ayağında deniz varsa kriz kontrolünü uygula
+    extra_km, extra_days, extra_cost, is_choked = calculate_chokepoint_impact(
+        best_hub, destination, "Sea Freight", blocked_chokepoints
+    )
+
+    total_dist += extra_km
+    cost = (best_d1 * 0.55) + (best_d2 * 0.25) + 400.0 + extra_cost
+    days = (best_d1 / (50 * 24)) + (best_d2 / (25 * 24)) + 2.5 + extra_days
 
     return pd.DataFrame([{
         "Shipment_ID": (
-            f"MULTI-{origin[:3]}-{hub_name[:3]}-{destination[:3]}".upper()
+            f"MULTI-{origin[:3]}-{best_hub[:3]}-{destination[:3]}".upper()
         ),
         "Origin_Name": origin,
         "Origin_Lat": orig_info["lat"],
@@ -380,18 +406,21 @@ def generate_multimodal_routes(origin, destination):
         "Destination_Name": destination,
         "Destination_Lat": dest_info["lat"],
         "Destination_Lon": dest_info["lon"],
-        "Hub_Name": hub_name,
+        "Hub_Name": best_hub,
         "Hub_Lat": hub_info["lat"],
         "Hub_Lon": hub_info["lon"],
-        "Transport_Mode": f"Multimodal (Trans-Hub: {hub_name.split(',')[0]})",
+        "Transport_Mode": (
+            f"Multimodal (Trans-Hub: {best_hub.split(',')[0]})"
+            + (" (Detoured)" if is_choked else "")
+        ),
         "Distance_KM": round(total_dist, 1),
         "Base_Cost_USD": round(cost, 2),
         "Transit_Days": round(days, 1),
-        "CO2_Emissions_Tons": round((d1 * 0.00018) + (d2 * 0.00008), 2),
-        "Geopolitical_Risk": "Low",
+        "CO2_Emissions_Tons": round((best_d1 * 0.00018) + (best_d2 * 0.00008), 2),
+        "Geopolitical_Risk": "High" if is_choked else "Low",
         "Weather_Condition": "Clear",
-        "Port_Congestion_Index": 4.5,
-        "Delay_Days": 1.0,
+        "Port_Congestion_Index": 6.5 if is_choked else 4.0,
+        "Delay_Days": 1.5 if is_choked else 0.8,
     }])
 
 
@@ -497,8 +526,10 @@ for m in feasible_modes:
 
 route_candidates = pd.DataFrame(candidate_rows)
 
-# Multimodal Opsiyon Ekleme
-mm_df = generate_multimodal_routes(selected_origin, selected_dest)
+# Akıllı Multimodal Opsiyonunu Dinamik Olarak Sorgula ve Ekle
+mm_df = generate_multimodal_routes(
+    selected_origin, selected_dest, blocked_canals
+)
 if not mm_df.empty:
     route_candidates = pd.concat(
         [route_candidates, mm_df], ignore_index=True
@@ -547,9 +578,7 @@ st.divider()
 
 # --- PANEL 2: BENCHMARK TABLOSU ---
 st.subheader("⚖️ Modal Feasibility & Cost Benchmark")
-st.caption(
-    "Gerçekçi mesafe katsayıları ve operasyonel süreler dahil güncel sonuçlar:"
-)
+st.caption("Aktif ve gerçekçi rota seçenekleri karşılaştırması:")
 st.table(
     route_candidates[[
         "Transport_Mode",
@@ -570,7 +599,6 @@ with col_left:
     st.subheader("🌐 Global Route & Chokepoint Map")
     fig = go.Figure()
 
-    # Tüm Dünya Hub'larını Mavi Nokta Olarak Göster
     fig.add_trace(
         go.Scattergeo(
             lon=[h["lon"] for h in GLOBAL_HUBS_DB.values()],
@@ -582,7 +610,6 @@ with col_left:
         )
     )
 
-    # Aktif Rota Çizgisi
     if "Hub_Lat" in optimal_route and pd.notnull(optimal_route.get("Hub_Lat")):
         route_lons = [
             optimal_route["Origin_Lon"],
@@ -640,13 +667,12 @@ with col_right:
 
 st.divider()
 
-# --- PANEL 4: C-LEVEL ÖZET VE AKSİYON RAPORU ---
+# --- PANEL 4: C-LEVEL ÖZET ---
 st.subheader("📝 Executive Summary")
 if blocked_canals:
     st.warning(
         f"⚠️ **Chokepoint Active Blockage:** **{', '.join(blocked_canals)}**"
-        " selected as CLOSED. Sea Freight costs & transit times updated"
-        " accordingly."
+        " selected as CLOSED. Affected routes and sea legs have been updated."
     )
 
 st.success(
