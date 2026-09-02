@@ -161,10 +161,22 @@ def calculate_chokepoint_impact(origin, destination, mode, blocked_chokepoints):
 
     total_extra_km, total_extra_days, total_extra_cost, is_affected = 0, 0, 0, False
 
+    # Akdeniz/Karadeniz <-> Kuzey Avrupa deniz rotası özel kontrolü
+    is_med_to_north = (origin in MED_BLACK_SEA_HUBS and destination in NORTH_ATLANTIC_EU_HUBS) or \
+                      (origin in NORTH_ATLANTIC_EU_HUBS and destination in MED_BLACK_SEA_HUBS)
+
     for cp_name in blocked_chokepoints:
         cp_info = CHOKEPOINTS_DB.get(cp_name, {})
         affected_pairs = cp_info.get("affected_regions", [])
-        if (orig_cont, dest_cont) in affected_pairs or (dest_cont, orig_cont) in affected_pairs:
+
+        # Kıtalararası kontrol
+        applies = (orig_cont, dest_cont) in affected_pairs or (dest_cont, orig_cont) in affected_pairs
+
+        # Cebelitarık için Akdeniz <-> Kuzey Avrupa alt bölge Istisnası
+        if cp_name == "Strait of Gibraltar (ES/MA)" and is_med_to_north:
+            applies = True
+
+        if applies:
             total_extra_km += cp_info["detour_km"]
             total_extra_days += cp_info["detour_days"]
             total_extra_cost += cp_info["cost_penalty"]
@@ -496,31 +508,31 @@ with tab2:
     st.subheader("⚖️ Side-by-Side Scenario Comparison & Sensitivity Analysis")
     st.markdown("İki farklı lojistik stratejisini veya kriz senaryosunu yan yana simüle edip **Landed Cost**, **ETA** ve **CO2 Emisyonu** farklarını anlık kıyaslayın.")
 
-    # SENARYO GİRDİ PANELİ (SUTUNLAR)
+    # SENARYO GİRDİ PANELİ (SÜTUNLAR)
     scen_col1, scen_col2 = st.columns(2)
 
     with scen_col1:
         st.info("### 🟢 Senaryo A (Mevcut / Baz Senaryo)")
-        sa_orig = st.selectbox("Çıkış (Origin) [A]:", options=all_hub_names, index=all_hub_names.index("Shanghai, CN"), key="sa_orig")
+        sa_orig = st.selectbox("Çıkış (Origin) [A]:", options=all_hub_names, index=all_hub_names.index("Istanbul, TR"), key="sa_orig")
         sa_dest_opts = [h for h in all_hub_names if h != sa_orig]
         sa_dest = st.selectbox("Varış (Destination) [A]:", options=sa_dest_opts, index=sa_dest_opts.index("Rotterdam, NL") if "Rotterdam, NL" in sa_dest_opts else 0, key="sa_dest")
 
         sa_cargo = st.number_input("Yük Değeri ($) [A]:", min_value=1000, value=600000, step=50000, key="sa_cargo")
         sa_wacc = st.slider("WACC / Holding Rate (%) [A]:", 1.0, 30.0, 15.0, key="sa_wacc")
-        sa_ctax = st.number_input("Karbon Vergisi ($/Ton) [A]:", min_value=0.0, value=85.0, step=5.0, key="sa_ctax")
+        sa_ctax = st.number_input("Karbon Vergisi ($/Ton) [A]:", min_value=0.0, value=120.0, step=5.0, key="sa_ctax")
         sa_choke = st.multiselect("Kapalı Boğazlar [A]:", options=list(CHOKEPOINTS_DB.keys()), default=[], key="sa_choke")
-        sa_delay = st.slider("Liman Bekleme Ekranı (+Gün) [A]:", 0.0, 10.0, 1.0, key="sa_delay")
+        sa_delay = st.slider("Liman Bekleme Ekranı (+Gün) [A]:", 0.0, 10.0, 3.5, key="sa_delay")
 
     with scen_col2:
         st.error("### 🔴 Senaryo B (Kriz / Alternatif Strateji)")
-        sb_orig = st.selectbox("Çıkış (Origin) [B]:", options=all_hub_names, index=all_hub_names.index("Shanghai, CN"), key="sb_orig")
+        sb_orig = st.selectbox("Çıkış (Origin) [B]:", options=all_hub_names, index=all_hub_names.index("Istanbul, TR"), key="sb_orig")
         sb_dest_opts = [h for h in all_hub_names if h != sb_orig]
         sb_dest = st.selectbox("Varış (Destination) [B]:", options=sb_dest_opts, index=sb_dest_opts.index("Rotterdam, NL") if "Rotterdam, NL" in sb_dest_opts else 0, key="sb_dest")
 
         sb_cargo = st.number_input("Yük Değeri ($) [B]:", min_value=1000, value=600000, step=50000, key="sb_cargo")
         sb_wacc = st.slider("WACC / Holding Rate (%) [B]:", 1.0, 30.0, 15.0, key="sb_wacc")
         sb_ctax = st.number_input("Karbon Vergisi ($/Ton) [B]:", min_value=0.0, value=120.0, step=5.0, key="sb_ctax")
-        sb_choke = st.multiselect("Kapalı Boğazlar [B]:", options=list(CHOKEPOINTS_DB.keys()), default=["Suez Canal (Egypt)", "Bab el-Mandeb (Red Sea)"], key="sb_choke")
+        sb_choke = st.multiselect("Kapalı Boğazlar [B]:", options=list(CHOKEPOINTS_DB.keys()), default=["Strait of Gibraltar (ES/MA)"], key="sb_choke")
         sb_delay = st.slider("Liman Bekleme Ekranı (+Gün) [B]:", 0.0, 10.0, 3.5, key="sb_delay")
 
     st.divider()
